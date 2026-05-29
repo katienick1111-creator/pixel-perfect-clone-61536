@@ -110,10 +110,6 @@ function AppHome() {
   }, [activeCategory, query, allVendors]);
 
   const featured = allVendors.slice(0, 3);
-  const openNowNames = allVendors
-    .slice(0, 8)
-    .map((v) => v.name)
-    .concat(["Open now", "Live in Chicago"]);
 
   return (
     <AppShell>
@@ -294,22 +290,8 @@ function AppHome() {
         </div>
       </section>
 
-      {/* === MARQUEE: who's out today === */}
-      <section className="relative -mx-4 overflow-hidden border-y-2 border-navy bg-navy py-3 lg:-mx-8">
-        <div className="flex animate-[marquee_28s_linear_infinite] whitespace-nowrap will-change-transform">
-          {[...openNowNames, ...openNowNames].map((name, i) => (
-            <span
-              key={i}
-              className="mx-6 inline-flex items-center gap-3 font-script text-2xl text-cream"
-            >
-              <Sparkles className="h-4 w-4 text-gold" />
-              {name}
-              <span className="text-gold">✦</span>
-            </span>
-          ))}
-        </div>
-        <style>{`@keyframes marquee { from{transform:translateX(0)} to{transform:translateX(-50%)} }`}</style>
-      </section>
+
+
 
       {/* === Search + filters === */}
       <section className="mt-10 flex flex-col gap-4">
