@@ -16,6 +16,8 @@ import {
   Smartphone,
   ChevronRight,
   ArrowUpRight,
+  House,
+  User,
 } from "lucide-react";
 import trovinLogo from "@/assets/trovin-logo.png";
 import trovinBadge from "@/assets/trovin-badge.png";
