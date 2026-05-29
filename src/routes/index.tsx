@@ -145,7 +145,9 @@ function AppHome() {
                     strokeWidth="3.5"
                     strokeLinecap="round"
                   />
+                </svg>
                 <span className="pointer-events-none absolute -bottom-[14px] left-0 right-0 block h-8 overflow-visible">
+
 
                   <span
                     className="absolute top-0 h-8 w-14"
