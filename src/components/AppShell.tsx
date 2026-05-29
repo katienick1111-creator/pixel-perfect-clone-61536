@@ -205,14 +205,13 @@ function SideNav() {
             <Link
               key={it.label}
               to={it.to}
-
-              to={it.to}
               className={`flex items-center justify-between gap-2 rounded-lg px-3 py-2.5 text-sm font-medium transition ${
                 active
                   ? "bg-navy text-cream shadow-brand-sm"
                   : "text-ink-soft hover:bg-paper hover:text-navy"
               }`}
             >
+
               <span className="flex items-center gap-2.5">
                 <it.icon className="h-4 w-4" />
                 {it.label}
