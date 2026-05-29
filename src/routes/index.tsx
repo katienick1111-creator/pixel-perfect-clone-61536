@@ -110,10 +110,6 @@ function AppHome() {
   }, [activeCategory, query, allVendors]);
 
   const featured = allVendors.slice(0, 3);
-  const openNowNames = allVendors
-    .slice(0, 8)
-    .map((v) => v.name)
-    .concat(["Open now", "Live in Chicago"]);
 
   return (
     <AppShell>
