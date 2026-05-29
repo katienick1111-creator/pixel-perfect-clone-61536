@@ -126,9 +126,13 @@ function VendorsAdmin() {
                     <EyeOff className="h-4 w-4" />
                   </button>
                 )}
+                <button onClick={() => setQrVendor(v)} title="QR code" className="rounded-full p-2 text-navy hover:bg-cream-deep">
+                  <QrCode className="h-4 w-4" />
+                </button>
                 <button onClick={() => setEditing(v)} title="Edit" className="rounded-full p-2 text-navy hover:bg-cream-deep">
                   <Pencil className="h-4 w-4" />
                 </button>
+
                 <button onClick={() => remove(v.id)} title="Delete" className="rounded-full p-2 text-danger hover:bg-danger/10">
                   <Trash2 className="h-4 w-4" />
                 </button>
