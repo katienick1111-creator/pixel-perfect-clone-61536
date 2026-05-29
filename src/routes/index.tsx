@@ -375,23 +375,55 @@ function AppHome() {
           </button>
         </div>
 
-        <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
-          {filtered.map((v) => (
-            <VendorCard
-              key={v.id}
-              vendor={v}
-              following={!!following[v.id]}
-              onToggle={() =>
-                setFollowing((f) => ({ ...f, [v.id]: !f[v.id] }))
-              }
-            />
-          ))}
+        {/* hand-drawn banner */}
+        <div className="relative z-20 mx-auto mb-4 flex w-fit -rotate-2 items-center gap-2 rounded-sm bg-navy px-4 py-1.5 text-cream shadow-brand-md">
+          <span className="inline-flex h-2 w-2 animate-pulse rounded-full bg-success" />
+          <span className="font-display text-[10px] font-black uppercase tracking-[0.18em]">
+            Open right now
+          </span>
+        </div>
+
+        <div className="grid grid-cols-2 gap-4 sm:gap-6 md:grid-cols-3 xl:grid-cols-4">
+          {filtered.map((v, i) => {
+            const tapes = ["bg-gold-200/80", "bg-teal-200/80", "bg-coral-200/80"];
+            const rot = [-4, 3, -2, 5, -3, 4];
+            const r = rot[i % rot.length];
+            const tape = tapes[i % tapes.length];
+            return (
+              <Link
+                key={v.id}
+                to="/vendor"
+                style={{ transform: `rotate(${r}deg)` }}
+                className="group relative block rounded-sm bg-paper p-2 pb-3 shadow-brand-lg ring-1 ring-line transition duration-300 hover:!rotate-0 hover:-translate-y-2"
+              >
+                <span
+                  className={`absolute -top-2 left-1/2 h-4 w-12 -translate-x-1/2 -rotate-6 rounded-[2px] ${tape} shadow-brand-sm`}
+                />
+                <div className="relative aspect-square overflow-hidden rounded-sm bg-navy">
+                  <img
+                    src={v.image}
+                    alt={v.name}
+                    className="absolute inset-0 h-full w-full object-cover transition duration-500 group-hover:scale-105"
+                  />
+                  <span className="absolute left-2 top-2 rounded-sm bg-cream/95 px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wider text-navy">
+                    {v.category}
+                  </span>
+                  {v.scribble && (
+                    <span className="absolute -right-1 bottom-2 -rotate-6 rounded-sm bg-gold px-2 py-0.5 font-script text-sm leading-none text-navy shadow-brand-sm">
+                      {v.scribble}
+                    </span>
+                  )}
+                </div>
+              </Link>
+            );
+          })}
           {filtered.length === 0 && (
             <div className="col-span-full rounded-xl border border-dashed border-line bg-paper p-10 text-center text-sm text-ink-soft">
               No vendors match those filters. Try widening your search.
             </div>
           )}
         </div>
+
       </section>
 
       {/* === WHERE THEY'RE AT — events as ticket stubs === */}
