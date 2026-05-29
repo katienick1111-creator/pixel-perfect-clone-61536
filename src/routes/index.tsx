@@ -121,7 +121,8 @@ function AppHome() {
 
         {/* paper texture blobs */}
         <span className="pointer-events-none absolute -left-16 top-10 h-64 w-64 rounded-full bg-gold/15 blur-3xl" />
-        <span className="pointer-events-none absolute -right-10 bottom-0 h-56 w-56 rounded-full bg-teal/15 blur-3xl" />
+        <div className="relative grid gap-3 lg:grid-cols-[1.1fr_1fr] lg:items-center lg:gap-10">
+
         <div className="relative grid gap-6 lg:grid-cols-[1.1fr_1fr] lg:items-center lg:gap-10">
           {/* Headline column */}
           <div className="relative">
