@@ -144,21 +144,47 @@ function AppHome() {
                   />
                 </svg>
               </span>
-              {/* circular sticker filling the right gap */}
-              <span className="absolute -right-3 -top-6 inline-flex h-36 w-36 rotate-[10deg] items-center justify-center rounded-full border-[3px] border-dashed border-gold bg-navy p-4 text-center shadow-brand-lg sm:right-0 sm:top-0 sm:h-44 sm:w-44 md:h-52 md:w-52">
-                <span className="absolute inset-2 rounded-full border border-gold/50" />
+              {/* vintage medallion with curved text */}
+              <span className="absolute -right-3 -top-6 inline-flex h-40 w-40 rotate-[-6deg] items-center justify-center sm:right-0 sm:top-0 sm:h-52 sm:w-52 md:h-56 md:w-56">
+                <svg viewBox="0 0 200 200" className="absolute inset-0 h-full w-full drop-shadow-[0_8px_18px_rgba(15,22,46,0.25)]">
+                  <defs>
+                    <path id="topArc" d="M 30,100 A 70,70 0 0 1 170,100" />
+                    <path id="bottomArc" d="M 30,100 A 70,70 0 0 0 170,100" />
+                  </defs>
+                  {/* outer scalloped edge */}
+                  <g>
+                    {Array.from({ length: 24 }).map((_, i) => {
+                      const angle = (i / 24) * Math.PI * 2;
+                      const cx = 100 + Math.cos(angle) * 92;
+                      const cy = 100 + Math.sin(angle) * 92;
+                      return <circle key={i} cx={cx} cy={cy} r="6" className="fill-gold" />;
+                    })}
+                  </g>
+                  <circle cx="100" cy="100" r="86" className="fill-cream" />
+                  <circle cx="100" cy="100" r="78" className="fill-none stroke-navy" strokeWidth="1.5" strokeDasharray="2 3" />
+                  {/* curved text top */}
+                  <text className="fill-navy font-display" fontSize="13" fontWeight="900" letterSpacing="3">
+                    <textPath href="#topArc" startOffset="50%" textAnchor="middle">
+                      ★ SPEND A DAY ★
+                    </textPath>
+                  </text>
+                  {/* curved text bottom */}
+                  <text className="fill-navy font-display" fontSize="11" fontWeight="700" letterSpacing="2">
+                    <textPath href="#bottomArc" startOffset="50%" textAnchor="middle">
+                      NOT A FORTUNE
+                    </textPath>
+                  </text>
+                </svg>
+                {/* center mark */}
                 <span className="relative flex flex-col items-center leading-none">
-                  <span className="font-script text-lg text-gold sm:text-xl md:text-2xl">spend a</span>
-                  <span className="mt-1 font-display text-2xl font-black tracking-tight text-cream sm:text-3xl md:text-[34px]">
-                    DAY
-                  </span>
-                  <span className="my-1.5 h-px w-8 bg-gold/60 sm:w-10" />
-                  <span className="font-script text-sm leading-none text-cream/80 sm:text-base">not a</span>
-                  <span className="mt-1 font-display text-base font-black uppercase tracking-[0.08em] text-gold sm:text-lg md:text-xl">
-                    fortune
+                  <span className="font-script text-3xl text-gold sm:text-4xl md:text-5xl">trov</span>
+                  <span className="-mt-1 font-script text-3xl text-navy sm:text-4xl md:text-5xl">it</span>
+                  <span className="mt-1 font-display text-[8px] font-black uppercase tracking-[0.2em] text-ink-soft">
+                    est · 2026
                   </span>
                 </span>
               </span>
+
             </h1>
 
             <p className="mt-6 max-w-md font-script text-2xl leading-tight text-navy md:text-[1.7rem]">
