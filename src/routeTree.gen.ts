@@ -19,6 +19,7 @@ import { Route as EventsRouteImport } from './routes/events'
 import { Route as AdminRouteImport } from './routes/admin'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AdminIndexRouteImport } from './routes/admin.index'
+import { Route as VVendorIdRouteImport } from './routes/v.$vendorId'
 import { Route as AdminVendorsRouteImport } from './routes/admin.vendors'
 import { Route as AdminShoppersRouteImport } from './routes/admin.shoppers'
 import { Route as AdminEventsRouteImport } from './routes/admin.events'
@@ -73,6 +74,11 @@ const AdminIndexRoute = AdminIndexRouteImport.update({
   path: '/',
   getParentRoute: () => AdminRoute,
 } as any)
+const VVendorIdRoute = VVendorIdRouteImport.update({
+  id: '/v/$vendorId',
+  path: '/v/$vendorId',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AdminVendorsRoute = AdminVendorsRouteImport.update({
   id: '/vendors',
   path: '/vendors',
@@ -102,6 +108,7 @@ export interface FileRoutesByFullPath {
   '/admin/events': typeof AdminEventsRoute
   '/admin/shoppers': typeof AdminShoppersRoute
   '/admin/vendors': typeof AdminVendorsRoute
+  '/v/$vendorId': typeof VVendorIdRoute
   '/admin/': typeof AdminIndexRoute
 }
 export interface FileRoutesByTo {
@@ -116,6 +123,7 @@ export interface FileRoutesByTo {
   '/admin/events': typeof AdminEventsRoute
   '/admin/shoppers': typeof AdminShoppersRoute
   '/admin/vendors': typeof AdminVendorsRoute
+  '/v/$vendorId': typeof VVendorIdRoute
   '/admin': typeof AdminIndexRoute
 }
 export interface FileRoutesById {
@@ -132,6 +140,7 @@ export interface FileRoutesById {
   '/admin/events': typeof AdminEventsRoute
   '/admin/shoppers': typeof AdminShoppersRoute
   '/admin/vendors': typeof AdminVendorsRoute
+  '/v/$vendorId': typeof VVendorIdRoute
   '/admin/': typeof AdminIndexRoute
 }
 export interface FileRouteTypes {
@@ -149,6 +158,7 @@ export interface FileRouteTypes {
     | '/admin/events'
     | '/admin/shoppers'
     | '/admin/vendors'
+    | '/v/$vendorId'
     | '/admin/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -163,6 +173,7 @@ export interface FileRouteTypes {
     | '/admin/events'
     | '/admin/shoppers'
     | '/admin/vendors'
+    | '/v/$vendorId'
     | '/admin'
   id:
     | '__root__'
@@ -178,6 +189,7 @@ export interface FileRouteTypes {
     | '/admin/events'
     | '/admin/shoppers'
     | '/admin/vendors'
+    | '/v/$vendorId'
     | '/admin/'
   fileRoutesById: FileRoutesById
 }
@@ -191,6 +203,7 @@ export interface RootRouteChildren {
   ProfileRoute: typeof ProfileRoute
   VendorRoute: typeof VendorRoute
   WelcomeRoute: typeof WelcomeRoute
+  VVendorIdRoute: typeof VVendorIdRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -265,6 +278,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminIndexRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/v/$vendorId': {
+      id: '/v/$vendorId'
+      path: '/v/$vendorId'
+      fullPath: '/v/$vendorId'
+      preLoaderRoute: typeof VVendorIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/admin/vendors': {
       id: '/admin/vendors'
       path: '/vendors'
@@ -315,7 +335,18 @@ const rootRouteChildren: RootRouteChildren = {
   ProfileRoute: ProfileRoute,
   VendorRoute: VendorRoute,
   WelcomeRoute: WelcomeRoute,
+  VVendorIdRoute: VVendorIdRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
