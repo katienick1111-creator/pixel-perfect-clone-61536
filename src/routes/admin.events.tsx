@@ -32,6 +32,7 @@ function EventsAdmin() {
   const listFn = useServerFn(listEventsAdmin);
   const saveFn = useServerFn(upsertEvent);
   const delFn = useServerFn(deleteEvent);
+  const modFn = useServerFn(moderateEvent);
   const qc = useQueryClient();
   const { data, isLoading } = useQuery({ queryKey: ["admin-events"], queryFn: () => listFn() });
   const [editing, setEditing] = useState<Ev | null>(null);
