@@ -144,65 +144,74 @@ function AppHome() {
                     strokeLinecap="round"
                   />
                 </svg>
-                {/* vintage van driving on the gold squiggle */}
-                <span className="pointer-events-none absolute -bottom-[14px] left-0 right-0 block h-7 overflow-visible">
+                {/* market bus driving along the gold squiggle */}
+                <span className="pointer-events-none absolute -bottom-[14px] left-0 right-0 block h-8 overflow-visible">
                   <span
-                    className="absolute left-0 top-0 inline-block h-7 w-14 origin-center"
-                    style={{ animation: "trovin-drive 11s ease-in-out infinite" }}
+                    className="absolute top-0 h-8 w-14"
+                    style={{ animation: "trovin-drive 9s ease-in-out infinite" }}
                   >
                     <span
                       className="block h-full w-full"
-                      style={{ animation: "trovin-bump 0.4s ease-in-out infinite" }}
+                      style={{ animation: "trovin-flip 9s ease-in-out infinite" }}
                     >
-                      <svg viewBox="0 0 56 28" className="h-full w-full drop-shadow-[0_2px_0_rgba(15,22,46,0.18)]" fill="none">
-                        {/* shadow under van */}
-                        <ellipse cx="28" cy="25" rx="18" ry="1.2" fill="oklch(0.22 0.07 260)" opacity="0.18" />
-                        {/* roof rack with little crate */}
-                        <rect x="14" y="4" width="22" height="1.4" rx="0.6" fill="oklch(0.22 0.07 260)" />
-                        <rect x="18" y="1.5" width="10" height="3" rx="0.6" fill="oklch(0.78 0.12 75)" stroke="oklch(0.22 0.07 260)" strokeWidth="0.7" />
-                        <line x1="20" y1="1.8" x2="20" y2="4.2" stroke="oklch(0.22 0.07 260)" strokeWidth="0.4" />
-                        <line x1="23" y1="1.8" x2="23" y2="4.2" stroke="oklch(0.22 0.07 260)" strokeWidth="0.4" />
-                        <line x1="26" y1="1.8" x2="26" y2="4.2" stroke="oklch(0.22 0.07 260)" strokeWidth="0.4" />
-                        {/* van body — teal */}
-                        <path
-                          d="M5 20 L5 9 Q5 6 8 6 L36 6 Q39 6 41 8 L49 14 L52 15 Q53 15.2 53 16.2 L53 20 Z"
-                          fill="oklch(0.62 0.10 195)"
-                          stroke="oklch(0.22 0.07 260)"
-                          strokeWidth="1"
-                          strokeLinejoin="round"
-                        />
-                        {/* cream side panel stripe */}
-                        <rect x="6" y="14" width="34" height="4" fill="oklch(0.96 0.02 85)" />
-                        <line x1="6" y1="14" x2="40" y2="14" stroke="oklch(0.22 0.07 260)" strokeWidth="0.5" />
-                        <line x1="6" y1="18" x2="40" y2="18" stroke="oklch(0.22 0.07 260)" strokeWidth="0.5" />
-                        {/* door split */}
-                        <line x1="22" y1="6" x2="22" y2="20" stroke="oklch(0.22 0.07 260)" strokeWidth="0.5" />
-                        {/* windows */}
-                        <path d="M8 8 L20 8 L20 13 L8 13 Z" fill="oklch(0.92 0.04 220)" stroke="oklch(0.22 0.07 260)" strokeWidth="0.6" />
-                        <path d="M24 8 L36 8 L36 13 L24 13 Z" fill="oklch(0.92 0.04 220)" stroke="oklch(0.22 0.07 260)" strokeWidth="0.6" />
-                        {/* windshield (front) */}
-                        <path d="M37 8 Q39 8 40.5 9 L47 13.5 L37 13.5 Z" fill="oklch(0.92 0.04 220)" stroke="oklch(0.22 0.07 260)" strokeWidth="0.6" />
-                        {/* headlight */}
-                        <circle cx="51" cy="17" r="1.1" fill="oklch(0.86 0.16 90)" stroke="oklch(0.22 0.07 260)" strokeWidth="0.5" />
-                        {/* door handles */}
-                        <line x1="11" y1="11.3" x2="14" y2="11.3" stroke="oklch(0.22 0.07 260)" strokeWidth="0.5" strokeLinecap="round" />
-                        <line x1="27" y1="11.3" x2="30" y2="11.3" stroke="oklch(0.22 0.07 260)" strokeWidth="0.5" strokeLinecap="round" />
-                        {/* wheels */}
-                        <g>
-                          <circle cx="14" cy="21" r="3.4" fill="oklch(0.22 0.07 260)" />
-                          <circle cx="14" cy="21" r="1.5" fill="oklch(0.96 0.02 85)" />
-                          <circle cx="14" cy="21" r="0.5" fill="oklch(0.22 0.07 260)" />
-                        </g>
-                        <g>
-                          <circle cx="42" cy="21" r="3.4" fill="oklch(0.22 0.07 260)" />
-                          <circle cx="42" cy="21" r="1.5" fill="oklch(0.96 0.02 85)" />
-                          <circle cx="42" cy="21" r="0.5" fill="oklch(0.22 0.07 260)" />
-                        </g>
-                      </svg>
+                      <span
+                        className="block h-full w-full"
+                        style={{ animation: "trovin-bump 0.32s ease-in-out infinite" }}
+                      >
+                        <svg viewBox="0 0 56 32" className="h-full w-full" fill="none">
+                          {/* shadow */}
+                          <ellipse cx="28" cy="29" rx="20" ry="1.4" fill="oklch(0.22 0.07 260)" opacity="0.18" />
+                          {/* body — rounded classic bus, two-tone */}
+                          <path
+                            d="M4 22 L4 12 Q4 7 9 7 L40 7 Q43 7 45 9 L52 15 Q53 16 53 17.5 L53 22 Z"
+                            fill="oklch(0.96 0.02 85)"
+                            stroke="oklch(0.22 0.07 260)"
+                            strokeWidth="1.2"
+                            strokeLinejoin="round"
+                          />
+                          {/* lower teal band */}
+                          <path
+                            d="M4 18 L53 18 L53 22 L4 22 Z"
+                            fill="oklch(0.62 0.10 195)"
+                            stroke="oklch(0.22 0.07 260)"
+                            strokeWidth="1.2"
+                            strokeLinejoin="round"
+                          />
+                          {/* gold pinstripe */}
+                          <line x1="4" y1="17" x2="53" y2="17" stroke="oklch(0.78 0.14 80)" strokeWidth="0.9" />
+                          {/* big curved windshield + window */}
+                          <path
+                            d="M9 9 Q9 8.5 9.6 8.5 L38 8.5 Q40.5 8.5 42 10 L48 14.5 L9 14.5 Z"
+                            fill="oklch(0.92 0.05 220)"
+                            stroke="oklch(0.22 0.07 260)"
+                            strokeWidth="1"
+                            strokeLinejoin="round"
+                          />
+                          {/* window divider */}
+                          <line x1="25" y1="9" x2="25" y2="14.5" stroke="oklch(0.22 0.07 260)" strokeWidth="1" />
+                          {/* door */}
+                          <rect x="17" y="14.5" width="6" height="3.5" fill="none" stroke="oklch(0.22 0.07 260)" strokeWidth="0.6" />
+                          {/* headlight */}
+                          <circle cx="51" cy="20" r="1.2" fill="oklch(0.86 0.16 90)" stroke="oklch(0.22 0.07 260)" strokeWidth="0.6" />
+                          {/* trovin' badge dot */}
+                          <circle cx="32" cy="20" r="1.4" fill="oklch(0.78 0.14 80)" stroke="oklch(0.22 0.07 260)" strokeWidth="0.5" />
+                          {/* wheel wells */}
+                          <path d="M9 22 Q9 18 14 18 Q19 18 19 22 Z" fill="oklch(0.96 0.02 85)" stroke="oklch(0.22 0.07 260)" strokeWidth="0.8" />
+                          <path d="M37 22 Q37 18 42 18 Q47 18 47 22 Z" fill="oklch(0.96 0.02 85)" stroke="oklch(0.22 0.07 260)" strokeWidth="0.8" />
+                          {/* wheels */}
+                          <circle cx="14" cy="23" r="3.8" fill="oklch(0.22 0.07 260)" />
+                          <circle cx="14" cy="23" r="1.8" fill="oklch(0.96 0.02 85)" />
+                          <circle cx="14" cy="23" r="0.6" fill="oklch(0.22 0.07 260)" />
+                          <circle cx="42" cy="23" r="3.8" fill="oklch(0.22 0.07 260)" />
+                          <circle cx="42" cy="23" r="1.8" fill="oklch(0.96 0.02 85)" />
+                          <circle cx="42" cy="23" r="0.6" fill="oklch(0.22 0.07 260)" />
+                        </svg>
+                      </span>
                     </span>
                   </span>
                 </span>
               </span>
+
 
 
               {/* kraft paper price-tag badge */}
