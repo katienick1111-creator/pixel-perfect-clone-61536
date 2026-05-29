@@ -2,8 +2,15 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import { useState } from "react";
-import { Plus, Pencil, Trash2 } from "lucide-react";
-import { listEventsAdmin, upsertEvent, deleteEvent } from "@/lib/admin.functions";
+import { Plus, Pencil, Trash2, Users, Check } from "lucide-react";
+import {
+  listEventsAdmin,
+  upsertEvent,
+  deleteEvent,
+  listEventLineup,
+  upsertEventVendor,
+  removeEventVendor,
+} from "@/lib/admin.functions";
 
 export const Route = createFileRoute("/admin/events")({
   component: EventsAdmin,
@@ -28,6 +35,7 @@ function EventsAdmin() {
   const { data, isLoading } = useQuery({ queryKey: ["admin-events"], queryFn: () => listFn() });
   const [editing, setEditing] = useState<Ev | null>(null);
   const [tagsStr, setTagsStr] = useState("");
+  const [lineupFor, setLineupFor] = useState<{ id: string; name: string } | null>(null);
 
   const openEdit = (e: any) => {
     setEditing(e);
@@ -75,6 +83,7 @@ function EventsAdmin() {
                 <h3 className="font-display text-lg truncate">{e.name}</h3>
                 <p className="text-sm text-ink-soft truncate">{e.neighborhood} · {e.starts_at ? new Date(e.starts_at).toLocaleDateString() : "no date"}</p>
               </div>
+              <button onClick={() => setLineupFor({ id: e.id, name: e.name })} title="Lineup" className="p-2 text-teal hover:bg-teal/10 rounded-full"><Users className="h-4 w-4" /></button>
               <button onClick={() => openEdit(e)} className="p-2 text-navy hover:bg-cream-deep rounded-full"><Pencil className="h-4 w-4" /></button>
               <button onClick={async () => { if (confirm("Delete event?")) { await delFn({ data: { id: e.id } }); qc.invalidateQueries({ queryKey: ["admin-events"] }); }}} className="p-2 text-danger hover:bg-danger/10 rounded-full"><Trash2 className="h-4 w-4" /></button>
             </div>
@@ -104,6 +113,77 @@ function EventsAdmin() {
           </div>
         </div>
       )}
+
+      {lineupFor && <LineupModal eventId={lineupFor.id} eventName={lineupFor.name} onClose={() => setLineupFor(null)} />}
+    </div>
+  );
+}
+
+function LineupModal({ eventId, eventName, onClose }: { eventId: string; eventName: string; onClose: () => void }) {
+  const listFn = useServerFn(listEventLineup);
+  const upFn = useServerFn(upsertEventVendor);
+  const rmFn = useServerFn(removeEventVendor);
+  const qc = useQueryClient();
+  const key = ["event-lineup", eventId];
+
+  const { data, isLoading } = useQuery({ queryKey: key, queryFn: () => listFn({ data: { event_id: eventId } }) });
+
+  const inLineup = new Set((data?.lineup ?? []).map((l: any) => l.vendor_id));
+
+  const toggle = async (vendorId: string) => {
+    if (inLineup.has(vendorId)) {
+      await rmFn({ data: { event_id: eventId, vendor_id: vendorId } });
+    } else {
+      await upFn({ data: { event_id: eventId, vendor_id: vendorId, open_today: true } });
+    }
+    qc.invalidateQueries({ queryKey: key });
+  };
+
+  return (
+    <div className="fixed inset-0 z-40 flex items-center justify-center bg-navy/40 p-4" onClick={onClose}>
+      <div className="w-full max-w-lg rounded-2xl bg-paper p-6 shadow-brand-lg max-h-[85vh] flex flex-col" onClick={(e) => e.stopPropagation()}>
+        <div className="mb-4">
+          <p className="font-script text-2xl text-teal leading-none">the lineup —</p>
+          <h2 className="font-display text-2xl">{eventName}</h2>
+          <p className="text-xs text-ink-mute mt-1">Tap a vendor to add or remove them from this event.</p>
+        </div>
+
+        {isLoading ? (
+          <p className="text-ink-soft">Loading…</p>
+        ) : data?.vendors.length === 0 ? (
+          <p className="text-ink-soft text-sm py-8 text-center">No approved vendors yet. Approve some in Vendors first.</p>
+        ) : (
+          <div className="overflow-y-auto flex-1 -mx-2 px-2 space-y-2">
+            {data?.vendors.map((v: any) => {
+              const on = inLineup.has(v.id);
+              return (
+                <button
+                  key={v.id}
+                  onClick={() => toggle(v.id)}
+                  className={`w-full flex items-center gap-3 rounded-xl border p-3 text-left transition ${
+                    on ? "border-teal bg-teal/5" : "border-line bg-paper hover:border-teal/40"
+                  }`}
+                >
+                  <div className="h-11 w-11 shrink-0 overflow-hidden rounded-lg bg-cream-deep">
+                    {v.image_url && <img src={v.image_url} alt="" className="h-full w-full object-cover" />}
+                  </div>
+                  <div className="min-w-0 flex-1">
+                    <p className="font-display text-base truncate">{v.name}</p>
+                    <p className="text-xs text-ink-soft">{v.category}</p>
+                  </div>
+                  <span className={`inline-flex h-7 w-7 items-center justify-center rounded-full ${on ? "bg-teal text-cream" : "border border-line text-ink-mute"}`}>
+                    {on ? <Check className="h-4 w-4" /> : <Plus className="h-4 w-4" />}
+                  </span>
+                </button>
+              );
+            })}
+          </div>
+        )}
+
+        <div className="mt-4 flex justify-end">
+          <button onClick={onClose} className="rounded-full bg-navy text-cream px-5 py-2 text-sm font-semibold">Done</button>
+        </div>
+      </div>
     </div>
   );
 }
