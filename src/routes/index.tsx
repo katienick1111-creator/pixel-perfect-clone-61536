@@ -1,4 +1,5 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
+
 import { useMemo, useState } from "react";
 import {
   Search,
@@ -302,64 +303,73 @@ function AppHome() {
                 I'm a vendor
               </a>
             </div>
-
-
-
           </div>
-          {/* Polaroid pair */}
-          <div className="relative -mt-2 mx-auto h-[14rem] w-full max-w-xs sm:h-[16rem] lg:mt-0">
-            {/* fun handwritten label tying buttons to photos */}
-            <span className="absolute -top-3 left-2 z-20 -rotate-3 font-script text-base text-teal lg:hidden">
-              ↓ fresh today
-            </span>
-            {featured.map((v, i) => {
-              const rotations = [-8, 6];
-              const offsets = [
-                { left: "6%", top: "4%" },
-                { left: "44%", top: "14%" },
-              ];
-              const tapes = ["bg-gold-200/80", "bg-teal-200/80"];
-              const r = rotations[i] ?? 0;
-              const o = offsets[i] ?? { left: "10%", top: "10%" };
 
-              return (
-                <div
-                  key={v.id}
-                  style={{
-                    transform: `rotate(${r}deg)`,
-                    left: o.left,
-                    top: o.top,
-                  }}
-                  className="absolute w-32 rounded-sm bg-paper p-1.5 pb-3 shadow-brand-lg ring-1 ring-line transition duration-300 hover:!rotate-0 hover:-translate-y-2 hover:z-10 sm:w-36"
 
-                >
-                  <span
-                    className={`absolute -top-2 left-1/2 h-4 w-12 -translate-x-1/2 -rotate-6 rounded-[2px] ${tapes[i]} shadow-brand-sm`}
-                  />
-                  <div className="relative aspect-square overflow-hidden rounded-sm bg-navy">
-                    <img
-                      src={v.image}
-                      alt={v.name}
-                      className="absolute inset-0 h-full w-full object-cover"
+          {/* Polaroid pair — open right now */}
+          <div className="relative -mt-2 mx-auto w-full max-w-xs lg:mt-0 lg:max-w-sm">
+            {/* hand-drawn banner above the photos */}
+            <div className="relative z-20 mx-auto -mb-3 flex w-fit -rotate-2 items-center gap-2 rounded-sm bg-navy px-4 py-1.5 text-cream shadow-brand-md">
+              <span className="inline-flex h-2 w-2 animate-pulse rounded-full bg-success" />
+              <span className="font-display text-[10px] font-black uppercase tracking-[0.18em]">
+                Open right now
+              </span>
+              {/* string tails */}
+              <span className="pointer-events-none absolute -left-3 top-1/2 h-px w-3 -translate-y-1/2 bg-navy/50" />
+              <span className="pointer-events-none absolute -right-3 top-1/2 h-px w-3 -translate-y-1/2 bg-navy/50" />
+            </div>
+
+            <div className="relative h-[15rem] sm:h-[17rem]">
+              {featured.map((v, i) => {
+                const rotations = [-8, 6];
+                const offsets = [
+                  { left: "4%", top: "4%" },
+                  { left: "42%", top: "18%" },
+                ];
+                const tapes = ["bg-gold-200/80", "bg-teal-200/80"];
+                const r = rotations[i] ?? 0;
+                const o = offsets[i] ?? { left: "10%", top: "10%" };
+
+                return (
+                  <Link
+                    key={v.id}
+                    to="/vendor"
+                    style={{
+                      transform: `rotate(${r}deg)`,
+                      left: o.left,
+                      top: o.top,
+                    }}
+                    className="group absolute block w-32 rounded-sm bg-paper p-1.5 pb-3 shadow-brand-lg ring-1 ring-line transition duration-300 hover:!rotate-0 hover:-translate-y-2 hover:z-10 sm:w-36"
+                  >
+                    <span
+                      className={`absolute -top-2 left-1/2 h-4 w-12 -translate-x-1/2 -rotate-6 rounded-[2px] ${tapes[i]} shadow-brand-sm`}
                     />
-                    <span className="absolute left-2 top-2 rounded-sm bg-cream/95 px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wider text-navy">
-                      {v.category}
-                    </span>
-                    {v.scribble && (
-                      <span className="absolute -right-1 bottom-2 -rotate-6 rounded-sm bg-gold px-2 py-0.5 font-script text-sm leading-none text-navy shadow-brand-sm">
-                        {v.scribble}
+                    <div className="relative aspect-square overflow-hidden rounded-sm bg-navy">
+                      <img
+                        src={v.image}
+                        alt={v.name}
+                        className="absolute inset-0 h-full w-full object-cover transition duration-500 group-hover:scale-105"
+                      />
+                      <span className="absolute left-2 top-2 rounded-sm bg-cream/95 px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wider text-navy">
+                        {v.category}
                       </span>
-                    )}
-                  </div>
-                  <p className="mt-2 px-1 font-script text-base leading-tight text-navy">
-                    {v.name}
-                  </p>
-                  <p className="px-1 text-[10px] uppercase tracking-wider text-ink-mute">
-                    {v.event}
-                  </p>
-                </div>
-              );
-            })}
+                      {v.scribble && (
+                        <span className="absolute -right-1 bottom-2 -rotate-6 rounded-sm bg-gold px-2 py-0.5 font-script text-sm leading-none text-navy shadow-brand-sm">
+                          {v.scribble}
+                        </span>
+                      )}
+                    </div>
+                    <p className="mt-2 px-1 font-script text-base leading-tight text-navy">
+                      {v.name}
+                    </p>
+                    <p className="px-1 text-[10px] uppercase tracking-wider text-ink-mute">
+                      tap to peek →
+                    </p>
+                  </Link>
+                );
+              })}
+            </div>
+
 
 
             {/* arrow scribble */}
