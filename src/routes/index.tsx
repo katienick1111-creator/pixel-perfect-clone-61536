@@ -13,6 +13,7 @@ import {
 import { AppShell } from "@/components/AppShell";
 import { VendorCard } from "@/components/VendorCard";
 import { categories, events, vendors, type Category } from "@/data/trovin";
+import { useVendorProfile } from "@/hooks/useVendorProfile";
 
 const heroEvent = events[0];
 
