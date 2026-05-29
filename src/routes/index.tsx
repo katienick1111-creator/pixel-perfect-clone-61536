@@ -132,7 +132,8 @@ function AppHome() {
               <span className="relative inline-block">
                 Trovin'<span className="text-gold">!</span>
                 <svg
-                  className="absolute -bottom-5 left-0 h-4 w-full text-gold"
+                  className="absolute -bottom-2 left-0 h-4 w-full text-gold"
+
 
                   viewBox="0 0 240 14"
                   preserveAspectRatio="none"
@@ -145,9 +146,9 @@ function AppHome() {
                     strokeLinecap="round"
                   />
                 </svg>
-                <span className="pointer-events-none absolute -bottom-[26px] left-0 right-0 block h-8 overflow-visible">
-
                 <span className="pointer-events-none absolute -bottom-[14px] left-0 right-0 block h-8 overflow-visible">
+
+
                   <span
                     className="absolute top-0 h-8 w-14"
                     style={{ animation: "trovin-drive 9s ease-in-out infinite" }}
@@ -217,7 +218,8 @@ function AppHome() {
 
 
               {/* kraft paper price-tag badge */}
-              <span className="absolute right-2 top-[42%] rotate-[-7deg] sm:right-6 md:right-10">
+              <span className="absolute right-2 top-[22%] rotate-[-7deg] sm:right-6 sm:top-[28%] md:right-10">
+
                   {/* twine string */}
                   <span className="absolute left-1/2 -top-7 h-7 w-px -translate-x-1/2 rotate-[18deg] bg-navy/50" />
                   {/* tag body — cream kraft rectangle with teal border */}
