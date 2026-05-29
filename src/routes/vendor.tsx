@@ -7,13 +7,11 @@ import {
   Sparkles,
   Users,
   TrendingUp,
-  CreditCard,
-  Banknote,
-  Smartphone,
   MapPin,
   Clock,
   CalendarDays,
 } from "lucide-react";
+import { PaymentBrand, paymentLabel } from "@/components/PaymentBrand";
 import { AppShell } from "@/components/AppShell";
 import { VendorCalendar } from "@/components/VendorCalendar";
 import {
@@ -52,10 +50,15 @@ const eventOptions = [
   "Kane County Flea",
 ];
 
-const paymentChoices = [
-  { key: "Card" as const, icon: CreditCard },
-  { key: "Cash" as const, icon: Banknote },
-  { key: "Venmo" as const, icon: Smartphone },
+const paymentChoices: { key: VendorProfile["payments"][number] }[] = [
+  { key: "Card" },
+  { key: "Cash" },
+  { key: "Venmo" },
+  { key: "CashApp" },
+  { key: "ApplePay" },
+  { key: "GooglePay" },
+  { key: "PayPal" },
+  { key: "Zelle" },
 ];
 
 const stats = [
@@ -316,14 +319,14 @@ function VendorDashboard() {
               <button
                 key={p.key}
                 onClick={() => togglePayment(p.key)}
-                className={`inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-semibold transition ${
+                className={`inline-flex items-center gap-2 rounded-full border px-3 py-1.5 text-sm font-semibold transition ${
                   active
                     ? "border-teal bg-teal text-cream"
                     : "border-line bg-paper text-ink-soft hover:border-teal"
                 }`}
               >
-                <p.icon className="h-4 w-4" />
-                {p.key}
+                <PaymentBrand brand={p.key} size={12} />
+                {paymentLabel[p.key]}
               </button>
             );
           })}

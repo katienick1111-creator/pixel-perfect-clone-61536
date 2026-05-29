@@ -15,7 +15,15 @@ export type Category =
   | "Food"
   | "Collectibles"
   | "Farmers";
-export type Payment = "Card" | "Cash" | "Venmo";
+export type Payment =
+  | "Card"
+  | "Cash"
+  | "Venmo"
+  | "CashApp"
+  | "ApplePay"
+  | "GooglePay"
+  | "PayPal"
+  | "Zelle";
 
 export type Vendor = {
   id: string;
