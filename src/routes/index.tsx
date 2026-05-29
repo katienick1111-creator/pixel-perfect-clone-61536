@@ -304,8 +304,7 @@ function AppHome() {
               </a>
             </div>
 
-              </a>
-            </div>
+
 
           </div>
           {/* Polaroid pair */}
