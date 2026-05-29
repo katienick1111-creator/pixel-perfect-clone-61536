@@ -13,9 +13,15 @@ import { Route as WelcomeRouteImport } from './routes/welcome'
 import { Route as VendorRouteImport } from './routes/vendor'
 import { Route as ProfileRouteImport } from './routes/profile'
 import { Route as MapRouteImport } from './routes/map'
+import { Route as LoginRouteImport } from './routes/login'
 import { Route as FollowingRouteImport } from './routes/following'
 import { Route as EventsRouteImport } from './routes/events'
+import { Route as AdminRouteImport } from './routes/admin'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AdminIndexRouteImport } from './routes/admin.index'
+import { Route as AdminVendorsRouteImport } from './routes/admin.vendors'
+import { Route as AdminShoppersRouteImport } from './routes/admin.shoppers'
+import { Route as AdminEventsRouteImport } from './routes/admin.events'
 
 const WelcomeRoute = WelcomeRouteImport.update({
   id: '/welcome',
@@ -37,6 +43,11 @@ const MapRoute = MapRouteImport.update({
   path: '/map',
   getParentRoute: () => rootRouteImport,
 } as any)
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const FollowingRoute = FollowingRouteImport.update({
   id: '/following',
   path: '/following',
@@ -47,74 +58,135 @@ const EventsRoute = EventsRouteImport.update({
   path: '/events',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminRoute = AdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminIndexRoute = AdminIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminVendorsRoute = AdminVendorsRouteImport.update({
+  id: '/vendors',
+  path: '/vendors',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminShoppersRoute = AdminShoppersRouteImport.update({
+  id: '/shoppers',
+  path: '/shoppers',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminEventsRoute = AdminEventsRouteImport.update({
+  id: '/events',
+  path: '/events',
+  getParentRoute: () => AdminRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/admin': typeof AdminRouteWithChildren
   '/events': typeof EventsRoute
   '/following': typeof FollowingRoute
+  '/login': typeof LoginRoute
   '/map': typeof MapRoute
   '/profile': typeof ProfileRoute
   '/vendor': typeof VendorRoute
   '/welcome': typeof WelcomeRoute
+  '/admin/events': typeof AdminEventsRoute
+  '/admin/shoppers': typeof AdminShoppersRoute
+  '/admin/vendors': typeof AdminVendorsRoute
+  '/admin/': typeof AdminIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/events': typeof EventsRoute
   '/following': typeof FollowingRoute
+  '/login': typeof LoginRoute
   '/map': typeof MapRoute
   '/profile': typeof ProfileRoute
   '/vendor': typeof VendorRoute
   '/welcome': typeof WelcomeRoute
+  '/admin/events': typeof AdminEventsRoute
+  '/admin/shoppers': typeof AdminShoppersRoute
+  '/admin/vendors': typeof AdminVendorsRoute
+  '/admin': typeof AdminIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/admin': typeof AdminRouteWithChildren
   '/events': typeof EventsRoute
   '/following': typeof FollowingRoute
+  '/login': typeof LoginRoute
   '/map': typeof MapRoute
   '/profile': typeof ProfileRoute
   '/vendor': typeof VendorRoute
   '/welcome': typeof WelcomeRoute
+  '/admin/events': typeof AdminEventsRoute
+  '/admin/shoppers': typeof AdminShoppersRoute
+  '/admin/vendors': typeof AdminVendorsRoute
+  '/admin/': typeof AdminIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/admin'
     | '/events'
     | '/following'
+    | '/login'
     | '/map'
     | '/profile'
     | '/vendor'
     | '/welcome'
+    | '/admin/events'
+    | '/admin/shoppers'
+    | '/admin/vendors'
+    | '/admin/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/events'
     | '/following'
+    | '/login'
     | '/map'
     | '/profile'
     | '/vendor'
     | '/welcome'
+    | '/admin/events'
+    | '/admin/shoppers'
+    | '/admin/vendors'
+    | '/admin'
   id:
     | '__root__'
     | '/'
+    | '/admin'
     | '/events'
     | '/following'
+    | '/login'
     | '/map'
     | '/profile'
     | '/vendor'
     | '/welcome'
+    | '/admin/events'
+    | '/admin/shoppers'
+    | '/admin/vendors'
+    | '/admin/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AdminRoute: typeof AdminRouteWithChildren
   EventsRoute: typeof EventsRoute
   FollowingRoute: typeof FollowingRoute
+  LoginRoute: typeof LoginRoute
   MapRoute: typeof MapRoute
   ProfileRoute: typeof ProfileRoute
   VendorRoute: typeof VendorRoute
@@ -151,6 +223,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MapRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/following': {
       id: '/following'
       path: '/following'
@@ -165,6 +244,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof EventsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin': {
+      id: '/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -172,13 +258,59 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/': {
+      id: '/admin/'
+      path: '/'
+      fullPath: '/admin/'
+      preLoaderRoute: typeof AdminIndexRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/vendors': {
+      id: '/admin/vendors'
+      path: '/vendors'
+      fullPath: '/admin/vendors'
+      preLoaderRoute: typeof AdminVendorsRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/shoppers': {
+      id: '/admin/shoppers'
+      path: '/shoppers'
+      fullPath: '/admin/shoppers'
+      preLoaderRoute: typeof AdminShoppersRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/events': {
+      id: '/admin/events'
+      path: '/events'
+      fullPath: '/admin/events'
+      preLoaderRoute: typeof AdminEventsRouteImport
+      parentRoute: typeof AdminRoute
+    }
   }
 }
 
+interface AdminRouteChildren {
+  AdminEventsRoute: typeof AdminEventsRoute
+  AdminShoppersRoute: typeof AdminShoppersRoute
+  AdminVendorsRoute: typeof AdminVendorsRoute
+  AdminIndexRoute: typeof AdminIndexRoute
+}
+
+const AdminRouteChildren: AdminRouteChildren = {
+  AdminEventsRoute: AdminEventsRoute,
+  AdminShoppersRoute: AdminShoppersRoute,
+  AdminVendorsRoute: AdminVendorsRoute,
+  AdminIndexRoute: AdminIndexRoute,
+}
+
+const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AdminRoute: AdminRouteWithChildren,
   EventsRoute: EventsRoute,
   FollowingRoute: FollowingRoute,
+  LoginRoute: LoginRoute,
   MapRoute: MapRoute,
   ProfileRoute: ProfileRoute,
   VendorRoute: VendorRoute,

@@ -14,9 +14,12 @@ import {
   Store,
   House,
   User,
+  Shield,
 } from "lucide-react";
 import trovinLogo from "@/assets/trovin-logo.png";
 import trovinBadge from "@/assets/trovin-badge.png";
+import { useAuth } from "@/hooks/useAuth";
+
 
 type IconType = typeof Compass;
 
@@ -166,22 +169,28 @@ function Header() {
             Chicago, IL
             <ChevronRight className="h-4 w-4 -rotate-90 text-cream/50" />
           </button>
-          <button
-            className="relative inline-flex h-10 w-10 items-center justify-center rounded-full border border-cream/20 bg-navy-700 text-cream transition hover:border-gold"
-            aria-label="Notifications"
-          >
-            <Bell className="h-5 w-5" />
-            <span className="absolute right-2 top-2 h-2 w-2 animate-pulse rounded-full bg-gold" />
-          </button>
-          <Link
-            to="/profile"
-            className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-gold font-display text-sm font-semibold text-navy ring-2 ring-cream/20"
-          >
-            JM
-          </Link>
+          <AuthChip />
         </div>
+
       </div>
     </header>
+  );
+}
+
+function AuthChip() {
+  const { user, loading } = useAuth();
+  if (loading) return null;
+  if (!user) {
+    return (
+      <Link to="/login" className="rounded-full bg-gold px-4 py-2 text-sm font-semibold text-navy hover:bg-gold-400">
+        Sign in
+      </Link>
+    );
+  }
+  return (
+    <Link to="/admin" className="inline-flex items-center gap-1.5 rounded-full bg-gold px-3 py-2 text-sm font-semibold text-navy hover:bg-gold-400">
+      <Shield className="h-4 w-4" /> Admin
+    </Link>
   );
 }
 
@@ -202,6 +211,7 @@ function SideNav() {
                   : "text-ink-soft hover:bg-paper hover:text-navy"
               }`}
             >
+
               <span className="flex items-center gap-2.5">
                 <it.icon className="h-4 w-4" />
                 {it.label}

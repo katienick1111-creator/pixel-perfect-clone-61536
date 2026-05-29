@@ -1,64 +1,48 @@
-## Plan: Trovin' main app screen
+## Plan: Admin Dashboard on Lovable Cloud
 
-Build the first real app interface for Trovin' as a vendor-first discovery platform for local markets, shows, fairs, food trucks, collectibles, and farmers markets.
+### 1. Turn on Lovable Cloud
+Enables Postgres, auth, and storage. No external accounts to set up.
 
-### What I’ll build
+### 2. Database schema
+New tables (all RLS-on, with `service_role` + scoped `authenticated` grants):
 
-1. **Replace the current brand showcase with an app UI**
-   - No marketing landing page.
-   - The `/` route becomes the main Trovin' app screen.
-   - Use the existing Trovin' logo, badge, colors, and typography already added.
+- `profiles` — id (FK auth.users), display_name, created_at. Auto-created on signup via trigger.
+- `user_roles` — (user_id, role enum: `admin` | `vendor` | `shopper`). Checked via `has_role()` security-definer function.
+- `vendors` — id, owner_id (FK auth.users, nullable), name, tagline, category, image_url, scribble, payments[], status (`pending`/`approved`/`hidden`), featured, created_at.
+- `events` — id, name, location, starts_at, ends_at, created_at.
+- `event_vendors` — (event_id, vendor_id, booth, hours, open_today) — assigns vendors to a market.
+- `follows` — (shopper_id, vendor_id) — who's following whom.
 
-2. **Create a discovery-first dashboard**
-   - Header with Trovin' wordmark, Chicago pilot context, search, and notification/profile controls.
-   - Desktop app layout with a left navigation rail:
-     - Discover
-     - Events
-     - Map
-     - Following
-     - Vendor Portal
-   - Mobile-friendly layout with compact top controls and bottom navigation.
+### 3. Auth
+- Email/password + Google sign-in (default Lovable Cloud setup).
+- First user to sign up at `/admin/setup` gets the `admin` role (one-time bootstrap), afterwards admin promotion happens inside the dash.
+- `/admin/*` routes wrapped in `_authenticated` layout + child `beforeLoad` that checks `has_role('admin')`.
 
-3. **Add core discovery content with mock data**
-   - Featured nearby event: e.g. “Randolph Street Market.”
-   - Vendor cards for categories from the PRD:
-     - Antiques
-     - Craft fairs
-     - Food trucks
-     - Collectibles
-     - Farmers markets
-   - Vendor details: category, event, today’s hours, payment methods, follow/save action, featured status.
+### 4. Admin dashboard routes
+```
+/admin           → overview (counts: vendors pending, events upcoming, total shoppers)
+/admin/vendors   → list, approve/hide, edit, add new
+/admin/vendors/$id → full edit form (reuses the vendor card UI)
+/admin/events    → list + create/edit markets
+/admin/events/$id → assign vendors, set booths/hours
+/admin/shoppers  → list signups, follows count, last active
+```
 
-4. **Add filter/search experience**
-   - Search bar for vendor, keyword, event, or location.
-   - Filter chips for category, event, payment method, and “open today.”
-   - This will be visual/mock behavior for now, not database-backed.
+All reads/writes go through `createServerFn` with `requireSupabaseAuth` + admin-role check.
 
-5. **Add map-style event panel**
-   - A branded illustrated map/card area, not a real map API yet.
-   - Pins/booth markers for vendors.
-   - Category legend and “future booth overlays” feel from the PRD.
+### 5. Wire the home page to the database
+Replace the hardcoded `allVendors` array + localStorage `VendorProfile` with live queries against `vendors` + `event_vendors`. Keeps "The Roster" mosaic exactly as it is — just real data.
 
-6. **Add following and notification cues**
-   - Small “followed vendor alert” panel.
-   - Event reminders and category recommendation examples.
-   - Make the app feel useful immediately, even with mock data.
+### 6. Header nav
+Add a small "Sign in" / "Admin" link in the existing nav, visible based on auth state.
 
-### Technical approach
+### Out of scope (later)
+- Analytics charts (just raw counts for now).
+- Vendor self-serve dashboard rewrite (the existing `/vendor` page keeps working against localStorage until we migrate it in a follow-up).
+- Image uploads (we'll keep image URLs as text fields for v1; storage bucket comes next).
 
-- Edit primarily `src/routes/index.tsx`.
-- Keep the existing brand tokens in `src/styles.css`; only add small utility refinements if needed.
-- Use existing UI conventions and semantic Tailwind tokens.
-- No Lovable Cloud/database/auth yet, because you asked for the main app screen first.
-- No new dependencies.
-
-### Out of scope for this pass
-
-- Real login/signup
-- Real database tables
-- Vendor portal forms
-- Admin tools
-- Live maps/geolocation
-- Payment/subscription setup
-
-Those come next after the app screen direction is approved.
+### Technical notes
+- Roles in a separate `user_roles` table — never on profiles (prevents privilege escalation).
+- `has_role()` is `SECURITY DEFINER` to avoid RLS recursion.
+- Every new public-schema table gets explicit `GRANT`s in the same migration.
+- Home page becomes a public server fn using `supabaseAdmin` with `WHERE status='approved'` so SSR works without a session.
