@@ -65,15 +65,39 @@ function AppHome() {
   const [activeCategory, setActiveCategory] = useState<Category | "All">("All");
   const [openToday, setOpenToday] = useState(true);
   const [query, setQuery] = useState("");
+  const { profile: vendorProfile } = useVendorProfile();
   const [following, setFollowing] = useState<Record<string, boolean>>({
     v1: true,
     v3: true,
     v5: true,
   });
 
+  const allVendors = useMemo(() => {
+    if (!vendorProfile.openToday) return vendors;
+    // Surface the live vendor first
+    return [
+      {
+        id: vendorProfile.id,
+        name: vendorProfile.name,
+        tagline: vendorProfile.tagline,
+        category: vendorProfile.category,
+        event: vendorProfile.event,
+        booth: vendorProfile.booth,
+        hours: vendorProfile.hours,
+        payments: vendorProfile.payments,
+        followers: vendorProfile.followers,
+        featured: true,
+        image: vendorProfile.image,
+        scribble: vendorProfile.scribble,
+        tilt: vendorProfile.tilt,
+      },
+      ...vendors,
+    ];
+  }, [vendorProfile]);
+
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
-    return vendors.filter((v) => {
+    return allVendors.filter((v) => {
       if (activeCategory !== "All" && v.category !== activeCategory) return false;
       if (!q) return true;
       return (
@@ -83,6 +107,7 @@ function AppHome() {
         v.category.toLowerCase().includes(q)
       );
     });
+  }, [activeCategory, query, allVendors]);
   }, [activeCategory, query]);
 
   return (
