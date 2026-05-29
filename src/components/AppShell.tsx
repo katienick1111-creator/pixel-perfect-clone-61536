@@ -177,14 +177,6 @@ function Header() {
   );
 }
 
-function SideNav() {
-  const pathname = useRouterState({ select: (s) => s.location.pathname });
-  return (
-    <aside className="hidden w-56 shrink-0 lg:block">
-      <nav className="sticky top-24 flex flex-col gap-1">
-        {sideItems.map((it) => {
-          const active = pathname === it.to;
-          return (
 function AuthChip() {
   const { user, loading } = useAuth();
   if (loading) return null;
@@ -212,8 +204,8 @@ function SideNav() {
           return (
             <Link
               key={it.label}
+              to={it.to}
 
-              key={it.label}
               to={it.to}
               className={`flex items-center justify-between gap-2 rounded-lg px-3 py-2.5 text-sm font-medium transition ${
                 active
