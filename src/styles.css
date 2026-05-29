@@ -209,3 +209,15 @@
     letter-spacing: -0.01em;
   }
 }
+
+@keyframes trovin-drive {
+  0% { transform: translateX(0) }
+  45% { transform: translateX(calc(100% - 2.5rem)) }
+  50% { transform: translateX(calc(100% - 2.5rem)) scaleX(-1) }
+  95% { transform: translateX(0) scaleX(-1) }
+  100% { transform: translateX(0) }
+}
+@keyframes trovin-bump {
+  0%, 100% { transform: translateY(0) rotate(-1deg) }
+  50% { transform: translateY(-1px) rotate(1deg) }
+}
