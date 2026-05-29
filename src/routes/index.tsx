@@ -109,7 +109,8 @@ function AppHome() {
     });
   }, [activeCategory, query, allVendors]);
 
-  const featured = allVendors.slice(0, 3);
+  const featured = allVendors.filter((v) => v.category !== "Food").slice(0, 2);
+
 
   return (
     <AppShell>
