@@ -131,7 +131,8 @@ function AppHome() {
             <p className="font-script text-2xl md:text-3xl leading-none text-teal -rotate-2 origin-left">
               Hey Trovers —
             </p>
-            <h1 className="mt-2 font-script text-[clamp(2.5rem,7.5vw,5rem)] leading-[0.85] text-navy">
+            <div className="mt-2 flex items-center gap-4 flex-wrap">
+              <h1 className="font-script text-[clamp(2.5rem,7.5vw,5rem)] leading-[0.85] text-navy">
 
               Let's Go
               <br />
@@ -224,35 +225,32 @@ function AppHome() {
 
 
 
-            </h1>
+              </h1>
 
-            {/* kraft paper price-tag badge */}
-            <div
-              className="relative block"
-              style={{
-                margin: "16px auto",
-                maxWidth: "320px",
-                textAlign: "center",
-                transform: "rotate(-3deg)",
-              }}
-            >
-              <span
-                className="relative inline-flex flex-col items-center rounded-sm border-2 border-teal bg-cream px-4 py-2.5 text-navy shadow-brand-md"
-                style={{
-                  backgroundImage:
-                    "repeating-linear-gradient(135deg, transparent 0 6px, rgba(15,22,46,0.04) 6px 7px)",
-                }}
+              {/* kraft paper price-tag badge — to the right of headline, vertically centered */}
+              <div
+                className="relative shrink-0"
+                style={{ transform: "rotate(-3deg)" }}
               >
-                <span className="absolute left-1.5 top-1.5 h-1.5 w-1.5 rounded-full bg-navy" />
-                <span className="font-script text-xl leading-none text-teal">spend a day</span>
-                <span className="mt-0.5 flex items-center gap-1 font-display text-[9px] font-black uppercase tracking-[0.22em] text-navy/70">
-                  <span className="h-px w-2 bg-gold" />
-                  not a fortune
-                  <span className="h-px w-2 bg-gold" />
+                <span
+                  className="relative inline-flex flex-col items-center rounded-sm border-2 border-teal bg-cream px-4 py-2.5 text-navy shadow-brand-md"
+                  style={{
+                    backgroundImage:
+                      "repeating-linear-gradient(135deg, transparent 0 6px, rgba(15,22,46,0.04) 6px 7px)",
+                  }}
+                >
+                  <span className="absolute left-1.5 top-1.5 h-1.5 w-1.5 rounded-full bg-navy" />
+                  <span className="font-script text-xl leading-none text-teal">spend a day</span>
+                  <span className="mt-0.5 flex items-center gap-1 font-display text-[9px] font-black uppercase tracking-[0.22em] text-navy/70">
+                    <span className="h-px w-2 bg-gold" />
+                    not a fortune
+                    <span className="h-px w-2 bg-gold" />
+                  </span>
                 </span>
-              </span>
-              <span className="absolute -right-3 -top-2 font-script text-xl text-gold rotate-[12deg]">✦</span>
+                <span className="absolute -right-3 -top-2 font-script text-xl text-gold rotate-[12deg]">✦</span>
+              </div>
             </div>
+
 
             <p className="mt-4 max-w-md font-script text-xl leading-tight text-navy md:text-2xl">
               Ever find a great vendor and never know where to find them again?
