@@ -132,7 +132,8 @@ function AppHome() {
               <span className="relative inline-block">
                 Trovin'<span className="text-gold">!</span>
                 <svg
-                  className="absolute -bottom-2 left-0 h-4 w-full text-gold"
+                  className="absolute -bottom-5 left-0 h-4 w-full text-gold"
+
                   viewBox="0 0 240 14"
                   preserveAspectRatio="none"
                   fill="none"
@@ -144,7 +145,8 @@ function AppHome() {
                     strokeLinecap="round"
                   />
                 </svg>
-                {/* market bus driving along the gold squiggle */}
+                <span className="pointer-events-none absolute -bottom-[26px] left-0 right-0 block h-8 overflow-visible">
+
                 <span className="pointer-events-none absolute -bottom-[14px] left-0 right-0 block h-8 overflow-visible">
                   <span
                     className="absolute top-0 h-8 w-14"
