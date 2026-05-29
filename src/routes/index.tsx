@@ -304,97 +304,8 @@ function AppHome() {
               </a>
             </div>
           </div>
-
-
-          {/* Polaroid pair — open right now */}
-          <div className="relative -mt-2 mx-auto w-full max-w-xs lg:mt-0 lg:max-w-sm">
-            {/* hand-drawn banner above the photos */}
-            <div className="relative z-20 mx-auto -mb-3 flex w-fit -rotate-2 items-center gap-2 rounded-sm bg-navy px-4 py-1.5 text-cream shadow-brand-md">
-              <span className="inline-flex h-2 w-2 animate-pulse rounded-full bg-success" />
-              <span className="font-display text-[10px] font-black uppercase tracking-[0.18em]">
-                Open right now
-              </span>
-              {/* string tails */}
-              <span className="pointer-events-none absolute -left-3 top-1/2 h-px w-3 -translate-y-1/2 bg-navy/50" />
-              <span className="pointer-events-none absolute -right-3 top-1/2 h-px w-3 -translate-y-1/2 bg-navy/50" />
-            </div>
-
-            <div className="relative h-[15rem] sm:h-[17rem]">
-              {featured.map((v, i) => {
-                const rotations = [-8, 6];
-                const offsets = [
-                  { left: "4%", top: "4%" },
-                  { left: "42%", top: "18%" },
-                ];
-                const tapes = ["bg-gold-200/80", "bg-teal-200/80"];
-                const r = rotations[i] ?? 0;
-                const o = offsets[i] ?? { left: "10%", top: "10%" };
-
-                return (
-                  <Link
-                    key={v.id}
-                    to="/vendor"
-                    style={{
-                      transform: `rotate(${r}deg)`,
-                      left: o.left,
-                      top: o.top,
-                    }}
-                    className="group absolute block w-32 rounded-sm bg-paper p-1.5 pb-3 shadow-brand-lg ring-1 ring-line transition duration-300 hover:!rotate-0 hover:-translate-y-2 hover:z-10 sm:w-36"
-                  >
-                    <span
-                      className={`absolute -top-2 left-1/2 h-4 w-12 -translate-x-1/2 -rotate-6 rounded-[2px] ${tapes[i]} shadow-brand-sm`}
-                    />
-                    <div className="relative aspect-square overflow-hidden rounded-sm bg-navy">
-                      <img
-                        src={v.image}
-                        alt={v.name}
-                        className="absolute inset-0 h-full w-full object-cover transition duration-500 group-hover:scale-105"
-                      />
-                      <span className="absolute left-2 top-2 rounded-sm bg-cream/95 px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wider text-navy">
-                        {v.category}
-                      </span>
-                      {v.scribble && (
-                        <span className="absolute -right-1 bottom-2 -rotate-6 rounded-sm bg-gold px-2 py-0.5 font-script text-sm leading-none text-navy shadow-brand-sm">
-                          {v.scribble}
-                        </span>
-                      )}
-                    </div>
-                    <p className="mt-2 px-1 font-script text-base leading-tight text-navy">
-                      {v.name}
-                    </p>
-                    <p className="px-1 text-[10px] uppercase tracking-wider text-ink-mute">
-                      tap to peek →
-                    </p>
-                  </Link>
-                );
-              })}
-            </div>
-
-
-
-            {/* arrow scribble */}
-            <svg
-              className="absolute -left-2 bottom-0 hidden h-20 w-24 text-teal lg:block"
-              viewBox="0 0 100 80"
-              fill="none"
-            >
-              <path
-                d="M5 70 C 20 40 50 25 85 30"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeDasharray="4 4"
-              />
-              <path
-                d="M75 22 L 88 30 L 78 42"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-          </div>
         </div>
+
       </section>
 
 
@@ -464,23 +375,55 @@ function AppHome() {
           </button>
         </div>
 
-        <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
-          {filtered.map((v) => (
-            <VendorCard
-              key={v.id}
-              vendor={v}
-              following={!!following[v.id]}
-              onToggle={() =>
-                setFollowing((f) => ({ ...f, [v.id]: !f[v.id] }))
-              }
-            />
-          ))}
+        {/* hand-drawn banner */}
+        <div className="relative z-20 mx-auto mb-4 flex w-fit -rotate-2 items-center gap-2 rounded-sm bg-navy px-4 py-1.5 text-cream shadow-brand-md">
+          <span className="inline-flex h-2 w-2 animate-pulse rounded-full bg-success" />
+          <span className="font-display text-[10px] font-black uppercase tracking-[0.18em]">
+            Open right now
+          </span>
+        </div>
+
+        <div className="grid grid-cols-2 gap-4 sm:gap-6 md:grid-cols-3 xl:grid-cols-4">
+          {filtered.map((v, i) => {
+            const tapes = ["bg-gold-200/80", "bg-teal-200/80", "bg-coral-200/80"];
+            const rot = [-4, 3, -2, 5, -3, 4];
+            const r = rot[i % rot.length];
+            const tape = tapes[i % tapes.length];
+            return (
+              <Link
+                key={v.id}
+                to="/vendor"
+                style={{ transform: `rotate(${r}deg)` }}
+                className="group relative block rounded-sm bg-paper p-2 pb-3 shadow-brand-lg ring-1 ring-line transition duration-300 hover:!rotate-0 hover:-translate-y-2"
+              >
+                <span
+                  className={`absolute -top-2 left-1/2 h-4 w-12 -translate-x-1/2 -rotate-6 rounded-[2px] ${tape} shadow-brand-sm`}
+                />
+                <div className="relative aspect-square overflow-hidden rounded-sm bg-navy">
+                  <img
+                    src={v.image}
+                    alt={v.name}
+                    className="absolute inset-0 h-full w-full object-cover transition duration-500 group-hover:scale-105"
+                  />
+                  <span className="absolute left-2 top-2 rounded-sm bg-cream/95 px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wider text-navy">
+                    {v.category}
+                  </span>
+                  {v.scribble && (
+                    <span className="absolute -right-1 bottom-2 -rotate-6 rounded-sm bg-gold px-2 py-0.5 font-script text-sm leading-none text-navy shadow-brand-sm">
+                      {v.scribble}
+                    </span>
+                  )}
+                </div>
+              </Link>
+            );
+          })}
           {filtered.length === 0 && (
             <div className="col-span-full rounded-xl border border-dashed border-line bg-paper p-10 text-center text-sm text-ink-soft">
               No vendors match those filters. Try widening your search.
             </div>
           )}
         </div>
+
       </section>
 
       {/* === WHERE THEY'RE AT — events as ticket stubs === */}
