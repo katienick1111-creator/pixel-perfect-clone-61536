@@ -333,6 +333,84 @@ function VendorDashboard() {
         </div>
       </section>
 
+      {/* SOCIALS — sticker sheet */}
+      <section className="mt-12">
+        <div className="flex items-end justify-between gap-3">
+          <div>
+            <p className="font-script text-2xl leading-none text-teal -rotate-1 origin-left">
+              find me online
+            </p>
+            <h3 className="mt-2 font-display text-xl text-ink-soft">
+              slap your socials on the booth
+            </h3>
+          </div>
+          <span className="-rotate-3 rounded-sm bg-gold px-2 py-1 font-script text-base text-navy shadow-brand-sm hidden sm:inline-block">
+            sticker sheet ✦
+          </span>
+        </div>
+
+        <div className="mt-5 grid gap-3 sm:grid-cols-2">
+          {(Object.keys(socialMeta) as SocialKey[]).map((key, i) => {
+            const meta = socialMeta[key];
+            const value = profile.socials?.[key] ?? "";
+            const filled = value.trim().length > 0;
+            return (
+              <label
+                key={key}
+                style={{ transform: `rotate(${(i % 2 === 0 ? -1 : 1) * 0.6}deg)` }}
+                className={`group relative flex items-center gap-3 rounded-xl border-2 bg-paper px-3 py-2.5 shadow-brand-sm transition focus-within:-translate-y-0.5 focus-within:shadow-brand-md ${
+                  filled ? "border-teal" : "border-line hover:border-teal"
+                }`}
+              >
+                <span
+                  className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-cream-deep ring-2 ring-paper"
+                  style={{ boxShadow: filled ? `0 0 0 2px ${meta.color}33` : undefined }}
+                >
+                  <SocialBrand brand={key} size={22} />
+                </span>
+                <div className="min-w-0 flex-1">
+                  <p className="font-mono text-[10px] uppercase tracking-widest text-ink-mute">
+                    {meta.label}
+                  </p>
+                  <div className="flex items-center gap-1 text-navy">
+                    {meta.prefix && (
+                      <span className="font-script text-lg leading-none text-teal">
+                        {meta.prefix}
+                      </span>
+                    )}
+                    <input
+                      value={value}
+                      onChange={(e) =>
+                        update({
+                          socials: { ...profile.socials, [key]: e.target.value },
+                        })
+                      }
+                      maxLength={80}
+                      placeholder={meta.placeholder}
+                      className="w-full bg-transparent font-hand text-lg leading-tight outline-none placeholder:text-ink-mute"
+                    />
+                  </div>
+                </div>
+                {filled && (
+                  <span className="absolute -right-1.5 -top-2 -rotate-6 rounded-sm bg-success px-1.5 py-0.5 font-mono text-[9px] uppercase tracking-widest text-cream shadow-brand-sm">
+                    live
+                  </span>
+                )}
+              </label>
+            );
+          })}
+        </div>
+
+        {/* Preview as shopper */}
+        <Link
+          to="/vendor/preview"
+          className="mt-6 group inline-flex items-center gap-2 rounded-full bg-navy px-5 py-2.5 text-sm font-semibold text-cream shadow-brand-md transition hover:bg-navy-700"
+        >
+          <ExternalLink className="h-4 w-4 transition group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+          Preview my booth (shopper view)
+        </Link>
+      </section>
+
       {/* INDEX-CARD — fresh drop note + scribble */}
       <section className="relative mt-14">
         <p className="absolute -top-6 left-4 -rotate-2 font-script text-2xl leading-none text-navy">
