@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import { useState } from "react";
-import { Plus, Pencil, Trash2, Users, Check } from "lucide-react";
+import { Plus, Pencil, Trash2, Users, Check, X, Clock } from "lucide-react";
 import {
   listEventsAdmin,
   upsertEvent,
@@ -10,6 +10,7 @@ import {
   listEventLineup,
   upsertEventVendor,
   removeEventVendor,
+  moderateEvent,
 } from "@/lib/admin.functions";
 
 export const Route = createFileRoute("/admin/events")({
