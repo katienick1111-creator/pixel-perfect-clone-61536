@@ -144,7 +144,59 @@ function AppHome() {
                     strokeLinecap="round"
                   />
                 </svg>
+                {/* little car driving along the trail */}
+                <span className="pointer-events-none absolute -bottom-7 left-0 right-0 block h-6 overflow-visible">
+                  {/* dashed trail */}
+                  <svg
+                    className="absolute inset-x-0 top-2 h-2 w-full text-teal/50"
+                    viewBox="0 0 240 4"
+                    preserveAspectRatio="none"
+                    fill="none"
+                  >
+                    <path
+                      d="M2 2 L238 2"
+                      stroke="currentColor"
+                      strokeWidth="1.5"
+                      strokeLinecap="round"
+                      strokeDasharray="3 5"
+                    />
+                  </svg>
+                  {/* car */}
+                  <span
+                    className="absolute left-0 top-0 inline-block h-6 w-10"
+                    style={{ animation: "trovin-drive 9s ease-in-out infinite" }}
+                  >
+                    <span
+                      className="block h-full w-full"
+                      style={{ animation: "trovin-bump 0.35s ease-in-out infinite" }}
+                    >
+                      <svg viewBox="0 0 40 24" className="h-full w-full" fill="none">
+                        {/* body */}
+                        <path
+                          d="M3 16 L7 9 Q9 7 12 7 L24 7 Q27 7 29 9 L34 13 L37 14 Q38 14 38 15 L38 17 Q38 18 37 18 L34 18"
+                          fill="oklch(0.62 0.22 27)"
+                          stroke="oklch(0.22 0.07 260)"
+                          strokeWidth="1.2"
+                          strokeLinejoin="round"
+                        />
+                        <path d="M3 18 L9 18" stroke="oklch(0.22 0.07 260)" strokeWidth="1.2" strokeLinecap="round" />
+                        <path d="M14 18 L26 18" stroke="oklch(0.22 0.07 260)" strokeWidth="1.2" strokeLinecap="round" />
+                        {/* windows */}
+                        <path d="M11 10 L14 8 L20 8 L20 12 L11 12 Z" fill="oklch(0.95 0.02 240)" stroke="oklch(0.22 0.07 260)" strokeWidth="0.8" />
+                        <path d="M21 8 L24 8 Q26 8 27 10 L28 12 L21 12 Z" fill="oklch(0.95 0.02 240)" stroke="oklch(0.22 0.07 260)" strokeWidth="0.8" />
+                        {/* headlight */}
+                        <circle cx="36" cy="15.5" r="0.9" fill="oklch(0.85 0.16 90)" />
+                        {/* wheels */}
+                        <circle cx="11" cy="18" r="2.5" fill="oklch(0.22 0.07 260)" />
+                        <circle cx="11" cy="18" r="1" fill="oklch(0.85 0.16 90)" />
+                        <circle cx="29" cy="18" r="2.5" fill="oklch(0.22 0.07 260)" />
+                        <circle cx="29" cy="18" r="1" fill="oklch(0.85 0.16 90)" />
+                      </svg>
+                    </span>
+                  </span>
+                </span>
               </span>
+
               {/* fun price-tag badge */}
               <span className="absolute -right-1 -top-6 rotate-[10deg] sm:right-2 sm:top-2 md:right-4 md:-top-2">
                 <span className="relative block animate-[pulse_3s_ease-in-out_infinite]">
