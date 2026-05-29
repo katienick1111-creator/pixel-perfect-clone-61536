@@ -80,7 +80,8 @@
   --font-body: "DM Sans", system-ui, -apple-system, sans-serif;
   --font-sans: "DM Sans", system-ui, -apple-system, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, monospace;
-  --font-script: "Caveat Brush", cursive;
+  --font-script: "Permanent Marker", cursive;
+  --font-hand: "Shadows Into Light Two", cursive;
 
   /* Shadows */
   --shadow-brand-sm: 0 1px 2px rgba(3, 23, 47, 0.06), 0 1px 3px rgba(3, 23, 47, 0.04);
