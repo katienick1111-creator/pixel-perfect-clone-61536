@@ -304,7 +304,8 @@ function AppHome() {
 
           </div>
           {/* Polaroid pair */}
-          <div className="relative mx-auto h-[20rem] w-full max-w-sm sm:h-[22rem]">
+          <div className="relative mx-auto h-[16rem] w-full max-w-xs sm:h-[18rem]">
+
             {featured.map((v, i) => {
               const rotations = [-7, 5];
               const offsets = [
