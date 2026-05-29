@@ -215,30 +215,27 @@ function AppHome() {
 
 
               {/* kraft paper price-tag badge */}
-              <span className="absolute right-0 top-1 rotate-[-7deg] sm:right-6 sm:top-[42%] md:right-10">
               <span className="absolute right-2 top-[42%] rotate-[-7deg] sm:right-6 md:right-10">
-
                   {/* twine string */}
                   <span className="absolute left-1/2 -top-7 h-7 w-px -translate-x-1/2 rotate-[18deg] bg-navy/50" />
-                  {/* tag body — cream kraft with teal border */}
+                  {/* tag body — cream kraft rectangle with teal border */}
                   <span
-                    className="relative flex flex-col items-center bg-cream px-5 py-3 text-navy shadow-brand-md sm:px-6 sm:py-4"
+                    className="relative flex flex-col items-center rounded-sm border-2 border-teal bg-cream px-5 py-3 text-navy shadow-brand-md sm:px-6 sm:py-4"
                     style={{
-                      clipPath: "polygon(15% 0, 100% 0, 100% 100%, 15% 100%, 0 50%)",
                       backgroundImage:
                         "repeating-linear-gradient(135deg, transparent 0 6px, rgba(15,22,46,0.04) 6px 7px)",
                     }}
                   >
                     {/* hole */}
-                    <span className="absolute left-2 top-1/2 h-2 w-2 -translate-y-1/2 rounded-full bg-navy" />
-                    <span className="ml-3 font-script text-2xl leading-none text-teal sm:text-3xl">spend a day</span>
-                    <span className="ml-3 mt-1 flex items-center gap-1 font-display text-[9px] font-black uppercase tracking-[0.22em] text-navy/70 sm:text-[11px]">
+                    <span className="absolute left-2 top-2 h-2 w-2 rounded-full bg-navy" />
+                    <span className="font-script text-2xl leading-none text-teal sm:text-3xl">spend a day</span>
+                    <span className="mt-1 flex items-center gap-1 font-display text-[9px] font-black uppercase tracking-[0.22em] text-navy/70 sm:text-[11px]">
                       <span className="h-px w-3 bg-gold" />
                       not a fortune
                       <span className="h-px w-3 bg-gold" />
                     </span>
                   </span>
-                  {/* sparkle */}
+
                   <span className="absolute -right-3 -top-2 font-script text-xl text-gold rotate-[12deg]">✦</span>
                 </span>
               </span>
