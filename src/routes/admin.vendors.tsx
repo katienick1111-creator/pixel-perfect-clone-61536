@@ -1,13 +1,15 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
-import { useState } from "react";
-import { Plus, Pencil, Trash2, Check, EyeOff } from "lucide-react";
+import { useRef, useState } from "react";
+import { Plus, Pencil, Trash2, Check, EyeOff, QrCode, Download, Copy } from "lucide-react";
+import { QRCodeCanvas } from "qrcode.react";
 import { listVendorsAdmin, upsertVendor, deleteVendor } from "@/lib/admin.functions";
 
 export const Route = createFileRoute("/admin/vendors")({
   component: VendorsAdmin,
 });
+
 
 type Vendor = {
   id?: string;
