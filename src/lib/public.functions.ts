@@ -41,7 +41,7 @@ export const isFollowingVendor = createServerFn({ method: "GET" })
   });
 
 export const followVendor = createServerFn({ method: "POST" })
-export const followVendor = createServerFn({ method: "POST" })
+
   .middleware([requireSupabaseAuth])
   .inputValidator((d: unknown) => z.object({ id: z.string().uuid() }).parse(d))
   .handler(async ({ context, data }) => {
