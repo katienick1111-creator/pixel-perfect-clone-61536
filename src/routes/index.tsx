@@ -251,23 +251,21 @@ function AppHome() {
 
 
 
-            </h1>
-
-            <p className="mt-6 max-w-md font-script text-2xl leading-tight text-navy md:text-[1.7rem]">
+            <p className="mt-4 max-w-md font-script text-xl leading-tight text-navy md:text-2xl">
               Ever find a great vendor and never know where to find them again?
             </p>
 
-            <p className="mt-3 max-w-md font-display text-base leading-snug text-ink-soft md:text-lg">
+            <p className="mt-2 max-w-md font-display text-sm leading-snug text-ink-soft md:text-base">
               Follow your favorites. Discover new ones. Know who's there before
               you get there.
             </p>
 
 
             {/* vendor stats strip */}
-            <div className="mt-6 inline-flex items-center gap-4 rounded-full border border-line bg-paper px-5 py-2.5 shadow-brand-sm">
+            <div className="mt-4 inline-flex items-center gap-3 rounded-full border border-line bg-paper px-4 py-2 shadow-brand-sm">
               <span className="flex items-baseline gap-1.5">
                 <span className="inline-flex h-2 w-2 translate-y-[-2px] animate-pulse rounded-full bg-success" />
-                <span className="font-display text-lg font-semibold leading-none text-navy">
+                <span className="font-display text-base font-semibold leading-none text-navy">
                   218
                 </span>
                 <span className="text-[10px] uppercase tracking-[0.14em] text-ink-soft">
@@ -276,7 +274,7 @@ function AppHome() {
               </span>
               <span className="h-4 w-px bg-line" />
               <span className="flex items-baseline gap-1.5">
-                <span className="font-display text-lg font-semibold leading-none text-navy">
+                <span className="font-display text-base font-semibold leading-none text-navy">
                   11
                 </span>
                 <span className="text-[10px] uppercase tracking-[0.14em] text-ink-soft">
@@ -285,24 +283,27 @@ function AppHome() {
               </span>
             </div>
 
-            <div className="mt-6 flex flex-wrap items-stretch gap-2.5">
+            <div className="mt-4 flex flex-wrap items-stretch gap-2">
               <button
                 onClick={() =>
                   document
                     .getElementById("vendors")
                     ?.scrollIntoView({ behavior: "smooth" })
                 }
-                className="group inline-flex items-center gap-1.5 rounded-full bg-navy px-5 py-3 text-sm font-semibold text-cream transition hover:bg-navy-700"
+                className="group inline-flex items-center gap-1.5 rounded-full bg-navy px-4 py-2.5 text-sm font-semibold text-cream transition hover:bg-navy-700"
               >
                 Show me what's out today
                 <ArrowUpRight className="h-4 w-4 transition group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
               </button>
               <a
                 href="/vendor"
-                className="inline-flex items-center gap-1.5 rounded-full border-2 border-navy bg-paper px-5 py-3 text-sm font-semibold text-navy transition hover:bg-navy hover:text-cream"
+                className="inline-flex items-center gap-1.5 rounded-full border-2 border-navy bg-paper px-4 py-2.5 text-sm font-semibold text-navy transition hover:bg-navy hover:text-cream"
               >
                 <Store className="h-4 w-4" />
                 I'm a vendor
+              </a>
+            </div>
+
               </a>
             </div>
 
