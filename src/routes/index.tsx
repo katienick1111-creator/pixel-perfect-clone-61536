@@ -121,13 +121,14 @@ function AppHome() {
         {/* paper texture blobs */}
         <span className="pointer-events-none absolute -left-16 top-10 h-64 w-64 rounded-full bg-gold/15 blur-3xl" />
         <span className="pointer-events-none absolute -right-10 bottom-0 h-56 w-56 rounded-full bg-teal/15 blur-3xl" />
-
-        <div className="relative grid gap-10 lg:grid-cols-[1.1fr_1fr] lg:items-center">
+        <div className="relative grid gap-6 lg:grid-cols-[1.1fr_1fr] lg:items-center lg:gap-10">
           {/* Headline column */}
           <div className="relative">
-            <p className="font-script text-3xl md:text-4xl leading-none text-teal -rotate-2 origin-left">
+            <p className="font-script text-2xl md:text-3xl leading-none text-teal -rotate-2 origin-left">
               Hey Trovers —
             </p>
+            <h1 className="mt-2 font-script text-[clamp(2.5rem,7.5vw,5rem)] leading-[0.85] text-navy">
+
             <h1 className="mt-3 font-script text-[clamp(3.5rem,9vw,7rem)] leading-[0.85] text-navy">
               Let's Go
               <br />
