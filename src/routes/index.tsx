@@ -108,7 +108,6 @@ function AppHome() {
       );
     });
   }, [activeCategory, query, allVendors]);
-  }, [activeCategory, query]);
 
   return (
     <AppShell>
