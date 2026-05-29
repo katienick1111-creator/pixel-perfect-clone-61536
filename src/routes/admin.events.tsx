@@ -236,6 +236,19 @@ function LineupModal({ eventId, eventName, onClose }: { eventId: string; eventNa
 }
 
 const ic = "w-full rounded-lg border border-line bg-cream px-3 py-2 text-sm outline-none focus:border-teal";
+
+function StatusPill({ status }: { status: string }) {
+  const map: Record<string, string> = {
+    pending: "bg-gold/30 text-navy",
+    approved: "bg-success/20 text-success",
+    rejected: "bg-danger/15 text-danger",
+  };
+  return (
+    <span className={`shrink-0 rounded-full px-2 py-0.5 text-[10px] font-bold uppercase tracking-widest ${map[status] ?? "bg-cream-deep text-ink-soft"}`}>
+      {status}
+    </span>
+  );
+}
 function L({ label, children }: { label: string; children: React.ReactNode }) {
   return <label className="block"><span className="block text-xs uppercase tracking-wider text-ink-mute mb-1">{label}</span>{children}</label>;
 }
