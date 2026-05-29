@@ -2,7 +2,7 @@ import { createFileRoute, Link, Outlet, useNavigate, useRouterState } from "@tan
 import { useQuery } from "@tanstack/react-query";
 import { useEffect } from "react";
 import { useServerFn } from "@tanstack/react-start";
-import { LayoutDashboard, Store, CalendarDays, Users, LogOut } from "lucide-react";
+import { LayoutDashboard, Store, CalendarDays, Users, LogOut, Home } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
 import { supabase } from "@/integrations/supabase/client";
 import { getMyRoles } from "@/lib/admin.functions";
@@ -69,13 +69,19 @@ function AdminLayout() {
       <header className="sticky top-0 z-20 border-b border-line bg-navy text-cream">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-3">
           <Link to="/" className="font-script text-2xl text-gold-200">Trovin' admin</Link>
-          <div className="flex items-center gap-3 text-sm">
+          <div className="flex items-center gap-2 text-sm">
+            <Link
+              to="/"
+              className="inline-flex items-center gap-1.5 rounded-full bg-gold px-3 py-1.5 text-navy font-semibold hover:bg-gold-400"
+            >
+              <Home className="h-4 w-4" /> <span className="hidden sm:inline">Home</span>
+            </Link>
             <span className="text-cream/70 hidden md:inline">{user.email}</span>
             <button
               onClick={() => supabase.auth.signOut().then(() => navigate({ to: "/login" }))}
               className="inline-flex items-center gap-1.5 rounded-full border border-cream/20 px-3 py-1.5 hover:border-gold"
             >
-              <LogOut className="h-4 w-4" /> Sign out
+              <LogOut className="h-4 w-4" /> <span className="hidden sm:inline">Sign out</span>
             </button>
           </div>
         </div>
