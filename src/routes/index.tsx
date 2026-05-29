@@ -434,7 +434,8 @@ function AppHome() {
                 return (
                   <Link
                     key={v.id}
-                    to="/vendor"
+                    to="/booth/$id"
+                    params={{ id: v.id }}
                     className="group flex flex-col items-center gap-2 text-center"
                   >
                     <div className="aspect-square w-full overflow-hidden rounded-full border-4 border-paper bg-navy shadow-brand-md">
