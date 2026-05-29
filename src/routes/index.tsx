@@ -145,10 +145,6 @@ function AppHome() {
                 </svg>
               </span>
               {/* circular sticker filling the right gap */}
-              <span className="absolute -right-2 -top-4 inline-flex h-28 w-28 rotate-[10deg] items-center justify-center rounded-full border-2 border-dashed border-teal bg-cream p-3 text-center shadow-brand-md sm:right-0 sm:top-2 sm:h-36 sm:w-36 md:h-40 md:w-40">
-                <span className="absolute inset-1.5 rounded-full border border-teal/40" />
-                <span className="relative flex flex-col items-center leading-none">
-              {/* circular sticker filling the right gap */}
               <span className="absolute -right-3 -top-6 inline-flex h-36 w-36 rotate-[10deg] items-center justify-center rounded-full border-[3px] border-dashed border-gold bg-navy p-4 text-center shadow-brand-lg sm:right-0 sm:top-0 sm:h-44 sm:w-44 md:h-52 md:w-52">
                 <span className="absolute inset-2 rounded-full border border-gold/50" />
                 <span className="relative flex flex-col items-center leading-none">
@@ -163,8 +159,12 @@ function AppHome() {
                   </span>
                 </span>
               </span>
+            </h1>
 
+            <p className="mt-6 max-w-md font-script text-2xl leading-tight text-navy md:text-[1.7rem]">
+              Ever find a great vendor and never know where to find them again?
             </p>
+
             <p className="mt-3 max-w-md font-display text-base leading-snug text-ink-soft md:text-lg">
               Follow your favorites. Discover new ones. Know who's there before
               you get there.
