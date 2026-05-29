@@ -161,3 +161,56 @@ export const listShoppers = createServerFn({ method: "GET" })
       })),
     };
   });
+
+// --- Event lineup (event_vendors) ---
+
+export const listEventLineup = createServerFn({ method: "GET" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((d: unknown) => z.object({ event_id: z.string().uuid() }).parse(d))
+  .handler(async ({ context, data }) => {
+    await assertAdmin(context.userId);
+    const [{ data: lineup, error: e1 }, { data: vendors, error: e2 }] = await Promise.all([
+      supabaseAdmin.from("event_vendors").select("*").eq("event_id", data.event_id),
+      supabaseAdmin.from("vendors").select("id, name, category, image_url, status").eq("status", "approved").order("name"),
+    ]);
+    if (e1) throw new Error(e1.message);
+    if (e2) throw new Error(e2.message);
+    return { lineup: lineup ?? [], vendors: vendors ?? [] };
+  });
+
+const lineupInput = z.object({
+  event_id: z.string().uuid(),
+  vendor_id: z.string().uuid(),
+  open_today: z.boolean().default(true),
+  hours: z.string().max(60).nullable().optional(),
+  booth: z.string().max(40).nullable().optional(),
+});
+
+export const upsertEventVendor = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((d: unknown) => lineupInput.parse(d))
+  .handler(async ({ context, data }) => {
+    await assertAdmin(context.userId);
+    const { error } = await supabaseAdmin
+      .from("event_vendors")
+      .upsert(data, { onConflict: "event_id,vendor_id" });
+    if (error) throw new Error(error.message);
+    return { ok: true };
+  });
+
+export const removeEventVendor = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((d: unknown) =>
+    z.object({ event_id: z.string().uuid(), vendor_id: z.string().uuid() }).parse(d),
+  )
+  .handler(async ({ context, data }) => {
+    await assertAdmin(context.userId);
+    const { error } = await supabaseAdmin
+      .from("event_vendors")
+      .delete()
+      .eq("event_id", data.event_id)
+      .eq("vendor_id", data.vendor_id);
+    if (error) throw new Error(error.message);
+    return { ok: true };
+  });
+
