@@ -359,72 +359,152 @@ function AppHome() {
       </section>
 
       {/* === VENDORS GRID === */}
-      <section id="vendors" className="mt-10 scroll-mt-24">
-        <div className="mb-4 flex items-end justify-between">
-          <div>
-            <p className="font-script text-2xl leading-none text-teal">
-              out today —
-            </p>
-            <h3 className="mt-1 font-display text-3xl">The lineup</h3>
-            <p className="mt-1 text-sm text-ink-soft">
-              {filtered.length} of {allVendors.length} • near Chicago, IL
-            </p>
+      {/* === THE ROSTER === */}
+      <section id="vendors" className="mt-12 scroll-mt-24">
+        <header className="relative mb-8">
+          <p className="-rotate-2 font-script text-2xl leading-none text-teal">
+            Live on the ground —
+          </p>
+          <h3 className="mt-1 font-display text-4xl leading-tight text-navy">
+            The Roster
+          </h3>
+          <div className="mt-2 flex items-center gap-2">
+            <span className="inline-flex h-2 w-2 animate-pulse rounded-full bg-coral" />
+            <span className="text-[10px] font-medium uppercase tracking-[0.18em] text-ink-soft">
+              Trading in Chicago today · {filtered.length} of {allVendors.length}
+            </span>
           </div>
-          <button className="hidden items-center gap-1 text-sm font-medium text-teal hover:text-navy md:inline-flex">
-            See all <ChevronRight className="h-4 w-4" />
-          </button>
-        </div>
+        </header>
 
-        {/* hand-drawn banner */}
-        <div className="relative z-20 mx-auto mb-4 flex w-fit -rotate-2 items-center gap-2 rounded-sm bg-navy px-4 py-1.5 text-cream shadow-brand-md">
-          <span className="inline-flex h-2 w-2 animate-pulse rounded-full bg-success" />
-          <span className="font-display text-[10px] font-black uppercase tracking-[0.18em]">
-            Open right now
-          </span>
-        </div>
+        {filtered.length === 0 ? (
+          <div className="rounded-xl border border-dashed border-line bg-paper p-10 text-center text-sm text-ink-soft">
+            No vendors match those filters. Try widening your search.
+          </div>
+        ) : (
+          <div className="grid grid-cols-2 items-start gap-4 sm:gap-6">
+            {filtered.map((v, i) => {
+              // 5-slot rhythm: tall, square-staggered, full-width row, circle, tall-offset
+              const slot = i % 5;
+              const catColors = [
+                "bg-gold text-navy",
+                "bg-coral text-cream",
+                "bg-navy text-cream",
+              ];
+              const catCls = catColors[i % catColors.length];
 
-        <div className="grid grid-cols-2 gap-4 sm:gap-6 md:grid-cols-3 xl:grid-cols-4">
-          {filtered.map((v, i) => {
-            const tapes = ["bg-gold-200/80", "bg-teal-200/80", "bg-coral-200/80"];
-            const rot = [-4, 3, -2, 5, -3, 4];
-            const r = rot[i % rot.length];
-            const tape = tapes[i % tapes.length];
-            return (
-              <Link
-                key={v.id}
-                to="/vendor"
-                style={{ transform: `rotate(${r}deg)` }}
-                className="group relative block rounded-sm bg-paper p-2 pb-3 shadow-brand-lg ring-1 ring-line transition duration-300 hover:!rotate-0 hover:-translate-y-2"
-              >
-                <span
-                  className={`absolute -top-2 left-1/2 h-4 w-12 -translate-x-1/2 -rotate-6 rounded-[2px] ${tape} shadow-brand-sm`}
-                />
-                <div className="relative aspect-square overflow-hidden rounded-sm bg-navy">
-                  <img
-                    src={v.image}
-                    alt={v.name}
-                    className="absolute inset-0 h-full w-full object-cover transition duration-500 group-hover:scale-105"
-                  />
-                  <span className="absolute left-2 top-2 rounded-sm bg-cream/95 px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wider text-navy">
-                    {v.category}
-                  </span>
-                  {v.scribble && (
-                    <span className="absolute -right-1 bottom-2 -rotate-6 rounded-sm bg-gold px-2 py-0.5 font-script text-sm leading-none text-navy shadow-brand-sm">
-                      {v.scribble}
+              if (slot === 2) {
+                // Full-width horizontal row
+                return (
+                  <Link
+                    key={v.id}
+                    to="/vendor"
+                    className="group col-span-2 flex items-center gap-4 rounded-3xl border border-line bg-paper/60 p-3 transition hover:-translate-y-0.5 hover:bg-paper hover:shadow-brand-md"
+                  >
+                    <div className="h-24 w-24 shrink-0 overflow-hidden rounded-2xl bg-navy">
+                      <img
+                        src={v.image}
+                        alt={v.name}
+                        className="h-full w-full object-cover transition duration-500 group-hover:scale-110"
+                      />
+                    </div>
+                    <div className="min-w-0 flex-1">
+                      <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-teal">
+                        {v.category}
+                      </p>
+                      <h4 className="mt-0.5 truncate font-display text-xl leading-tight text-navy">
+                        {v.name}
+                      </h4>
+                      <p className="truncate text-xs text-ink-soft">
+                        {v.event}
+                      </p>
+                      {v.scribble && (
+                        <p className="mt-1 font-script text-base leading-none text-coral">
+                          {v.scribble}
+                        </p>
+                      )}
+                    </div>
+                  </Link>
+                );
+              }
+
+              if (slot === 3) {
+                // Circular mask
+                return (
+                  <Link
+                    key={v.id}
+                    to="/vendor"
+                    className="group flex flex-col items-center gap-2 text-center"
+                  >
+                    <div className="aspect-square w-full overflow-hidden rounded-full border-4 border-paper bg-navy shadow-brand-md">
+                      <img
+                        src={v.image}
+                        alt={v.name}
+                        className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
+                      />
+                    </div>
+                    <div className="px-1">
+                      <h4 className="font-display text-base leading-tight text-navy">
+                        {v.name}
+                      </h4>
+                      <p className="text-[10px] uppercase tracking-wider text-ink-mute">
+                        {v.event}
+                      </p>
+                    </div>
+                  </Link>
+                );
+              }
+
+              // slot 0, 1, 4 — varied tall/square cards
+              const isTall = slot === 0 || slot === 4;
+              const aspect = isTall ? "aspect-[3/4]" : "aspect-square";
+              const radius =
+                slot === 0
+                  ? "rounded-t-[40px] rounded-b-xl"
+                  : slot === 4
+                    ? "rounded-xl"
+                    : "rounded-2xl";
+              const offset = slot === 1 ? "mt-8" : slot === 4 ? "-mt-4" : "";
+
+              return (
+                <Link
+                  key={v.id}
+                  to="/vendor"
+                  className={`group flex flex-col gap-2 ${offset}`}
+                >
+                  <div
+                    className={`relative ${aspect} ${radius} overflow-hidden border border-line bg-navy shadow-brand-sm`}
+                  >
+                    <img
+                      src={v.image}
+                      alt={v.name}
+                      className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
+                    />
+                    <span
+                      className={`absolute left-3 top-3 rounded px-2 py-0.5 text-[10px] font-bold uppercase tracking-tighter ${catCls}`}
+                    >
+                      {v.category}
                     </span>
-                  )}
-                </div>
-              </Link>
-            );
-          })}
-          {filtered.length === 0 && (
-            <div className="col-span-full rounded-xl border border-dashed border-line bg-paper p-10 text-center text-sm text-ink-soft">
-              No vendors match those filters. Try widening your search.
-            </div>
-          )}
-        </div>
-
+                  </div>
+                  <div className="px-1">
+                    <h4 className="font-display text-lg leading-tight text-navy">
+                      {v.name}
+                    </h4>
+                    <p className="mt-0.5 text-xs italic text-ink-soft">
+                      {v.event}
+                    </p>
+                    {v.scribble && (
+                      <p className="mt-1 font-script text-sm leading-none text-teal">
+                        {v.scribble}
+                      </p>
+                    )}
+                  </div>
+                </Link>
+              );
+            })}
+          </div>
+        )}
       </section>
+
 
       {/* === WHERE THEY'RE AT — events as ticket stubs === */}
       <section className="mt-14">
