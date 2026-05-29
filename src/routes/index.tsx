@@ -149,27 +149,19 @@ function AppHome() {
                 </svg>
               </span>
               {/* circular sticker filling the right gap */}
-              <span className="absolute right-0 top-2 hidden h-28 w-28 rotate-12 items-center justify-center rounded-full border-2 border-dashed border-teal bg-cream text-center shadow-brand-md sm:inline-flex md:h-32 md:w-32">
+              <span className="absolute -right-2 -top-4 inline-flex h-24 w-24 rotate-[10deg] items-center justify-center rounded-full border-2 border-dashed border-teal bg-cream text-center shadow-brand-md sm:right-0 sm:top-2 sm:h-32 sm:w-32 md:h-36 md:w-36">
                 <span className="absolute inset-1.5 rounded-full border border-teal/40" />
                 <span className="relative flex flex-col items-center leading-none">
-                  <span className="font-script text-2xl text-teal md:text-3xl">est.</span>
-                  <span className="font-display text-3xl font-black text-navy md:text-4xl">2026</span>
-                  <span className="mt-1 font-display text-[8px] font-bold uppercase tracking-[0.2em] text-ink-soft">
-                    Chicago · IL
+                  <span className="font-script text-base text-teal sm:text-xl md:text-2xl">spend a</span>
+                  <span className="font-display text-xl font-black text-navy sm:text-2xl md:text-[28px]">DAY</span>
+                  <span className="mx-1 my-1 h-px w-8 bg-navy/30 sm:w-10" />
+                  <span className="font-script text-sm leading-none text-ink-soft sm:text-base">not a</span>
+                  <span className="font-display text-base font-black uppercase tracking-wider text-gold sm:text-lg md:text-xl">
+                    fortune
                   </span>
                 </span>
               </span>
             </h1>
-
-            <div className="mt-5 inline-flex -rotate-2 items-stretch overflow-hidden rounded-sm border-2 border-dashed border-navy/40 bg-paper font-display shadow-brand-sm">
-              <span className="flex items-center bg-navy px-2.5 py-1.5 text-[10px] font-black uppercase tracking-[0.2em] text-cream">
-                Promise
-              </span>
-              <span className="flex items-center px-3 py-1.5 text-sm font-bold uppercase tracking-wider text-navy">
-                Spend a day · <span className="ml-1 text-gold">not a fortune</span>
-              </span>
-            </div>
-
 
 
 
