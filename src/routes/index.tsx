@@ -149,13 +149,15 @@ function AppHome() {
                 </svg>
               </span>
             </h1>
-            <div className="mt-5 flex items-center gap-3">
-              <span className="h-px w-10 bg-navy/30" />
-              <p className="font-script text-2xl leading-none text-gold -rotate-2">
-                spend a day,
-                <span className="text-navy"> not a fortune.</span>
-              </p>
+            <div className="mt-5 inline-flex -rotate-2 items-stretch overflow-hidden rounded-sm border-2 border-dashed border-navy/40 bg-paper font-display shadow-brand-sm">
+              <span className="flex items-center bg-navy px-2.5 py-1.5 text-[10px] font-black uppercase tracking-[0.2em] text-cream">
+                Promise
+              </span>
+              <span className="flex items-center px-3 py-1.5 text-sm font-bold uppercase tracking-wider text-navy">
+                Spend a day · <span className="ml-1 text-gold">not a fortune</span>
+              </span>
             </div>
+
 
 
 
