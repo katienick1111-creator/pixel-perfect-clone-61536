@@ -224,32 +224,35 @@ function AppHome() {
 
 
 
-              {/* kraft paper price-tag badge */}
-              <span className="absolute right-2 top-[22%] rotate-[-7deg] sm:right-6 sm:top-[28%] md:right-10">
-
-                  {/* twine string */}
-                  {/* tag body — cream kraft rectangle with teal border */}
-                  <span
-                    className="relative flex flex-col items-center rounded-sm border-2 border-teal bg-cream px-3 py-2 text-navy shadow-brand-md sm:px-4 sm:py-2.5"
-                    style={{
-                      backgroundImage:
-                        "repeating-linear-gradient(135deg, transparent 0 6px, rgba(15,22,46,0.04) 6px 7px)",
-                    }}
-                  >
-                    {/* hole */}
-                    <span className="absolute left-1.5 top-1.5 h-1.5 w-1.5 rounded-full bg-navy" />
-                    <span className="font-script text-lg leading-none text-teal sm:text-xl">spend a day</span>
-                    <span className="mt-0.5 flex items-center gap-1 font-display text-[8px] font-black uppercase tracking-[0.22em] text-navy/70 sm:text-[9px]">
-                      <span className="h-px w-2 bg-gold" />
-                      not a fortune
-                      <span className="h-px w-2 bg-gold" />
-                    </span>
-                  </span>
-
-                  <span className="absolute -right-3 -top-2 font-script text-xl text-gold rotate-[12deg]">✦</span>
-                </span>
             </h1>
 
+            {/* kraft paper price-tag badge */}
+            <div
+              className="relative block"
+              style={{
+                margin: "16px auto",
+                maxWidth: "320px",
+                textAlign: "center",
+                transform: "rotate(-3deg)",
+              }}
+            >
+              <span
+                className="relative inline-flex flex-col items-center rounded-sm border-2 border-teal bg-cream px-4 py-2.5 text-navy shadow-brand-md"
+                style={{
+                  backgroundImage:
+                    "repeating-linear-gradient(135deg, transparent 0 6px, rgba(15,22,46,0.04) 6px 7px)",
+                }}
+              >
+                <span className="absolute left-1.5 top-1.5 h-1.5 w-1.5 rounded-full bg-navy" />
+                <span className="font-script text-xl leading-none text-teal">spend a day</span>
+                <span className="mt-0.5 flex items-center gap-1 font-display text-[9px] font-black uppercase tracking-[0.22em] text-navy/70">
+                  <span className="h-px w-2 bg-gold" />
+                  not a fortune
+                  <span className="h-px w-2 bg-gold" />
+                </span>
+              </span>
+              <span className="absolute -right-3 -top-2 font-script text-xl text-gold rotate-[12deg]">✦</span>
+            </div>
 
             <p className="mt-4 max-w-md font-script text-xl leading-tight text-navy md:text-2xl">
               Ever find a great vendor and never know where to find them again?
