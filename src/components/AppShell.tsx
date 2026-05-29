@@ -203,6 +203,15 @@ function AuthChip() {
 }
 
 function SideNav() {
+  const pathname = useRouterState({ select: (s) => s.location.pathname });
+  return (
+    <aside className="hidden w-56 shrink-0 lg:block">
+      <nav className="sticky top-24 flex flex-col gap-1">
+        {sideItems.map((it) => {
+          const active = pathname === it.to;
+          return (
+            <Link
+              key={it.label}
 
               key={it.label}
               to={it.to}
