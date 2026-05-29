@@ -165,6 +165,14 @@ function AppHome() {
               </span>
             </h1>
 
+            <p className="mt-6 max-w-md font-script text-2xl leading-tight text-navy md:text-[1.7rem]">
+              Ever find a great vendor and never know where to find them again?
+            </p>
+            <p className="mt-3 max-w-md font-display text-base leading-snug text-ink-soft md:text-lg">
+              Follow your favorites. Discover new ones. Know who's there before
+              you get there.
+            </p>
+
 
             {/* vendor stats strip */}
             <div className="mt-6 inline-flex items-center gap-4 rounded-full border border-line bg-paper px-5 py-2.5 shadow-brand-sm">
