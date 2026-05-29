@@ -132,7 +132,8 @@ function AppHome() {
               <span className="relative inline-block">
                 Trovin'<span className="text-gold">!</span>
                 <svg
-                  className="absolute -bottom-2 left-0 h-4 w-full text-gold"
+                  className="absolute -bottom-5 left-0 h-4 w-full text-gold"
+
                   viewBox="0 0 240 14"
                   preserveAspectRatio="none"
                   fill="none"
