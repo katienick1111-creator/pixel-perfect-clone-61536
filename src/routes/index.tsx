@@ -163,8 +163,7 @@ function AppHome() {
                   </span>
                 </span>
               </span>
-
-
+            </h1>
 
 
             {/* vendor stats strip */}
