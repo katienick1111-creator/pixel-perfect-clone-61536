@@ -115,13 +115,16 @@ function AppHome() {
   return (
     <AppShell>
       {/* === HERO COLLAGE === */}
-      <section className="relative -mx-4 overflow-hidden bg-gradient-to-b from-cream-deep via-cream-deep to-cream px-4 pb-10 pt-4 lg:-mx-8 lg:px-8">
+      <section className="relative -mx-4 overflow-hidden bg-gradient-to-b from-cream-deep via-cream-deep to-cream px-4 pb-6 pt-4 lg:-mx-8 lg:px-8">
+
 
 
         {/* paper texture blobs */}
         <span className="pointer-events-none absolute -left-16 top-10 h-64 w-64 rounded-full bg-gold/15 blur-3xl" />
         <span className="pointer-events-none absolute -right-10 bottom-0 h-56 w-56 rounded-full bg-teal/15 blur-3xl" />
-        <div className="relative grid gap-6 lg:grid-cols-[1.1fr_1fr] lg:items-center lg:gap-10">
+
+        <div className="relative grid gap-3 lg:grid-cols-[1.1fr_1fr] lg:items-center lg:gap-10">
+
           {/* Headline column */}
           <div className="relative">
             <p className="font-script text-2xl md:text-3xl leading-none text-teal -rotate-2 origin-left">
@@ -304,17 +307,21 @@ function AppHome() {
 
           </div>
           {/* Polaroid pair */}
-          <div className="relative mx-auto h-[16rem] w-full max-w-xs sm:h-[18rem]">
-
+          <div className="relative -mt-2 mx-auto h-[14rem] w-full max-w-xs sm:h-[16rem] lg:mt-0">
+            {/* fun handwritten label tying buttons to photos */}
+            <span className="absolute -top-3 left-2 z-20 -rotate-3 font-script text-base text-teal lg:hidden">
+              ↓ fresh today
+            </span>
             {featured.map((v, i) => {
-              const rotations = [-7, 5];
+              const rotations = [-8, 6];
               const offsets = [
-                { left: "4%", top: "6%" },
-                { left: "38%", top: "18%" },
+                { left: "6%", top: "4%" },
+                { left: "44%", top: "14%" },
               ];
               const tapes = ["bg-gold-200/80", "bg-teal-200/80"];
               const r = rotations[i] ?? 0;
               const o = offsets[i] ?? { left: "10%", top: "10%" };
+
               return (
                 <div
                   key={v.id}
