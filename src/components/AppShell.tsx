@@ -35,7 +35,7 @@ const mobileItems: { to: LinkProps["to"]; icon: IconType; label: string }[] = [
   { to: "/", icon: House, label: "Home" },
   { to: "/events", icon: CalendarDays, label: "Events" },
   { to: "/map", icon: MapIcon, label: "Map" },
-  { to: "/following", icon: Heart, label: "Saved" },
+  { to: "/vendor", icon: Store, label: "Vendor" },
   { to: "/profile", icon: User, label: "Profile" },
 ];
 
