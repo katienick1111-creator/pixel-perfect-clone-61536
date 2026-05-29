@@ -109,7 +109,6 @@ function AppHome() {
     });
   }, [activeCategory, query, allVendors]);
 
-  return (
   const featured = allVendors.slice(0, 3);
   const openNowNames = allVendors
     .slice(0, 8)
