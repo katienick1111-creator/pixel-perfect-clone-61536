@@ -44,8 +44,99 @@ export function AppShell({ children }: { children: React.ReactNode }) {
         <SideNav />
         <main className="min-w-0 flex-1 pb-28 lg:pb-0">{children}</main>
       </div>
+      <SiteFooter />
       <MobileNav />
     </div>
+  );
+}
+
+function SiteFooter() {
+  const cols: { title: string; links: { to: LinkProps["to"]; label: string }[] }[] = [
+    {
+      title: "Explore",
+      links: [
+        { to: "/", label: "Discover" },
+        { to: "/events", label: "Events" },
+        { to: "/map", label: "Map" },
+        { to: "/following", label: "Following" },
+      ],
+    },
+    {
+      title: "For vendors",
+      links: [
+        { to: "/vendor", label: "Vendor Portal" },
+        { to: "/vendor", label: "List your booth" },
+        { to: "/vendor", label: "Pricing" },
+      ],
+    },
+    {
+      title: "Trovin'",
+      links: [
+        { to: "/profile", label: "Your profile" },
+        { to: "/", label: "About" },
+        { to: "/", label: "Press kit" },
+        { to: "/", label: "Contact" },
+      ],
+    },
+  ];
+
+  return (
+    <footer className="mt-16 hidden border-t border-line bg-navy text-cream lg:block">
+      <div className="mx-auto max-w-7xl px-4 py-14 lg:px-8">
+        <div className="grid gap-10 md:grid-cols-[1.4fr_1fr_1fr_1fr]">
+          <div>
+            <div className="flex items-center gap-3">
+              <img
+                src={trovinBadge}
+                alt="Trovin'"
+                className="h-12 w-12 rounded-full shadow-brand-md"
+              />
+              <p className="font-script text-3xl leading-none text-gold-200">
+                find more. miss less.
+              </p>
+            </div>
+            <p className="mt-4 max-w-sm text-sm text-cream/75">
+              Trovin' is a love letter to the makers, farmers, and food trucks
+              that turn a Saturday morning into the best part of your week.
+            </p>
+            <div className="mt-5 inline-flex items-center gap-2 rounded-full border border-cream/20 bg-navy-700 px-3 py-2 text-xs text-cream/80">
+              <MapPin className="h-3.5 w-3.5 text-gold" />
+              Currently roaming Chicago, IL
+            </div>
+          </div>
+
+          {cols.map((col) => (
+            <div key={col.title}>
+              <p className="font-mono text-[11px] uppercase tracking-widest text-gold-200">
+                {col.title}
+              </p>
+              <ul className="mt-4 space-y-2.5">
+                {col.links.map((l) => (
+                  <li key={l.label}>
+                    <Link
+                      to={l.to}
+                      className="text-sm text-cream/80 transition hover:text-gold"
+                    >
+                      {l.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+
+        <div className="mt-12 flex flex-col gap-3 border-t border-cream/15 pt-6 text-xs text-cream/60 md:flex-row md:items-center md:justify-between">
+          <p>© {new Date().getFullYear()} Trovin'. Made with cream & gold.</p>
+          <div className="flex flex-wrap gap-5">
+            <a href="#" className="hover:text-gold">Privacy</a>
+            <a href="#" className="hover:text-gold">Terms</a>
+            <a href="#" className="hover:text-gold">Cookies</a>
+            <a href="#" className="hover:text-gold">Accessibility</a>
+          </div>
+        </div>
+      </div>
+    </footer>
   );
 }
 
