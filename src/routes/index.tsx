@@ -355,7 +355,7 @@ function AppHome() {
               );
             })}
 
-            })}
+
             {/* arrow scribble */}
             <svg
               className="absolute -left-2 bottom-0 hidden h-20 w-24 text-teal lg:block"
