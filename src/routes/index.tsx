@@ -206,7 +206,7 @@ function AppHome() {
 
 
               {/* kraft paper price-tag badge */}
-              <span className="absolute right-0 -top-10 rotate-[-6deg] sm:-top-8 sm:right-2 md:-top-6 md:right-4">
+              <span className="absolute right-2 top-[42%] rotate-[-7deg] sm:right-6 md:right-10">
                 <span className="relative block">
                   {/* twine string */}
                   <span className="absolute left-1/2 -top-7 h-7 w-px -translate-x-1/2 rotate-[18deg] bg-navy/50" />
