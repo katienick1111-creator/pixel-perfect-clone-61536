@@ -221,4 +221,9 @@ export const paymentLabel: Record<Payment, string> = {
   Card: "Card",
   Cash: "Cash",
   Venmo: "Venmo",
+  CashApp: "Cash App",
+  ApplePay: "Apple Pay",
+  GooglePay: "Google Pay",
+  PayPal: "PayPal",
+  Zelle: "Zelle",
 };
