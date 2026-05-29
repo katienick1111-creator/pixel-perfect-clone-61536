@@ -144,46 +144,14 @@ function AppHome() {
                   />
                 </svg>
               </span>
-              {/* vintage medallion with curved text */}
-              <span className="absolute -right-3 -top-6 inline-flex h-40 w-40 rotate-[-6deg] items-center justify-center sm:right-0 sm:top-0 sm:h-52 sm:w-52 md:h-56 md:w-56">
-                <svg viewBox="0 0 200 200" className="absolute inset-0 h-full w-full drop-shadow-[0_8px_18px_rgba(15,22,46,0.25)]">
-                  <defs>
-                    <path id="topArc" d="M 30,100 A 70,70 0 0 1 170,100" />
-                    <path id="bottomArc" d="M 30,100 A 70,70 0 0 0 170,100" />
-                  </defs>
-                  {/* outer scalloped edge */}
-                  <g>
-                    {Array.from({ length: 24 }).map((_, i) => {
-                      const angle = (i / 24) * Math.PI * 2;
-                      const cx = 100 + Math.cos(angle) * 92;
-                      const cy = 100 + Math.sin(angle) * 92;
-                      return <circle key={i} cx={cx} cy={cy} r="6" className="fill-gold" />;
-                    })}
-                  </g>
-                  <circle cx="100" cy="100" r="86" className="fill-cream" />
-                  <circle cx="100" cy="100" r="78" className="fill-none stroke-navy" strokeWidth="1.5" strokeDasharray="2 3" />
-                  {/* curved text top */}
-                  <text className="fill-navy font-display" fontSize="13" fontWeight="900" letterSpacing="3">
-                    <textPath href="#topArc" startOffset="50%" textAnchor="middle">
-                      ★ SPEND A DAY ★
-                    </textPath>
-                  </text>
-                  {/* curved text bottom */}
-                  <text className="fill-navy font-display" fontSize="11" fontWeight="700" letterSpacing="2">
-                    <textPath href="#bottomArc" startOffset="50%" textAnchor="middle">
-                      NOT A FORTUNE
-                    </textPath>
-                  </text>
-                </svg>
-                {/* center mark */}
-                <span className="relative flex flex-col items-center leading-none">
-                  <span className="font-script text-3xl text-gold sm:text-4xl md:text-5xl">trov</span>
-                  <span className="-mt-1 font-script text-3xl text-navy sm:text-4xl md:text-5xl">it</span>
-                  <span className="mt-1 font-display text-[8px] font-black uppercase tracking-[0.2em] text-ink-soft">
-                    est · 2026
-                  </span>
+              {/* simple sticker badge */}
+              <span className="absolute -right-2 -top-4 inline-flex rotate-[-8deg] flex-col items-center rounded-full border-2 border-navy bg-gold px-5 py-3 shadow-brand-sm sm:right-0 sm:top-0 sm:px-6 sm:py-4">
+                <span className="font-script text-xl leading-none text-navy sm:text-2xl">spend a day</span>
+                <span className="mt-1 font-display text-[10px] font-black uppercase tracking-[0.2em] text-navy/70 sm:text-xs">
+                  not a fortune
                 </span>
               </span>
+
 
             </h1>
 
