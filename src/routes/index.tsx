@@ -155,47 +155,48 @@ function AppHome() {
             </p>
 
             {/* vendor stats strip */}
-            <div className="mt-6 inline-flex flex-wrap items-center gap-x-5 gap-y-2 rounded-full border border-line bg-paper px-5 py-3 shadow-brand-sm">
-              <span className="flex items-center gap-2">
-                <span className="inline-flex h-2.5 w-2.5 animate-pulse rounded-full bg-success" />
-                <span className="font-display text-2xl leading-none text-navy">
+            <div className="mt-6 inline-flex items-center gap-4 rounded-full border border-line bg-paper px-5 py-2.5 shadow-brand-sm">
+              <span className="flex items-baseline gap-1.5">
+                <span className="inline-flex h-2 w-2 translate-y-[-2px] animate-pulse rounded-full bg-success" />
+                <span className="font-display text-lg font-semibold leading-none text-navy">
                   218
                 </span>
-                <span className="text-xs uppercase tracking-wider text-ink-soft">
+                <span className="text-[10px] uppercase tracking-[0.14em] text-ink-soft">
                   vendors live
                 </span>
               </span>
-              <span className="h-5 w-px bg-line" />
-              <span className="flex items-center gap-2">
-                <span className="font-display text-2xl leading-none text-navy">
+              <span className="h-4 w-px bg-line" />
+              <span className="flex items-baseline gap-1.5">
+                <span className="font-display text-lg font-semibold leading-none text-navy">
                   11
                 </span>
-                <span className="text-xs uppercase tracking-wider text-ink-soft">
+                <span className="text-[10px] uppercase tracking-[0.14em] text-ink-soft">
                   markets today
                 </span>
               </span>
             </div>
 
-            <div className="mt-6 flex flex-wrap gap-2.5">
+            <div className="mt-6 flex flex-wrap items-stretch gap-2.5">
               <button
                 onClick={() =>
                   document
                     .getElementById("vendors")
                     ?.scrollIntoView({ behavior: "smooth" })
                 }
-                className="group inline-flex items-center gap-1.5 rounded-full bg-navy px-6 py-3 text-sm font-semibold text-cream transition hover:bg-navy-700"
+                className="group inline-flex items-center gap-1.5 rounded-full bg-navy px-5 py-3 text-sm font-semibold text-cream transition hover:bg-navy-700"
               >
                 Show me what's out today
                 <ArrowUpRight className="h-4 w-4 transition group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
               </button>
               <a
                 href="/vendor"
-                className="inline-flex items-center gap-1.5 rounded-full border border-navy/20 bg-paper px-6 py-3 text-sm font-semibold text-navy transition hover:border-navy"
+                className="inline-flex items-center gap-1.5 rounded-full border-2 border-navy bg-paper px-5 py-3 text-sm font-semibold text-navy transition hover:bg-navy hover:text-cream"
               >
                 <Store className="h-4 w-4" />
                 I'm a vendor
               </a>
             </div>
+
           </div>
 
           {/* Polaroid fan */}
