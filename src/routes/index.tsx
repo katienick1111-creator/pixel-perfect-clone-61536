@@ -224,21 +224,22 @@ function AppHome() {
               <span className="absolute right-2 top-[22%] rotate-[-7deg] sm:right-6 sm:top-[28%] md:right-10">
 
                   {/* twine string */}
-                  <span className="absolute left-1/2 -top-7 h-7 w-px -translate-x-1/2 rotate-[18deg] bg-navy/50" />
                   {/* tag body — cream kraft rectangle with teal border */}
                   <span
-                    className="relative flex flex-col items-center rounded-sm border-2 border-teal bg-cream px-5 py-3 text-navy shadow-brand-md sm:px-6 sm:py-4"
+                    className="relative flex flex-col items-center rounded-sm border-2 border-teal bg-cream px-3 py-2 text-navy shadow-brand-md sm:px-4 sm:py-2.5"
                     style={{
                       backgroundImage:
                         "repeating-linear-gradient(135deg, transparent 0 6px, rgba(15,22,46,0.04) 6px 7px)",
                     }}
                   >
                     {/* hole */}
-                    <span className="absolute left-2 top-2 h-2 w-2 rounded-full bg-navy" />
-                    <span className="font-script text-2xl leading-none text-teal sm:text-3xl">spend a day</span>
-                    <span className="mt-1 flex items-center gap-1 font-display text-[9px] font-black uppercase tracking-[0.22em] text-navy/70 sm:text-[11px]">
-                      <span className="h-px w-3 bg-gold" />
+                    <span className="absolute left-1.5 top-1.5 h-1.5 w-1.5 rounded-full bg-navy" />
+                    <span className="font-script text-lg leading-none text-teal sm:text-xl">spend a day</span>
+                    <span className="mt-0.5 flex items-center gap-1 font-display text-[8px] font-black uppercase tracking-[0.22em] text-navy/70 sm:text-[9px]">
+                      <span className="h-px w-2 bg-gold" />
                       not a fortune
+                      <span className="h-px w-2 bg-gold" />
+
                       <span className="h-px w-3 bg-gold" />
                     </span>
                   </span>
