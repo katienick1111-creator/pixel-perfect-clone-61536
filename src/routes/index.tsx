@@ -303,7 +303,7 @@ function AppHome() {
                 I'm a vendor
               </a>
             </div>
-
+          </div>
 
 
           {/* Polaroid pair — open right now */}
