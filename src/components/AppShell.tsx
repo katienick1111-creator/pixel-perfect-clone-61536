@@ -185,7 +185,25 @@ function SideNav() {
         {sideItems.map((it) => {
           const active = pathname === it.to;
           return (
-            <Link
+function AuthChip() {
+  const { user, loading } = useAuth();
+  if (loading) return null;
+  if (!user) {
+    return (
+      <Link to="/login" className="rounded-full bg-gold px-4 py-2 text-sm font-semibold text-navy hover:bg-gold-400">
+        Sign in
+      </Link>
+    );
+  }
+  return (
+    <Link to="/admin" className="inline-flex items-center gap-1.5 rounded-full bg-gold px-3 py-2 text-sm font-semibold text-navy hover:bg-gold-400">
+      <Shield className="h-4 w-4" /> Admin
+    </Link>
+  );
+}
+
+function SideNav() {
+
               key={it.label}
               to={it.to}
               className={`flex items-center justify-between gap-2 rounded-lg px-3 py-2.5 text-sm font-medium transition ${
