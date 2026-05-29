@@ -113,7 +113,7 @@ const vendors: Vendor[] = [
   {
     id: "v3",
     name: "Paper Crane Press",
-    tagline: "Letterpress prints, zines, handbound books.",
+    tagline: "Leather journals, hand-thrown mugs, brass tools.",
     category: "Craft",
     event: "Pilsen Maker Market",
     booth: "Aisle B • 14",
@@ -121,6 +121,7 @@ const vendors: Vendor[] = [
     payments: ["Card", "Cash"],
     followers: 612,
     image: imgCraft,
+    scribble: "so good",
     tilt: -0.8,
   },
   {
