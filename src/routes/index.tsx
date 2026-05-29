@@ -398,7 +398,8 @@ function AppHome() {
                 return (
                   <Link
                     key={v.id}
-                    to="/vendor"
+                    to="/booth/$id"
+                    params={{ id: v.id }}
                     className="group col-span-2 flex items-center gap-4 rounded-3xl border border-line bg-paper/60 p-3 transition hover:-translate-y-0.5 hover:bg-paper hover:shadow-brand-md"
                   >
                     <div className="h-24 w-24 shrink-0 overflow-hidden rounded-2xl bg-navy">
@@ -433,7 +434,8 @@ function AppHome() {
                 return (
                   <Link
                     key={v.id}
-                    to="/vendor"
+                    to="/booth/$id"
+                    params={{ id: v.id }}
                     className="group flex flex-col items-center gap-2 text-center"
                   >
                     <div className="aspect-square w-full overflow-hidden rounded-full border-4 border-paper bg-navy shadow-brand-md">
@@ -469,7 +471,8 @@ function AppHome() {
               return (
                 <Link
                   key={v.id}
-                  to="/vendor"
+                  to="/booth/$id"
+                  params={{ id: v.id }}
                   className={`group flex flex-col gap-2 ${offset}`}
                 >
                   <div
