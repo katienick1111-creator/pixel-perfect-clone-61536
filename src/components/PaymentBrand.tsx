@@ -1,15 +1,7 @@
 import type { Payment } from "@/data/trovin";
+import { paymentLabel } from "@/data/trovin";
 
-export const paymentLabel: Record<Payment, string> = {
-  Card: "Card",
-  Cash: "Cash",
-  Venmo: "Venmo",
-  CashApp: "Cash App",
-  ApplePay: "Apple Pay",
-  GooglePay: "Google Pay",
-  PayPal: "PayPal",
-  Zelle: "Zelle",
-};
+export { paymentLabel };
 
 const brandBg: Record<Payment, string> = {
   Card: "#1f2937",
