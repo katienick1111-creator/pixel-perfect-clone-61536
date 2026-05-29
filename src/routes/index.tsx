@@ -238,7 +238,8 @@ function AppHome() {
 
                   <span className="absolute -right-3 -top-2 font-script text-xl text-gold rotate-[12deg]">✦</span>
                 </span>
-              </span>
+
+
 
 
 
