@@ -19,6 +19,7 @@ import { Route as EventsRouteImport } from './routes/events'
 import { Route as AdminRouteImport } from './routes/admin'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AdminIndexRouteImport } from './routes/admin.index'
+import { Route as VendorPreviewRouteImport } from './routes/vendor.preview'
 import { Route as VVendorIdRouteImport } from './routes/v.$vendorId'
 import { Route as AdminVendorsRouteImport } from './routes/admin.vendors'
 import { Route as AdminShoppersRouteImport } from './routes/admin.shoppers'
@@ -74,6 +75,11 @@ const AdminIndexRoute = AdminIndexRouteImport.update({
   path: '/',
   getParentRoute: () => AdminRoute,
 } as any)
+const VendorPreviewRoute = VendorPreviewRouteImport.update({
+  id: '/preview',
+  path: '/preview',
+  getParentRoute: () => VendorRoute,
+} as any)
 const VVendorIdRoute = VVendorIdRouteImport.update({
   id: '/v/$vendorId',
   path: '/v/$vendorId',
@@ -103,12 +109,13 @@ export interface FileRoutesByFullPath {
   '/login': typeof LoginRoute
   '/map': typeof MapRoute
   '/profile': typeof ProfileRoute
-  '/vendor': typeof VendorRoute
+  '/vendor': typeof VendorRouteWithChildren
   '/welcome': typeof WelcomeRoute
   '/admin/events': typeof AdminEventsRoute
   '/admin/shoppers': typeof AdminShoppersRoute
   '/admin/vendors': typeof AdminVendorsRoute
   '/v/$vendorId': typeof VVendorIdRoute
+  '/vendor/preview': typeof VendorPreviewRoute
   '/admin/': typeof AdminIndexRoute
 }
 export interface FileRoutesByTo {
@@ -118,12 +125,13 @@ export interface FileRoutesByTo {
   '/login': typeof LoginRoute
   '/map': typeof MapRoute
   '/profile': typeof ProfileRoute
-  '/vendor': typeof VendorRoute
+  '/vendor': typeof VendorRouteWithChildren
   '/welcome': typeof WelcomeRoute
   '/admin/events': typeof AdminEventsRoute
   '/admin/shoppers': typeof AdminShoppersRoute
   '/admin/vendors': typeof AdminVendorsRoute
   '/v/$vendorId': typeof VVendorIdRoute
+  '/vendor/preview': typeof VendorPreviewRoute
   '/admin': typeof AdminIndexRoute
 }
 export interface FileRoutesById {
@@ -135,12 +143,13 @@ export interface FileRoutesById {
   '/login': typeof LoginRoute
   '/map': typeof MapRoute
   '/profile': typeof ProfileRoute
-  '/vendor': typeof VendorRoute
+  '/vendor': typeof VendorRouteWithChildren
   '/welcome': typeof WelcomeRoute
   '/admin/events': typeof AdminEventsRoute
   '/admin/shoppers': typeof AdminShoppersRoute
   '/admin/vendors': typeof AdminVendorsRoute
   '/v/$vendorId': typeof VVendorIdRoute
+  '/vendor/preview': typeof VendorPreviewRoute
   '/admin/': typeof AdminIndexRoute
 }
 export interface FileRouteTypes {
@@ -159,6 +168,7 @@ export interface FileRouteTypes {
     | '/admin/shoppers'
     | '/admin/vendors'
     | '/v/$vendorId'
+    | '/vendor/preview'
     | '/admin/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -174,6 +184,7 @@ export interface FileRouteTypes {
     | '/admin/shoppers'
     | '/admin/vendors'
     | '/v/$vendorId'
+    | '/vendor/preview'
     | '/admin'
   id:
     | '__root__'
@@ -190,6 +201,7 @@ export interface FileRouteTypes {
     | '/admin/shoppers'
     | '/admin/vendors'
     | '/v/$vendorId'
+    | '/vendor/preview'
     | '/admin/'
   fileRoutesById: FileRoutesById
 }
@@ -201,7 +213,7 @@ export interface RootRouteChildren {
   LoginRoute: typeof LoginRoute
   MapRoute: typeof MapRoute
   ProfileRoute: typeof ProfileRoute
-  VendorRoute: typeof VendorRoute
+  VendorRoute: typeof VendorRouteWithChildren
   WelcomeRoute: typeof WelcomeRoute
   VVendorIdRoute: typeof VVendorIdRoute
 }
@@ -278,6 +290,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminIndexRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/vendor/preview': {
+      id: '/vendor/preview'
+      path: '/preview'
+      fullPath: '/vendor/preview'
+      preLoaderRoute: typeof VendorPreviewRouteImport
+      parentRoute: typeof VendorRoute
+    }
     '/v/$vendorId': {
       id: '/v/$vendorId'
       path: '/v/$vendorId'
@@ -325,6 +344,17 @@ const AdminRouteChildren: AdminRouteChildren = {
 
 const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
 
+interface VendorRouteChildren {
+  VendorPreviewRoute: typeof VendorPreviewRoute
+}
+
+const VendorRouteChildren: VendorRouteChildren = {
+  VendorPreviewRoute: VendorPreviewRoute,
+}
+
+const VendorRouteWithChildren =
+  VendorRoute._addFileChildren(VendorRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AdminRoute: AdminRouteWithChildren,
@@ -333,20 +363,10 @@ const rootRouteChildren: RootRouteChildren = {
   LoginRoute: LoginRoute,
   MapRoute: MapRoute,
   ProfileRoute: ProfileRoute,
-  VendorRoute: VendorRoute,
+  VendorRoute: VendorRouteWithChildren,
   WelcomeRoute: WelcomeRoute,
   VVendorIdRoute: VVendorIdRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
