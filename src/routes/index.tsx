@@ -305,17 +305,15 @@ function AppHome() {
             </div>
 
           </div>
-
-          {/* Polaroid fan */}
-          <div className="relative mx-auto h-[30rem] w-full max-w-md sm:h-[34rem]">
+          {/* Polaroid pair */}
+          <div className="relative mx-auto h-[20rem] w-full max-w-sm sm:h-[22rem]">
             {featured.map((v, i) => {
-              const rotations = [-9, 4, -2];
+              const rotations = [-7, 5];
               const offsets = [
-                { left: "2%", top: "8%" },
-                { left: "32%", top: "0%" },
-                { left: "20%", top: "38%" },
+                { left: "4%", top: "6%" },
+                { left: "38%", top: "18%" },
               ];
-              const tapes = ["bg-gold-200/80", "bg-teal-200/80", "bg-gold/70"];
+              const tapes = ["bg-gold-200/80", "bg-teal-200/80"];
               const r = rotations[i] ?? 0;
               const o = offsets[i] ?? { left: "10%", top: "10%" };
               return (
@@ -327,10 +325,10 @@ function AppHome() {
                     top: o.top,
                     zIndex: i + 1,
                   }}
-                  className="absolute w-48 rounded-sm bg-paper p-2 pb-5 shadow-brand-lg ring-1 ring-line transition duration-300 hover:!rotate-0 hover:-translate-y-2 hover:z-10"
+                  className="absolute w-40 rounded-sm bg-paper p-2 pb-4 shadow-brand-lg ring-1 ring-line transition duration-300 hover:!rotate-0 hover:-translate-y-2 hover:z-10 sm:w-44"
                 >
                   <span
-                    className={`absolute -top-2 left-1/2 h-4 w-14 -translate-x-1/2 -rotate-6 rounded-[2px] ${tapes[i]} shadow-brand-sm`}
+                    className={`absolute -top-2 left-1/2 h-4 w-12 -translate-x-1/2 -rotate-6 rounded-[2px] ${tapes[i]} shadow-brand-sm`}
                   />
                   <div className="relative aspect-square overflow-hidden rounded-sm bg-navy">
                     <img
@@ -347,7 +345,7 @@ function AppHome() {
                       </span>
                     )}
                   </div>
-                  <p className="mt-2 px-1 font-script text-lg leading-tight text-navy">
+                  <p className="mt-2 px-1 font-script text-base leading-tight text-navy">
                     {v.name}
                   </p>
                   <p className="px-1 text-[10px] uppercase tracking-wider text-ink-mute">
@@ -355,6 +353,8 @@ function AppHome() {
                   </p>
                 </div>
               );
+            })}
+
             })}
             {/* arrow scribble */}
             <svg
