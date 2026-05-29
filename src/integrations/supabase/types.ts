@@ -56,32 +56,50 @@ export type Database = {
       events: {
         Row: {
           created_at: string
+          description: string | null
           ends_at: string | null
+          hours: string | null
           id: string
           image_url: string | null
           name: string
           neighborhood: string
           starts_at: string | null
+          status: Database["public"]["Enums"]["event_status"]
+          submitted_by: string | null
+          submitter_email: string | null
+          submitter_name: string | null
           tags: string[]
         }
         Insert: {
           created_at?: string
+          description?: string | null
           ends_at?: string | null
+          hours?: string | null
           id?: string
           image_url?: string | null
           name: string
           neighborhood?: string
           starts_at?: string | null
+          status?: Database["public"]["Enums"]["event_status"]
+          submitted_by?: string | null
+          submitter_email?: string | null
+          submitter_name?: string | null
           tags?: string[]
         }
         Update: {
           created_at?: string
+          description?: string | null
           ends_at?: string | null
+          hours?: string | null
           id?: string
           image_url?: string | null
           name?: string
           neighborhood?: string
           starts_at?: string | null
+          status?: Database["public"]["Enums"]["event_status"]
+          submitted_by?: string | null
+          submitter_email?: string | null
+          submitter_name?: string | null
           tags?: string[]
         }
         Relationships: []
@@ -214,6 +232,7 @@ export type Database = {
     }
     Enums: {
       app_role: "admin" | "vendor" | "shopper"
+      event_status: "pending" | "approved" | "rejected"
       vendor_status: "pending" | "approved" | "hidden"
     }
     CompositeTypes: {
@@ -343,6 +362,7 @@ export const Constants = {
   public: {
     Enums: {
       app_role: ["admin", "vendor", "shopper"],
+      event_status: ["pending", "approved", "rejected"],
       vendor_status: ["pending", "approved", "hidden"],
     },
   },
