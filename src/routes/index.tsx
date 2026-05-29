@@ -149,10 +149,14 @@ function AppHome() {
                 </svg>
               </span>
             </h1>
-            <p className="mt-5 inline-flex items-center gap-2 rounded-full bg-navy/5 px-4 py-1.5 font-display text-sm font-semibold uppercase tracking-[0.18em] text-navy">
-              <span className="h-1.5 w-1.5 rounded-full bg-gold" />
-              Spend a day, not a fortune
-            </p>
+            <div className="mt-5 flex items-center gap-3">
+              <span className="h-px w-10 bg-navy/30" />
+              <p className="font-script text-2xl leading-none text-gold -rotate-2">
+                spend a day,
+                <span className="text-navy"> not a fortune.</span>
+              </p>
+            </div>
+
 
 
             {/* vendor stats strip */}
