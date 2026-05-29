@@ -145,13 +145,29 @@ function AppHome() {
                   />
                 </svg>
               </span>
-              {/* simple sticker badge */}
-              <span className="absolute -right-2 -top-4 inline-flex rotate-[-8deg] flex-col items-center rounded-full border-2 border-navy bg-gold px-5 py-3 shadow-brand-sm sm:right-0 sm:top-0 sm:px-6 sm:py-4">
-                <span className="font-script text-xl leading-none text-navy sm:text-2xl">spend a day</span>
-                <span className="mt-1 font-display text-[10px] font-black uppercase tracking-[0.2em] text-navy/70 sm:text-xs">
-                  not a fortune
+              {/* fun price-tag badge */}
+              <span className="absolute -right-1 -top-6 rotate-[10deg] sm:right-2 sm:top-2 md:right-4 md:-top-2">
+                <span className="relative block animate-[pulse_3s_ease-in-out_infinite]">
+                  {/* string */}
+                  <span className="absolute left-1/2 -top-6 h-6 w-px -translate-x-1/2 rotate-[20deg] bg-navy/40" />
+                  {/* tag body */}
+                  <span className="relative flex flex-col items-center bg-gold px-5 py-3 text-navy shadow-brand-md sm:px-6 sm:py-4"
+                    style={{ clipPath: "polygon(15% 0, 100% 0, 100% 100%, 15% 100%, 0 50%)" }}
+                  >
+                    {/* hole */}
+                    <span className="absolute left-2 top-1/2 h-2 w-2 -translate-y-1/2 rounded-full bg-cream-deep ring-1 ring-navy/40" />
+                    <span className="ml-3 font-script text-2xl leading-none sm:text-3xl">spend a day</span>
+                    <span className="ml-3 mt-1 flex items-center gap-1 font-display text-[9px] font-black uppercase tracking-[0.22em] text-navy/80 sm:text-[11px]">
+                      <span className="h-px w-3 bg-navy/40" />
+                      not a fortune
+                      <span className="h-px w-3 bg-navy/40" />
+                    </span>
+                  </span>
+                  {/* little star sparkle */}
+                  <span className="absolute -right-3 -top-3 font-script text-2xl text-teal rotate-[12deg]">✦</span>
                 </span>
               </span>
+
 
 
             </h1>
