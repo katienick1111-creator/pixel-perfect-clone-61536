@@ -15,6 +15,7 @@ import {
   CalendarDays,
 } from "lucide-react";
 import { AppShell } from "@/components/AppShell";
+import { VendorCalendar } from "@/components/VendorCalendar";
 import {
   useVendorProfile,
   type VendorProfile,
@@ -371,6 +372,8 @@ function VendorDashboard() {
           </div>
         </div>
       </section>
+
+      <VendorCalendar />
 
       {/* Save bar */}
       <section className="sticky bottom-24 mt-10 lg:bottom-6">
