@@ -129,7 +129,6 @@ function AppHome() {
             </p>
             <h1 className="mt-2 font-script text-[clamp(2.5rem,7.5vw,5rem)] leading-[0.85] text-navy">
 
-            <h1 className="mt-3 font-script text-[clamp(3.5rem,9vw,7rem)] leading-[0.85] text-navy">
               Let's Go
               <br />
               <span className="relative inline-block">
