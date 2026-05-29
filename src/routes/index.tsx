@@ -13,6 +13,7 @@ import {
 import { AppShell } from "@/components/AppShell";
 import { VendorCard } from "@/components/VendorCard";
 import { categories, events, vendors, type Category } from "@/data/trovin";
+import { useVendorProfile } from "@/hooks/useVendorProfile";
 
 const heroEvent = events[0];
 
@@ -64,15 +65,39 @@ function AppHome() {
   const [activeCategory, setActiveCategory] = useState<Category | "All">("All");
   const [openToday, setOpenToday] = useState(true);
   const [query, setQuery] = useState("");
+  const { profile: vendorProfile } = useVendorProfile();
   const [following, setFollowing] = useState<Record<string, boolean>>({
     v1: true,
     v3: true,
     v5: true,
   });
 
+  const allVendors = useMemo(() => {
+    if (!vendorProfile.openToday) return vendors;
+    // Surface the live vendor first
+    return [
+      {
+        id: vendorProfile.id,
+        name: vendorProfile.name,
+        tagline: vendorProfile.tagline,
+        category: vendorProfile.category,
+        event: vendorProfile.event,
+        booth: vendorProfile.booth,
+        hours: vendorProfile.hours,
+        payments: vendorProfile.payments,
+        followers: vendorProfile.followers,
+        featured: true,
+        image: vendorProfile.image,
+        scribble: vendorProfile.scribble,
+        tilt: vendorProfile.tilt,
+      },
+      ...vendors,
+    ];
+  }, [vendorProfile]);
+
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
-    return vendors.filter((v) => {
+    return allVendors.filter((v) => {
       if (activeCategory !== "All" && v.category !== activeCategory) return false;
       if (!q) return true;
       return (
@@ -82,7 +107,7 @@ function AppHome() {
         v.category.toLowerCase().includes(q)
       );
     });
-  }, [activeCategory, query]);
+  }, [activeCategory, query, allVendors]);
 
   return (
     <AppShell>
@@ -239,6 +264,21 @@ function AppHome() {
             <Heart className="h-4 w-4 fill-teal text-teal" />
           </div>
           <ul className="space-y-3">
+            {vendorProfile.openToday && vendorProfile.note && (
+              <li className="flex items-start gap-3 rounded-md border border-dashed border-gold/60 bg-gold/10 p-2">
+                <div className="mt-0.5 inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-gold/30 text-navy">
+                  <Sparkles className="h-4 w-4" />
+                </div>
+                <div className="min-w-0">
+                  <p className="font-hand text-base leading-tight text-navy">
+                    {vendorProfile.note}
+                  </p>
+                  <p className="text-xs text-ink-soft">
+                    {vendorProfile.name} · {vendorProfile.event} · just now
+                  </p>
+                </div>
+              </li>
+            )}
             {notifications.map((n) => (
               <li key={n.id} className="flex items-start gap-3">
                 <div className="mt-0.5 inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-teal-200/50 text-teal">
