@@ -126,8 +126,8 @@ function AppHome() {
         <div className="relative grid gap-10 lg:grid-cols-[1.1fr_1fr] lg:items-center">
           {/* Headline column */}
           <div className="relative">
-            <p className="font-hand text-2xl leading-none text-teal -rotate-2 origin-left">
-              hey Chicago —
+            <p className="font-script text-3xl md:text-4xl leading-none text-teal -rotate-2 origin-left">
+              Hey Trovers —
             </p>
             <h1 className="mt-3 font-script text-[clamp(3.5rem,9vw,7rem)] leading-[0.85] text-navy">
               Let's Go
