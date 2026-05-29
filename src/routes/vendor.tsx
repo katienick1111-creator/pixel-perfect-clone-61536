@@ -15,6 +15,7 @@ import {
   CalendarDays,
 } from "lucide-react";
 import { AppShell } from "@/components/AppShell";
+import { VendorCalendar } from "@/components/VendorCalendar";
 import {
   useVendorProfile,
   type VendorProfile,
