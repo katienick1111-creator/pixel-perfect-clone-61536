@@ -16,6 +16,8 @@ import {
   Smartphone,
   ChevronRight,
   ArrowUpRight,
+  House,
+  User,
 } from "lucide-react";
 import trovinLogo from "@/assets/trovin-logo.png";
 import trovinBadge from "@/assets/trovin-badge.png";
@@ -485,13 +487,13 @@ function AppHome() {
       </div>
 
       {/* Mobile bottom nav */}
-      <nav className="fixed bottom-0 left-0 right-0 z-30 border-t border-line bg-paper/95 backdrop-blur lg:hidden">
-        <div className="mx-auto flex max-w-md items-center justify-around px-2 py-2">
+      <nav className="fixed bottom-3 left-3 right-3 z-30 lg:hidden">
+        <div className="mx-auto flex max-w-md items-center justify-between rounded-[28px] border border-line/80 bg-paper/95 px-2 py-2 shadow-brand-lg backdrop-blur">
+          <MobileTab icon={House} label="Home" />
           <MobileTab icon={Compass} label="Discover" active />
           <MobileTab icon={CalendarDays} label="Events" />
           <MobileTab icon={MapIcon} label="Map" />
-          <MobileTab icon={Heart} label="Follows" />
-          <MobileTab icon={Store} label="Vendor" />
+          <MobileTab icon={User} label="Profile" />
         </div>
       </nav>
     </div>
@@ -545,12 +547,18 @@ function MobileTab({
 }) {
   return (
     <button
-      className={`flex min-w-0 flex-1 flex-col items-center gap-0.5 rounded-lg px-2 py-1.5 text-[10px] font-semibold transition ${
-        active ? "text-navy" : "text-ink-mute"
+      className={`flex min-w-0 flex-1 flex-col items-center gap-1 rounded-2xl px-1 py-1.5 text-[10px] font-medium transition ${
+        active ? "text-teal" : "text-ink-mute"
       }`}
     >
-      <Icon className={`h-5 w-5 ${active ? "text-teal" : ""}`} />
-      {label}
+      <span
+        className={`inline-flex h-10 w-10 items-center justify-center rounded-full transition ${
+          active ? "bg-teal-200/55 text-teal" : "text-ink-mute"
+        }`}
+      >
+        <Icon className="h-5 w-5" />
+      </span>
+      <span>{label}</span>
     </button>
   );
 }
