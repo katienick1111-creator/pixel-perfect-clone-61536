@@ -115,19 +115,20 @@ function AppHome() {
   return (
     <AppShell>
       {/* === HERO COLLAGE === */}
-      <section className="relative -mx-4 overflow-hidden bg-gradient-to-b from-cream-deep via-cream-deep to-cream px-4 pb-20 pt-6 lg:-mx-8 lg:px-8">
+      <section className="relative -mx-4 overflow-hidden bg-gradient-to-b from-cream-deep via-cream-deep to-cream px-4 pb-10 pt-4 lg:-mx-8 lg:px-8">
+
 
         {/* paper texture blobs */}
         <span className="pointer-events-none absolute -left-16 top-10 h-64 w-64 rounded-full bg-gold/15 blur-3xl" />
         <span className="pointer-events-none absolute -right-10 bottom-0 h-56 w-56 rounded-full bg-teal/15 blur-3xl" />
-
-        <div className="relative grid gap-10 lg:grid-cols-[1.1fr_1fr] lg:items-center">
+        <div className="relative grid gap-6 lg:grid-cols-[1.1fr_1fr] lg:items-center lg:gap-10">
           {/* Headline column */}
           <div className="relative">
-            <p className="font-script text-3xl md:text-4xl leading-none text-teal -rotate-2 origin-left">
+            <p className="font-script text-2xl md:text-3xl leading-none text-teal -rotate-2 origin-left">
               Hey Trovers —
             </p>
-            <h1 className="mt-3 font-script text-[clamp(3.5rem,9vw,7rem)] leading-[0.85] text-navy">
+            <h1 className="mt-2 font-script text-[clamp(2.5rem,7.5vw,5rem)] leading-[0.85] text-navy">
+
               Let's Go
               <br />
               <span className="relative inline-block">
@@ -223,49 +224,44 @@ function AppHome() {
               <span className="absolute right-2 top-[22%] rotate-[-7deg] sm:right-6 sm:top-[28%] md:right-10">
 
                   {/* twine string */}
-                  <span className="absolute left-1/2 -top-7 h-7 w-px -translate-x-1/2 rotate-[18deg] bg-navy/50" />
                   {/* tag body — cream kraft rectangle with teal border */}
                   <span
-                    className="relative flex flex-col items-center rounded-sm border-2 border-teal bg-cream px-5 py-3 text-navy shadow-brand-md sm:px-6 sm:py-4"
+                    className="relative flex flex-col items-center rounded-sm border-2 border-teal bg-cream px-3 py-2 text-navy shadow-brand-md sm:px-4 sm:py-2.5"
                     style={{
                       backgroundImage:
                         "repeating-linear-gradient(135deg, transparent 0 6px, rgba(15,22,46,0.04) 6px 7px)",
                     }}
                   >
                     {/* hole */}
-                    <span className="absolute left-2 top-2 h-2 w-2 rounded-full bg-navy" />
-                    <span className="font-script text-2xl leading-none text-teal sm:text-3xl">spend a day</span>
-                    <span className="mt-1 flex items-center gap-1 font-display text-[9px] font-black uppercase tracking-[0.22em] text-navy/70 sm:text-[11px]">
-                      <span className="h-px w-3 bg-gold" />
+                    <span className="absolute left-1.5 top-1.5 h-1.5 w-1.5 rounded-full bg-navy" />
+                    <span className="font-script text-lg leading-none text-teal sm:text-xl">spend a day</span>
+                    <span className="mt-0.5 flex items-center gap-1 font-display text-[8px] font-black uppercase tracking-[0.22em] text-navy/70 sm:text-[9px]">
+                      <span className="h-px w-2 bg-gold" />
                       not a fortune
-                      <span className="h-px w-3 bg-gold" />
+                      <span className="h-px w-2 bg-gold" />
                     </span>
                   </span>
 
                   <span className="absolute -right-3 -top-2 font-script text-xl text-gold rotate-[12deg]">✦</span>
                 </span>
-
-
-
-
-
             </h1>
 
-            <p className="mt-6 max-w-md font-script text-2xl leading-tight text-navy md:text-[1.7rem]">
+
+            <p className="mt-4 max-w-md font-script text-xl leading-tight text-navy md:text-2xl">
               Ever find a great vendor and never know where to find them again?
             </p>
 
-            <p className="mt-3 max-w-md font-display text-base leading-snug text-ink-soft md:text-lg">
+            <p className="mt-2 max-w-md font-display text-sm leading-snug text-ink-soft md:text-base">
               Follow your favorites. Discover new ones. Know who's there before
               you get there.
             </p>
 
 
             {/* vendor stats strip */}
-            <div className="mt-6 inline-flex items-center gap-4 rounded-full border border-line bg-paper px-5 py-2.5 shadow-brand-sm">
+            <div className="mt-4 inline-flex items-center gap-3 rounded-full border border-line bg-paper px-4 py-2 shadow-brand-sm">
               <span className="flex items-baseline gap-1.5">
                 <span className="inline-flex h-2 w-2 translate-y-[-2px] animate-pulse rounded-full bg-success" />
-                <span className="font-display text-lg font-semibold leading-none text-navy">
+                <span className="font-display text-base font-semibold leading-none text-navy">
                   218
                 </span>
                 <span className="text-[10px] uppercase tracking-[0.14em] text-ink-soft">
@@ -274,7 +270,7 @@ function AppHome() {
               </span>
               <span className="h-4 w-px bg-line" />
               <span className="flex items-baseline gap-1.5">
-                <span className="font-display text-lg font-semibold leading-none text-navy">
+                <span className="font-display text-base font-semibold leading-none text-navy">
                   11
                 </span>
                 <span className="text-[10px] uppercase tracking-[0.14em] text-ink-soft">
@@ -283,30 +279,33 @@ function AppHome() {
               </span>
             </div>
 
-            <div className="mt-6 flex flex-wrap items-stretch gap-2.5">
+            <div className="mt-4 flex flex-wrap items-stretch gap-2">
               <button
                 onClick={() =>
                   document
                     .getElementById("vendors")
                     ?.scrollIntoView({ behavior: "smooth" })
                 }
-                className="group inline-flex items-center gap-1.5 rounded-full bg-navy px-5 py-3 text-sm font-semibold text-cream transition hover:bg-navy-700"
+                className="group inline-flex items-center gap-1.5 rounded-full bg-navy px-4 py-2.5 text-sm font-semibold text-cream transition hover:bg-navy-700"
               >
                 Show me what's out today
                 <ArrowUpRight className="h-4 w-4 transition group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
               </button>
               <a
                 href="/vendor"
-                className="inline-flex items-center gap-1.5 rounded-full border-2 border-navy bg-paper px-5 py-3 text-sm font-semibold text-navy transition hover:bg-navy hover:text-cream"
+                className="inline-flex items-center gap-1.5 rounded-full border-2 border-navy bg-paper px-4 py-2.5 text-sm font-semibold text-navy transition hover:bg-navy hover:text-cream"
               >
                 <Store className="h-4 w-4" />
                 I'm a vendor
               </a>
             </div>
 
+
+
           </div>
           {/* Polaroid pair */}
-          <div className="relative mx-auto h-[20rem] w-full max-w-sm sm:h-[22rem]">
+          <div className="relative mx-auto h-[16rem] w-full max-w-xs sm:h-[18rem]">
+
             {featured.map((v, i) => {
               const rotations = [-7, 5];
               const offsets = [
@@ -323,9 +322,9 @@ function AppHome() {
                     transform: `rotate(${r}deg)`,
                     left: o.left,
                     top: o.top,
-                    zIndex: i + 1,
                   }}
-                  className="absolute w-40 rounded-sm bg-paper p-2 pb-4 shadow-brand-lg ring-1 ring-line transition duration-300 hover:!rotate-0 hover:-translate-y-2 hover:z-10 sm:w-44"
+                  className="absolute w-32 rounded-sm bg-paper p-1.5 pb-3 shadow-brand-lg ring-1 ring-line transition duration-300 hover:!rotate-0 hover:-translate-y-2 hover:z-10 sm:w-36"
+
                 >
                   <span
                     className={`absolute -top-2 left-1/2 h-4 w-12 -translate-x-1/2 -rotate-6 rounded-[2px] ${tapes[i]} shadow-brand-sm`}
