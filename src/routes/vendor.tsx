@@ -373,6 +373,8 @@ function VendorDashboard() {
         </div>
       </section>
 
+      <VendorCalendar />
+
       {/* Save bar */}
       <section className="sticky bottom-24 mt-10 lg:bottom-6">
         <div className="flex items-center justify-between gap-3 rounded-full border border-line bg-paper/95 px-4 py-3 shadow-brand-lg backdrop-blur">
