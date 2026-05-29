@@ -47,15 +47,15 @@ function MapPage() {
           >
             <defs>
               <pattern id="dots" width="4" height="4" patternUnits="userSpaceOnUse">
-                <circle cx="1" cy="1" r="0.3" fill="hsl(var(--ink-mute) / 0.35)" />
+                <circle cx="1" cy="1" r="0.3" fill="color-mix(in oklab, var(--ink-mute) 35%, transparent)" />
               </pattern>
             </defs>
             <rect width="100" height="70" fill="url(#dots)" />
             {/* lake */}
             <path
               d="M78 0 L100 0 L100 70 L82 70 Q74 50 80 30 Q86 12 78 0 Z"
-              fill="hsl(var(--teal) / 0.18)"
-              stroke="hsl(var(--teal) / 0.5)"
+              fill="color-mix(in oklab, var(--teal) 18%, transparent)"
+              stroke="color-mix(in oklab, var(--teal) 50%, transparent)"
               strokeWidth="0.3"
               strokeDasharray="0.6 0.6"
             />
@@ -63,7 +63,7 @@ function MapPage() {
             <path
               d="M0 38 Q 25 36 40 44 T 78 50"
               fill="none"
-              stroke="hsl(var(--teal) / 0.45)"
+              stroke="color-mix(in oklab, var(--teal) 45%, transparent)"
               strokeWidth="0.5"
               strokeDasharray="0.8 0.6"
             />
@@ -75,7 +75,7 @@ function MapPage() {
                 x2="78"
                 y1={y}
                 y2={y}
-                stroke="hsl(var(--line))"
+                stroke="var(--line)"
                 strokeWidth="0.15"
               />
             ))}
@@ -86,21 +86,21 @@ function MapPage() {
                 y2="70"
                 x1={x}
                 x2={x}
-                stroke="hsl(var(--line))"
+                stroke="var(--line)"
                 strokeWidth="0.15"
               />
             ))}
             {/* neighborhood labels */}
-            <text x="20" y="8" fontFamily="Caveat Brush" fontSize="3" fill="hsl(var(--ink-mute))">
+            <text x="20" y="8" fontFamily="Caveat Brush" fontSize="3" fill="var(--ink-mute)">
               Logan Square
             </text>
-            <text x="32" y="62" fontFamily="Caveat Brush" fontSize="3" fill="hsl(var(--ink-mute))">
+            <text x="32" y="62" fontFamily="Caveat Brush" fontSize="3" fill="var(--ink-mute)">
               Pilsen
             </text>
-            <text x="40" y="40" fontFamily="Caveat Brush" fontSize="3" fill="hsl(var(--ink-mute))">
+            <text x="40" y="40" fontFamily="Caveat Brush" fontSize="3" fill="var(--ink-mute)">
               West Loop
             </text>
-            <text x="85" y="36" fontFamily="Caveat Brush" fontSize="3.2" fill="hsl(var(--teal))">
+            <text x="85" y="36" fontFamily="Caveat Brush" fontSize="3.2" fill="var(--teal)">
               Lake
             </text>
           </svg>
