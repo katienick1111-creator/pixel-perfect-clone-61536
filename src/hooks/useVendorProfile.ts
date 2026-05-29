@@ -5,9 +5,19 @@ import type { Vendor, Category, Payment } from "@/data/trovin";
 const STORAGE_KEY = "trovin:vendor-profile:v1";
 const EVENT = "trovin:vendor-profile:changed";
 
+export type VendorSocials = {
+  instagram?: string;
+  tiktok?: string;
+  facebook?: string;
+  x?: string;
+  youtube?: string;
+  website?: string;
+};
+
 export type VendorProfile = Vendor & {
   openToday: boolean;
   note: string;
+  socials: VendorSocials;
 };
 
 export const defaultVendorProfile: VendorProfile = {
@@ -26,6 +36,14 @@ export const defaultVendorProfile: VendorProfile = {
   tilt: -1,
   openToday: true,
   note: "Fresh drops at 11 — come thru!",
+  socials: {
+    instagram: "",
+    tiktok: "",
+    facebook: "",
+    x: "",
+    youtube: "",
+    website: "",
+  },
 };
 
 function read(): VendorProfile {
