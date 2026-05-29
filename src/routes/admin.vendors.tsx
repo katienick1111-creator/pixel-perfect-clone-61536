@@ -40,11 +40,11 @@ function VendorsAdmin() {
   const delFn = useServerFn(deleteVendor);
   const qc = useQueryClient();
 
+  const { data, isLoading } = useQuery({ queryKey: ["admin-vendors"], queryFn: () => listFn() });
   const [editing, setEditing] = useState<Vendor | null>(null);
   const [qrVendor, setQrVendor] = useState<Vendor | null>(null);
   const [saving, setSaving] = useState(false);
 
-  const [saving, setSaving] = useState(false);
 
   const refresh = () => {
     qc.invalidateQueries({ queryKey: ["admin-vendors"] });
