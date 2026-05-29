@@ -142,29 +142,32 @@ function SiteFooter() {
 
 function Header() {
   return (
-    <header className="sticky top-0 z-30 border-b border-line bg-cream/85 backdrop-blur">
+    <header className="sticky top-0 z-30 border-b-2 border-navy/90 bg-navy text-cream shadow-brand-md">
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-3 px-4 py-3 lg:px-8">
         <Link to="/" className="flex items-center gap-3">
           <img
             src={trovinBadge}
             alt="Trovin'"
-            className="h-11 w-11 rounded-full shadow-brand-sm"
+            className="h-11 w-11 rounded-full ring-2 ring-gold/60"
           />
-          <img
-            src={trovinLogo}
-            alt="Trovin' — Find more. Miss less."
-            className="hidden h-11 w-auto md:block"
-          />
+          <div className="leading-tight">
+            <p className="font-script text-2xl leading-none text-gold-200">
+              Trovin'
+            </p>
+            <p className="font-mono text-[9px] uppercase tracking-widest text-cream/70">
+              find more · miss less
+            </p>
+          </div>
         </Link>
 
         <div className="flex items-center gap-2 md:gap-3">
-          <button className="hidden items-center gap-2 rounded-full border border-line bg-paper px-3 py-2 text-sm font-medium text-ink-soft transition hover:border-teal hover:text-navy md:inline-flex">
-            <MapPin className="h-4 w-4 text-teal" />
+          <button className="hidden items-center gap-2 rounded-full border border-cream/20 bg-navy-700 px-3 py-2 text-sm font-medium text-cream/85 transition hover:border-gold hover:text-cream md:inline-flex">
+            <MapPin className="h-4 w-4 text-gold" />
             Chicago, IL
-            <ChevronRight className="h-4 w-4 -rotate-90 text-ink-mute" />
+            <ChevronRight className="h-4 w-4 -rotate-90 text-cream/50" />
           </button>
           <button
-            className="relative inline-flex h-10 w-10 items-center justify-center rounded-full border border-line bg-paper text-navy transition hover:border-teal"
+            className="relative inline-flex h-10 w-10 items-center justify-center rounded-full border border-cream/20 bg-navy-700 text-cream transition hover:border-gold"
             aria-label="Notifications"
           >
             <Bell className="h-5 w-5" />
@@ -172,7 +175,7 @@ function Header() {
           </button>
           <Link
             to="/profile"
-            className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-navy font-display text-sm font-semibold text-cream"
+            className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-gold font-display text-sm font-semibold text-navy ring-2 ring-cream/20"
           >
             JM
           </Link>
