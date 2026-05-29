@@ -197,26 +197,31 @@ function AppHome() {
                 </span>
               </span>
 
-              {/* fun price-tag badge */}
+              {/* kraft paper price-tag badge */}
               <span className="absolute -right-1 -top-6 rotate-[10deg] sm:right-2 sm:top-2 md:right-4 md:-top-2">
-                <span className="relative block animate-[pulse_3s_ease-in-out_infinite]">
-                  {/* string */}
-                  <span className="absolute left-1/2 -top-6 h-6 w-px -translate-x-1/2 rotate-[20deg] bg-navy/40" />
-                  {/* tag body */}
-                  <span className="relative flex flex-col items-center bg-gold px-5 py-3 text-navy shadow-brand-md sm:px-6 sm:py-4"
-                    style={{ clipPath: "polygon(15% 0, 100% 0, 100% 100%, 15% 100%, 0 50%)" }}
+                <span className="relative block">
+                  {/* twine string */}
+                  <span className="absolute left-1/2 -top-7 h-7 w-px -translate-x-1/2 rotate-[18deg] bg-navy/50" />
+                  {/* tag body — cream kraft with teal border */}
+                  <span
+                    className="relative flex flex-col items-center bg-cream px-5 py-3 text-navy shadow-brand-md sm:px-6 sm:py-4"
+                    style={{
+                      clipPath: "polygon(15% 0, 100% 0, 100% 100%, 15% 100%, 0 50%)",
+                      backgroundImage:
+                        "repeating-linear-gradient(135deg, transparent 0 6px, rgba(15,22,46,0.04) 6px 7px)",
+                    }}
                   >
                     {/* hole */}
-                    <span className="absolute left-2 top-1/2 h-2 w-2 -translate-y-1/2 rounded-full bg-cream-deep ring-1 ring-navy/40" />
-                    <span className="ml-3 font-script text-2xl leading-none sm:text-3xl">spend a day</span>
-                    <span className="ml-3 mt-1 flex items-center gap-1 font-display text-[9px] font-black uppercase tracking-[0.22em] text-navy/80 sm:text-[11px]">
-                      <span className="h-px w-3 bg-navy/40" />
+                    <span className="absolute left-2 top-1/2 h-2 w-2 -translate-y-1/2 rounded-full bg-navy" />
+                    <span className="ml-3 font-script text-2xl leading-none text-teal sm:text-3xl">spend a day</span>
+                    <span className="ml-3 mt-1 flex items-center gap-1 font-display text-[9px] font-black uppercase tracking-[0.22em] text-navy/70 sm:text-[11px]">
+                      <span className="h-px w-3 bg-gold" />
                       not a fortune
-                      <span className="h-px w-3 bg-navy/40" />
+                      <span className="h-px w-3 bg-gold" />
                     </span>
                   </span>
-                  {/* little star sparkle */}
-                  <span className="absolute -right-3 -top-3 font-script text-2xl text-teal rotate-[12deg]">✦</span>
+                  {/* sparkle */}
+                  <span className="absolute -right-3 -top-2 font-script text-xl text-gold rotate-[12deg]">✦</span>
                 </span>
               </span>
 
