@@ -149,10 +149,11 @@ function AppHome() {
                 </svg>
               </span>
             </h1>
-            <p className="mt-6 max-w-md font-display text-lg leading-snug text-ink-soft md:text-xl">
-              Real makers. Real markets. Real close. Find the booth, the truck,
-              the stall that'll make your Saturday.
+            <p className="mt-5 inline-flex items-center gap-2 rounded-full bg-navy/5 px-4 py-1.5 font-display text-sm font-semibold uppercase tracking-[0.18em] text-navy">
+              <span className="h-1.5 w-1.5 rounded-full bg-gold" />
+              Spend a day, not a fortune
             </p>
+
 
             {/* vendor stats strip */}
             <div className="mt-6 inline-flex items-center gap-4 rounded-full border border-line bg-paper px-5 py-2.5 shadow-brand-sm">
