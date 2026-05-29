@@ -149,20 +149,21 @@ function AppHome() {
                 </svg>
               </span>
               {/* circular sticker filling the right gap */}
-              <span className="absolute -right-2 -top-4 inline-flex h-24 w-24 rotate-[10deg] items-center justify-center rounded-full border-2 border-dashed border-teal bg-cream text-center shadow-brand-md sm:right-0 sm:top-2 sm:h-32 sm:w-32 md:h-36 md:w-36">
+              <span className="absolute -right-2 -top-4 inline-flex h-28 w-28 rotate-[10deg] items-center justify-center rounded-full border-2 border-dashed border-teal bg-cream p-3 text-center shadow-brand-md sm:right-0 sm:top-2 sm:h-36 sm:w-36 md:h-40 md:w-40">
                 <span className="absolute inset-1.5 rounded-full border border-teal/40" />
                 <span className="relative flex flex-col items-center leading-none">
-                  <span className="font-script text-base text-teal sm:text-xl md:text-2xl">spend a</span>
-                  <span className="font-display text-xl font-black text-navy sm:text-2xl md:text-[28px]">DAY</span>
-                  <span className="mx-1 my-1 h-px w-8 bg-navy/30 sm:w-10" />
-                  <span className="font-script text-sm leading-none text-ink-soft sm:text-base">not a</span>
-                  <span className="font-display text-base font-black uppercase tracking-wider text-gold sm:text-lg md:text-xl">
+                  <span className="font-script text-sm text-teal sm:text-base md:text-lg">spend a</span>
+                  <span className="mt-0.5 font-display text-lg font-black tracking-tight text-navy sm:text-2xl md:text-[26px]">
+                    DAY
+                  </span>
+                  <span className="my-1 h-px w-6 bg-navy/30 sm:w-8" />
+                  <span className="font-script text-xs leading-none text-ink-soft sm:text-sm">not a</span>
+                  <span className="mt-0.5 font-display text-xs font-black uppercase tracking-[0.08em] text-gold sm:text-sm md:text-base">
                     fortune
                   </span>
                 </span>
               </span>
             </h1>
-
 
 
             {/* vendor stats strip */}
