@@ -115,7 +115,8 @@ function AppHome() {
   return (
     <AppShell>
       {/* === HERO COLLAGE === */}
-      <section className="relative -mx-4 overflow-hidden bg-gradient-to-b from-cream-deep via-cream-deep to-cream px-4 pb-10 pt-4 lg:-mx-8 lg:px-8">
+      <section className="relative -mx-4 overflow-hidden bg-gradient-to-b from-cream-deep via-cream-deep to-cream px-4 pb-6 pt-4 lg:-mx-8 lg:px-8">
+
 
 
         {/* paper texture blobs */}
