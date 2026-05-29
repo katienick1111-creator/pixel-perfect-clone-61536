@@ -41,12 +41,20 @@ export const isFollowingVendor = createServerFn({ method: "GET" })
   });
 
 export const followVendor = createServerFn({ method: "POST" })
+export const followVendor = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((d: unknown) => z.object({ id: z.string().uuid() }).parse(d))
   .handler(async ({ context, data }) => {
+    const { data: existing } = await supabaseAdmin
+      .from("follows")
+      .select("vendor_id")
+      .eq("vendor_id", data.id)
+      .eq("shopper_id", context.userId)
+      .maybeSingle();
+    if (existing) return { ok: true };
     const { error } = await supabaseAdmin
       .from("follows")
-      .upsert({ vendor_id: data.id, shopper_id: context.userId }, { onConflict: "shopper_id,vendor_id" });
+      .insert({ vendor_id: data.id, shopper_id: context.userId });
     if (error) throw new Error(error.message);
     return { ok: true };
   });
