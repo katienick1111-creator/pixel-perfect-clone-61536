@@ -471,7 +471,8 @@ function AppHome() {
               return (
                 <Link
                   key={v.id}
-                  to="/vendor"
+                  to="/booth/$id"
+                  params={{ id: v.id }}
                   className={`group flex flex-col gap-2 ${offset}`}
                 >
                   <div
