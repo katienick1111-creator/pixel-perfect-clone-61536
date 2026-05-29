@@ -190,9 +190,55 @@ function VendorsAdmin() {
           </div>
         </div>
       )}
+
+      {qrVendor && <QrModal vendor={qrVendor} onClose={() => setQrVendor(null)} />}
     </div>
   );
 }
+
+function QrModal({ vendor, onClose }: { vendor: Vendor; onClose: () => void }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const url = typeof window !== "undefined" ? `${window.location.origin}/v/${vendor.id}` : `/v/${vendor.id}`;
+
+  const download = () => {
+    const canvas = ref.current?.querySelector("canvas");
+    if (!canvas) return;
+    const link = document.createElement("a");
+    link.download = `trovin-${vendor.name.replace(/\s+/g, "-").toLowerCase()}-qr.png`;
+    link.href = canvas.toDataURL("image/png");
+    link.click();
+  };
+
+  const copy = async () => {
+    await navigator.clipboard.writeText(url);
+  };
+
+  return (
+    <div className="fixed inset-0 z-40 flex items-center justify-center bg-navy/40 p-4" onClick={onClose}>
+      <div className="w-full max-w-sm rounded-2xl bg-paper p-6 shadow-brand-lg" onClick={(e) => e.stopPropagation()}>
+        <p className="font-script text-2xl text-teal leading-none">follow me —</p>
+        <h2 className="font-display text-2xl mb-4">{vendor.name}</h2>
+
+        <div ref={ref} className="flex items-center justify-center rounded-xl bg-cream p-5 border border-line">
+          <QRCodeCanvas value={url} size={224} level="H" includeMargin={false} fgColor="#0c2340" bgColor="#fffaf2" />
+        </div>
+
+        <p className="mt-4 break-all text-xs text-ink-soft font-mono text-center">{url}</p>
+
+        <div className="mt-5 grid grid-cols-2 gap-2">
+          <button onClick={copy} className="inline-flex items-center justify-center gap-1.5 rounded-full border border-line px-4 py-2 text-sm hover:bg-cream-deep">
+            <Copy className="h-4 w-4" /> Copy link
+          </button>
+          <button onClick={download} className="inline-flex items-center justify-center gap-1.5 rounded-full bg-navy text-cream px-4 py-2 text-sm font-semibold hover:bg-navy-700">
+            <Download className="h-4 w-4" /> PNG
+          </button>
+        </div>
+        <button onClick={onClose} className="mt-2 w-full text-xs text-ink-mute hover:text-navy py-2">Close</button>
+      </div>
+    </div>
+  );
+}
+
 
 const inputCls = "w-full rounded-lg border border-line bg-cream px-3 py-2 text-sm outline-none focus:border-teal";
 
