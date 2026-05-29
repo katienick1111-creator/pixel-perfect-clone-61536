@@ -323,7 +323,8 @@ function AppHome() {
                     left: o.left,
                     top: o.top,
                     zIndex: i + 1,
-                  }}
+                  className="absolute w-32 rounded-sm bg-paper p-1.5 pb-3 shadow-brand-lg ring-1 ring-line transition duration-300 hover:!rotate-0 hover:-translate-y-2 hover:z-10 sm:w-36"
+
                   className="absolute w-40 rounded-sm bg-paper p-2 pb-4 shadow-brand-lg ring-1 ring-line transition duration-300 hover:!rotate-0 hover:-translate-y-2 hover:z-10 sm:w-44"
                 >
                   <span
