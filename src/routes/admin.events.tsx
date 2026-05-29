@@ -74,25 +74,70 @@ function EventsAdmin() {
         </button>
       </div>
 
-      {isLoading ? <p className="text-ink-soft">Loading…</p> : (
-        <div className="grid gap-3">
-          {data?.events.map((e: any) => (
-            <div key={e.id} className="flex items-center gap-4 rounded-xl border border-line bg-paper p-4">
-              <div className="h-14 w-14 shrink-0 overflow-hidden rounded-lg bg-cream-deep">
-                {e.image_url && <img src={e.image_url} alt="" className="h-full w-full object-cover" />}
-              </div>
-              <div className="min-w-0 flex-1">
-                <h3 className="font-display text-lg truncate">{e.name}</h3>
-                <p className="text-sm text-ink-soft truncate">{e.neighborhood} · {e.starts_at ? new Date(e.starts_at).toLocaleDateString() : "no date"}</p>
-              </div>
-              <button onClick={() => setLineupFor({ id: e.id, name: e.name })} title="Lineup" className="p-2 text-teal hover:bg-teal/10 rounded-full"><Users className="h-4 w-4" /></button>
-              <button onClick={() => openEdit(e)} className="p-2 text-navy hover:bg-cream-deep rounded-full"><Pencil className="h-4 w-4" /></button>
-              <button onClick={async () => { if (confirm("Delete event?")) { await delFn({ data: { id: e.id } }); qc.invalidateQueries({ queryKey: ["admin-events"] }); }}} className="p-2 text-danger hover:bg-danger/10 rounded-full"><Trash2 className="h-4 w-4" /></button>
+      {(() => {
+        const all = data?.events ?? [];
+        const pending = all.filter((e: any) => e.status === "pending");
+        const others = all.filter((e: any) => e.status !== "pending");
+        const moderate = async (id: string, status: "approved" | "rejected") => {
+          await modFn({ data: { id, status } });
+          qc.invalidateQueries({ queryKey: ["admin-events"] });
+          qc.invalidateQueries({ queryKey: ["public-events"] });
+        };
+        const row = (e: any) => (
+          <div key={e.id} className="flex items-center gap-4 rounded-xl border border-line bg-paper p-4">
+            <div className="h-14 w-14 shrink-0 overflow-hidden rounded-lg bg-cream-deep">
+              {e.image_url && <img src={e.image_url} alt="" className="h-full w-full object-cover" />}
             </div>
-          ))}
-          {data?.events.length === 0 && <p className="text-ink-soft text-sm py-12 text-center">No events yet.</p>}
-        </div>
-      )}
+            <div className="min-w-0 flex-1">
+              <div className="flex items-center gap-2">
+                <h3 className="font-display text-lg truncate">{e.name}</h3>
+                <StatusPill status={e.status} />
+              </div>
+              <p className="text-sm text-ink-soft truncate">
+                {e.neighborhood} · {e.starts_at ? new Date(e.starts_at).toLocaleDateString() : "no date"}
+                {e.submitter_name ? ` · submitted by ${e.submitter_name}` : ""}
+              </p>
+              {e.description && (
+                <p className="mt-1 text-xs text-ink-soft line-clamp-2">{e.description}</p>
+              )}
+            </div>
+            {e.status === "pending" && (
+              <>
+                <button onClick={() => moderate(e.id, "approved")} title="Approve" className="p-2 text-success hover:bg-success/10 rounded-full"><Check className="h-4 w-4" /></button>
+                <button onClick={() => moderate(e.id, "rejected")} title="Reject" className="p-2 text-danger hover:bg-danger/10 rounded-full"><X className="h-4 w-4" /></button>
+              </>
+            )}
+            {e.status === "rejected" && (
+              <button onClick={() => moderate(e.id, "approved")} title="Approve" className="p-2 text-success hover:bg-success/10 rounded-full"><Check className="h-4 w-4" /></button>
+            )}
+            <button onClick={() => setLineupFor({ id: e.id, name: e.name })} title="Lineup" className="p-2 text-teal hover:bg-teal/10 rounded-full"><Users className="h-4 w-4" /></button>
+            <button onClick={() => openEdit(e)} title="Edit" className="p-2 text-navy hover:bg-cream-deep rounded-full"><Pencil className="h-4 w-4" /></button>
+            <button onClick={async () => { if (confirm("Delete event?")) { await delFn({ data: { id: e.id } }); qc.invalidateQueries({ queryKey: ["admin-events"] }); }}} title="Delete" className="p-2 text-danger hover:bg-danger/10 rounded-full"><Trash2 className="h-4 w-4" /></button>
+          </div>
+        );
+        return isLoading ? <p className="text-ink-soft">Loading…</p> : (
+          <div className="space-y-8">
+            {pending.length > 0 && (
+              <section>
+                <div className="mb-3 flex items-center gap-2">
+                  <span className="inline-flex items-center gap-1.5 rounded-full bg-gold/30 px-3 py-1 text-xs font-bold uppercase tracking-widest text-navy">
+                    <Clock className="h-3.5 w-3.5" /> Pending review · {pending.length}
+                  </span>
+                </div>
+                <div className="grid gap-3">{pending.map(row)}</div>
+              </section>
+            )}
+            <section>
+              {pending.length > 0 && (
+                <h2 className="mb-3 font-mono text-xs uppercase tracking-widest text-ink-mute">All events</h2>
+              )}
+              <div className="grid gap-3">{others.map(row)}</div>
+              {all.length === 0 && <p className="text-ink-soft text-sm py-12 text-center">No events yet.</p>}
+            </section>
+          </div>
+        );
+      })()}
+
 
       {editing && (
         <div className="fixed inset-0 z-40 flex items-center justify-center bg-navy/40 p-4" onClick={() => setEditing(null)}>
