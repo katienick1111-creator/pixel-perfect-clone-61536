@@ -204,7 +204,6 @@ function AppHome() {
                 </span>
               </span>
 
-              </span>
 
               {/* kraft paper price-tag badge */}
               <span className="absolute -right-1 -top-6 rotate-[10deg] sm:right-2 sm:top-2 md:right-4 md:-top-2">
