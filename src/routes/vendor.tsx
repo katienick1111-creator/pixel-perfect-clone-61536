@@ -51,8 +51,6 @@ const eventOptions = [
 ];
 
 const paymentChoices: { key: VendorProfile["payments"][number] }[] = [
-  { key: "Card" },
-  { key: "Cash" },
   { key: "Venmo" },
   { key: "CashApp" },
   { key: "ApplePay" },
