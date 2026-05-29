@@ -370,9 +370,6 @@ function AppHome() {
               })}
             </div>
 
-                </div>
-              );
-            })}
 
 
             {/* arrow scribble */}
