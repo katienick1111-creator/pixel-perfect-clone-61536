@@ -146,7 +146,8 @@ function AppHome() {
                   />
 
                 </svg>
-                <span className="pointer-events-none absolute -bottom-[14px] left-0 right-0 block h-8 overflow-visible">
+                <span className="pointer-events-none absolute -bottom-[22px] left-0 right-0 block h-8 overflow-visible">
+
 
 
                   <span
