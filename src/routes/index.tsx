@@ -109,10 +109,189 @@ function AppHome() {
     });
   }, [activeCategory, query, allVendors]);
 
+  const featured = allVendors.slice(0, 3);
+  const openNowNames = allVendors
+    .slice(0, 8)
+    .map((v) => v.name)
+    .concat(["Open now", "Live in Chicago"]);
+
   return (
     <AppShell>
-      {/* Search + filters */}
-      <section className="flex flex-col gap-4">
+      {/* === HERO COLLAGE === */}
+      <section className="relative -mx-4 overflow-hidden bg-cream-deep px-4 pb-14 pt-6 lg:-mx-8 lg:px-8">
+        {/* paper texture blobs */}
+        <span className="pointer-events-none absolute -left-16 top-10 h-64 w-64 rounded-full bg-gold/15 blur-3xl" />
+        <span className="pointer-events-none absolute -right-10 bottom-0 h-56 w-56 rounded-full bg-teal/15 blur-3xl" />
+
+        <div className="relative grid gap-10 lg:grid-cols-[1.1fr_1fr] lg:items-center">
+          {/* Headline column */}
+          <div className="relative">
+            <p className="font-hand text-2xl leading-none text-teal -rotate-2 origin-left">
+              hey Chicago —
+            </p>
+            <h1 className="mt-3 font-script text-[clamp(3.5rem,9vw,7rem)] leading-[0.85] text-navy">
+              Let's Go
+              <br />
+              <span className="relative inline-block">
+                Trovin'<span className="text-gold">!</span>
+                <svg
+                  className="absolute -bottom-2 left-0 h-4 w-full text-gold"
+                  viewBox="0 0 240 14"
+                  preserveAspectRatio="none"
+                  fill="none"
+                >
+                  <path
+                    d="M2 8 Q40 1 80 7 T160 7 T238 5"
+                    stroke="currentColor"
+                    strokeWidth="3.5"
+                    strokeLinecap="round"
+                  />
+                </svg>
+              </span>
+            </h1>
+            <p className="mt-6 max-w-md font-display text-lg leading-snug text-ink-soft md:text-xl">
+              Real makers. Real markets. Real close. Find the booth, the truck,
+              the stall that'll make your Saturday.
+            </p>
+
+            {/* vendor stats strip */}
+            <div className="mt-6 inline-flex flex-wrap items-center gap-x-5 gap-y-2 rounded-full border border-line bg-paper px-5 py-3 shadow-brand-sm">
+              <span className="flex items-center gap-2">
+                <span className="inline-flex h-2.5 w-2.5 animate-pulse rounded-full bg-success" />
+                <span className="font-display text-2xl leading-none text-navy">
+                  218
+                </span>
+                <span className="text-xs uppercase tracking-wider text-ink-soft">
+                  vendors live
+                </span>
+              </span>
+              <span className="h-5 w-px bg-line" />
+              <span className="flex items-center gap-2">
+                <span className="font-display text-2xl leading-none text-navy">
+                  11
+                </span>
+                <span className="text-xs uppercase tracking-wider text-ink-soft">
+                  markets today
+                </span>
+              </span>
+            </div>
+
+            <div className="mt-6 flex flex-wrap gap-2.5">
+              <button
+                onClick={() =>
+                  document
+                    .getElementById("vendors")
+                    ?.scrollIntoView({ behavior: "smooth" })
+                }
+                className="group inline-flex items-center gap-1.5 rounded-full bg-navy px-6 py-3 text-sm font-semibold text-cream transition hover:bg-navy-700"
+              >
+                Show me what's out today
+                <ArrowUpRight className="h-4 w-4 transition group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+              </button>
+              <a
+                href="/vendor"
+                className="inline-flex items-center gap-1.5 rounded-full border border-navy/20 bg-paper px-6 py-3 text-sm font-semibold text-navy transition hover:border-navy"
+              >
+                <Store className="h-4 w-4" />
+                I'm a vendor
+              </a>
+            </div>
+          </div>
+
+          {/* Polaroid fan */}
+          <div className="relative mx-auto h-[26rem] w-full max-w-md">
+            {featured.map((v, i) => {
+              const rotations = [-9, 4, -2];
+              const offsets = [
+                { left: "2%", top: "8%" },
+                { left: "32%", top: "0%" },
+                { left: "20%", top: "38%" },
+              ];
+              const tapes = ["bg-gold-200/80", "bg-teal-200/80", "bg-gold/70"];
+              const r = rotations[i] ?? 0;
+              const o = offsets[i] ?? { left: "10%", top: "10%" };
+              return (
+                <div
+                  key={v.id}
+                  style={{
+                    transform: `rotate(${r}deg)`,
+                    left: o.left,
+                    top: o.top,
+                    zIndex: i + 1,
+                  }}
+                  className="absolute w-48 rounded-sm bg-paper p-2 pb-5 shadow-brand-lg ring-1 ring-line transition duration-300 hover:!rotate-0 hover:-translate-y-2 hover:z-10"
+                >
+                  <span
+                    className={`absolute -top-2 left-1/2 h-4 w-14 -translate-x-1/2 -rotate-6 rounded-[2px] ${tapes[i]} shadow-brand-sm`}
+                  />
+                  <div className="relative aspect-square overflow-hidden rounded-sm bg-navy">
+                    <img
+                      src={v.image}
+                      alt={v.name}
+                      className="absolute inset-0 h-full w-full object-cover"
+                    />
+                    <span className="absolute left-2 top-2 rounded-sm bg-cream/95 px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wider text-navy">
+                      {v.category}
+                    </span>
+                    {v.scribble && (
+                      <span className="absolute -right-1 bottom-2 -rotate-6 rounded-sm bg-gold px-2 py-0.5 font-script text-sm leading-none text-navy shadow-brand-sm">
+                        {v.scribble}
+                      </span>
+                    )}
+                  </div>
+                  <p className="mt-2 px-1 font-script text-lg leading-tight text-navy">
+                    {v.name}
+                  </p>
+                  <p className="px-1 text-[10px] uppercase tracking-wider text-ink-mute">
+                    {v.event}
+                  </p>
+                </div>
+              );
+            })}
+            {/* arrow scribble */}
+            <svg
+              className="absolute -left-2 bottom-0 hidden h-20 w-24 text-teal lg:block"
+              viewBox="0 0 100 80"
+              fill="none"
+            >
+              <path
+                d="M5 70 C 20 40 50 25 85 30"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeDasharray="4 4"
+              />
+              <path
+                d="M75 22 L 88 30 L 78 42"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </div>
+        </div>
+      </section>
+
+      {/* === MARQUEE: who's out today === */}
+      <section className="relative -mx-4 overflow-hidden border-y-2 border-navy bg-navy py-3 lg:-mx-8">
+        <div className="flex animate-[marquee_28s_linear_infinite] whitespace-nowrap will-change-transform">
+          {[...openNowNames, ...openNowNames].map((name, i) => (
+            <span
+              key={i}
+              className="mx-6 inline-flex items-center gap-3 font-script text-2xl text-cream"
+            >
+              <Sparkles className="h-4 w-4 text-gold" />
+              {name}
+              <span className="text-gold">✦</span>
+            </span>
+          ))}
+        </div>
+        <style>{`@keyframes marquee { from{transform:translateX(0)} to{transform:translateX(-50%)} }`}</style>
+      </section>
+
+      {/* === Search + filters === */}
+      <section className="mt-10 flex flex-col gap-4">
         <div className="flex items-center gap-2 rounded-full border border-line bg-paper px-4 py-3 shadow-brand-sm focus-within:border-teal">
           <Search className="h-5 w-5 text-ink-mute" />
           <input
@@ -158,75 +337,16 @@ function AppHome() {
         </div>
       </section>
 
-      {/* Featured event hero */}
-      <section className="relative mt-6 overflow-hidden rounded-2xl border border-line bg-navy text-cream shadow-brand-lg">
-        <div className="relative h-72 md:h-96">
-          <img
-            src={heroEvent.image}
-            alt={heroEvent.name}
-            width={1280}
-            height={896}
-            className="absolute inset-0 h-full w-full object-cover"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-navy via-navy/70 to-navy/10" />
-          <span className="absolute left-6 top-4 -rotate-3 rounded-sm bg-gold/85 px-3 py-1 font-script text-base text-navy shadow-brand-md">
-            happening now ✨
-          </span>
-          <svg
-            className="absolute right-10 top-10 hidden h-24 w-24 -rotate-12 text-gold md:block"
-            viewBox="0 0 100 100"
-            fill="none"
-          >
-            <path
-              d="M50 12 C 78 10 92 32 88 56 C 84 80 60 92 38 86 C 16 80 8 56 18 36 C 24 22 38 14 50 12 Z"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeDasharray="3 4"
-            />
-          </svg>
-          <div className="absolute inset-x-0 bottom-0 p-6 md:p-8">
-            <span className="inline-flex items-center gap-1.5 rounded-full bg-gold/20 px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wider text-gold-200">
-              <Sparkles className="h-3 w-3" /> Featured today
-            </span>
-            <h2 className="mt-3 font-display text-3xl leading-tight md:text-5xl">
-              {heroEvent.name}
-            </h2>
-            <p className="mt-1 text-sm text-cream/80">
-              {heroEvent.neighborhood} • {heroEvent.date} • {heroEvent.hours}
-            </p>
-            <div className="mt-4 flex flex-wrap items-center gap-3">
-              <Stat label="Vendors" value={heroEvent.vendorCount} />
-              <span className="h-8 w-px bg-cream/20" />
-              <Stat
-                label="Followers"
-                value={`${(heroEvent.followers / 1000).toFixed(1)}k`}
-              />
-              <span className="h-8 w-px bg-cream/20" />
-              <Stat label="Booths mapped" value="186" />
-            </div>
-            <div className="mt-4 flex flex-wrap gap-2">
-              <button className="group inline-flex items-center gap-1.5 rounded-full bg-gold px-5 py-2.5 text-sm font-semibold text-navy transition hover:bg-gold-400">
-                Open event map
-                <ArrowUpRight className="h-4 w-4 transition group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
-              </button>
-              <button className="rounded-full border border-cream/30 bg-navy/30 px-5 py-2.5 text-sm font-semibold text-cream backdrop-blur transition hover:border-cream/60">
-                Follow event
-              </button>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Vendors */}
-      <section className="mt-10">
+      {/* === VENDORS GRID === */}
+      <section id="vendors" className="mt-10 scroll-mt-24">
         <div className="mb-4 flex items-end justify-between">
           <div>
             <p className="font-script text-2xl leading-none text-teal">
               out today —
             </p>
-            <h3 className="mt-1 font-display text-3xl">Vendors near you</h3>
+            <h3 className="mt-1 font-display text-3xl">The lineup</h3>
             <p className="mt-1 text-sm text-ink-soft">
-              {filtered.length} of {vendors.length} • near Chicago, IL
+              {filtered.length} of {allVendors.length} • near Chicago, IL
             </p>
           </div>
           <button className="hidden items-center gap-1 text-sm font-medium text-teal hover:text-navy md:inline-flex">
@@ -250,6 +370,51 @@ function AppHome() {
               No vendors match those filters. Try widening your search.
             </div>
           )}
+        </div>
+      </section>
+
+      {/* === WHERE THEY'RE AT — events as ticket stubs === */}
+      <section className="mt-14">
+        <div className="mb-4">
+          <p className="font-script text-2xl leading-none text-teal -rotate-1 origin-left">
+            and they're at —
+          </p>
+          <h3 className="mt-1 font-display text-3xl">Markets this weekend</h3>
+        </div>
+        <div className="grid gap-4 md:grid-cols-2">
+          {events.slice(0, 4).map((e) => (
+            <a
+              key={e.id}
+              href="/events"
+              className="group relative flex overflow-hidden rounded-lg bg-paper shadow-brand-md ring-1 ring-line transition hover:-translate-y-0.5 hover:shadow-brand-lg"
+            >
+              <div className="relative h-32 w-32 shrink-0 overflow-hidden">
+                <img
+                  src={e.image}
+                  alt={e.name}
+                  className="absolute inset-0 h-full w-full object-cover transition duration-500 group-hover:scale-105"
+                />
+              </div>
+              <span className="absolute left-32 -top-2 h-4 w-4 -translate-x-1/2 rounded-full bg-cream" />
+              <span className="absolute left-32 -bottom-2 h-4 w-4 -translate-x-1/2 rounded-full bg-cream" />
+              <div className="flex flex-1 flex-col justify-center border-l-2 border-dashed border-line/80 p-4">
+                {e.scribble && (
+                  <p className="font-hand text-base leading-none text-teal">
+                    {e.scribble}
+                  </p>
+                )}
+                <p className="mt-1 font-display text-lg leading-tight text-navy">
+                  {e.name}
+                </p>
+                <p className="mt-0.5 text-xs text-ink-soft">
+                  {e.neighborhood} · {e.date}
+                </p>
+                <p className="mt-2 font-mono text-[10px] uppercase tracking-widest text-ink-mute">
+                  {e.vendorCount} vendors · {e.hours}
+                </p>
+              </div>
+            </a>
+          ))}
         </div>
       </section>
 
