@@ -264,6 +264,21 @@ function AppHome() {
             <Heart className="h-4 w-4 fill-teal text-teal" />
           </div>
           <ul className="space-y-3">
+            {vendorProfile.openToday && vendorProfile.note && (
+              <li className="flex items-start gap-3 rounded-md border border-dashed border-gold/60 bg-gold/10 p-2">
+                <div className="mt-0.5 inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-gold/30 text-navy">
+                  <Sparkles className="h-4 w-4" />
+                </div>
+                <div className="min-w-0">
+                  <p className="font-hand text-base leading-tight text-navy">
+                    {vendorProfile.note}
+                  </p>
+                  <p className="text-xs text-ink-soft">
+                    {vendorProfile.name} · {vendorProfile.event} · just now
+                  </p>
+                </div>
+              </li>
+            )}
             {notifications.map((n) => (
               <li key={n.id} className="flex items-start gap-3">
                 <div className="mt-0.5 inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-teal-200/50 text-teal">
