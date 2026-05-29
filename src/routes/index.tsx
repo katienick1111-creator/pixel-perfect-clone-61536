@@ -15,9 +15,17 @@ import {
   Banknote,
   Smartphone,
   ChevronRight,
+  ArrowUpRight,
 } from "lucide-react";
 import trovinLogo from "@/assets/trovin-logo.png";
 import trovinBadge from "@/assets/trovin-badge.png";
+import eventRandolph from "@/assets/event-randolph.jpg";
+import imgAntiques from "@/assets/vendor-antiques.jpg";
+import imgFood from "@/assets/vendor-food.jpg";
+import imgCraft from "@/assets/vendor-craft.jpg";
+import imgVinyl from "@/assets/vendor-vinyl.jpg";
+import imgFarm from "@/assets/vendor-farm.jpg";
+import imgToys from "@/assets/vendor-toys.jpg";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -34,6 +42,7 @@ export const Route = createFileRoute("/")({
         content:
           "Discover vendors, flea markets, food trucks, and craft fairs near you.",
       },
+      { property: "og:image", content: eventRandolph },
       { property: "og:url", content: "/" },
     ],
     links: [{ rel: "canonical", href: "/" }],
@@ -41,13 +50,7 @@ export const Route = createFileRoute("/")({
   component: AppHome,
 });
 
-type Category =
-  | "Antiques"
-  | "Craft"
-  | "Food"
-  | "Collectibles"
-  | "Farmers";
-
+type Category = "Antiques" | "Craft" | "Food" | "Collectibles" | "Farmers";
 type Payment = "Card" | "Cash" | "Venmo";
 
 type Vendor = {
@@ -61,7 +64,9 @@ type Vendor = {
   payments: Payment[];
   followers: number;
   featured?: boolean;
-  accent: "navy" | "teal" | "gold";
+  image: string;
+  scribble?: string;
+  tilt: number;
 };
 
 const categories: { key: Category | "All"; label: string }[] = [
@@ -85,7 +90,9 @@ const vendors: Vendor[] = [
     payments: ["Card", "Cash", "Venmo"],
     followers: 1284,
     featured: true,
-    accent: "navy",
+    image: imgAntiques,
+    scribble: "ooh, brass!",
+    tilt: -1.5,
   },
   {
     id: "v2",
@@ -97,7 +104,9 @@ const vendors: Vendor[] = [
     hours: "11a – 8p today",
     payments: ["Card", "Venmo"],
     followers: 3420,
-    accent: "gold",
+    image: imgFood,
+    scribble: "lunch sorted",
+    tilt: 1.2,
   },
   {
     id: "v3",
@@ -109,7 +118,8 @@ const vendors: Vendor[] = [
     hours: "9a – 4p today",
     payments: ["Card", "Cash"],
     followers: 612,
-    accent: "teal",
+    image: imgCraft,
+    tilt: -0.8,
   },
   {
     id: "v4",
@@ -121,7 +131,9 @@ const vendors: Vendor[] = [
     hours: "10a – 5p today",
     payments: ["Cash", "Venmo"],
     followers: 945,
-    accent: "navy",
+    image: imgVinyl,
+    scribble: "dig dig dig",
+    tilt: 1.6,
   },
   {
     id: "v5",
@@ -133,7 +145,8 @@ const vendors: Vendor[] = [
     hours: "8a – 1p today",
     payments: ["Card", "Cash"],
     followers: 2110,
-    accent: "teal",
+    image: imgFarm,
+    tilt: -1.1,
   },
   {
     id: "v6",
@@ -145,7 +158,9 @@ const vendors: Vendor[] = [
     hours: "7a – 4p Sun",
     payments: ["Cash"],
     followers: 530,
-    accent: "gold",
+    image: imgToys,
+    scribble: "robots!!",
+    tilt: 0.9,
   },
 ];
 
@@ -185,12 +200,6 @@ const paymentIcon: Record<Payment, typeof CreditCard> = {
   Venmo: Smartphone,
 };
 
-const accentClasses: Record<Vendor["accent"], string> = {
-  navy: "bg-navy text-cream",
-  teal: "bg-teal text-cream",
-  gold: "bg-gold text-navy",
-};
-
 function AppHome() {
   const [activeCategory, setActiveCategory] = useState<Category | "All">("All");
   const [openToday, setOpenToday] = useState(true);
@@ -225,12 +234,12 @@ function AppHome() {
             <img
               src={trovinBadge}
               alt="Trovin'"
-              className="h-10 w-10 rounded-full shadow-brand-sm"
+              className="h-11 w-11 rounded-full shadow-brand-sm"
             />
             <img
               src={trovinLogo}
               alt="Trovin' — Find more. Miss less."
-              className="hidden h-9 w-auto md:block"
+              className="hidden h-11 w-auto md:block"
             />
           </div>
 
@@ -245,7 +254,7 @@ function AppHome() {
               aria-label="Notifications"
             >
               <Bell className="h-5 w-5" />
-              <span className="absolute right-2 top-2 h-2 w-2 rounded-full bg-gold" />
+              <span className="absolute right-2 top-2 h-2 w-2 animate-pulse rounded-full bg-gold" />
             </button>
             <div className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-navy font-display text-sm font-semibold text-cream">
               JM
@@ -263,8 +272,11 @@ function AppHome() {
             <NavItem icon={MapIcon} label="Map" />
             <NavItem icon={Heart} label="Following" badge="3" />
             <NavItem icon={Store} label="Vendor Portal" />
-            <div className="mt-6 rounded-lg border border-line bg-paper p-4 shadow-brand-sm">
-              <p className="font-script text-2xl text-teal leading-none">
+            <div className="relative mt-6 rounded-lg border border-line bg-paper p-4 shadow-brand-sm">
+              <span className="absolute -top-2 -right-2 -rotate-6 rounded-sm bg-gold/80 px-1.5 py-0.5 font-script text-[11px] text-navy shadow-brand-sm">
+                today!
+              </span>
+              <p className="font-script text-3xl text-teal leading-none">
                 Let's go Trovin'.
               </p>
               <p className="mt-2 text-xs text-ink-soft">
@@ -323,53 +335,78 @@ function AppHome() {
             </div>
           </section>
 
-          {/* Featured event */}
-          <section className="mt-6 overflow-hidden rounded-2xl border border-line bg-navy text-cream shadow-brand-lg">
-            <div className="grid gap-6 p-6 md:grid-cols-[1.2fr,1fr] md:p-8">
-              <div className="flex flex-col justify-between gap-4">
-                <div>
-                  <span className="inline-flex items-center gap-1.5 rounded-full bg-gold/15 px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wider text-gold-200">
-                    <Sparkles className="h-3 w-3" /> Featured today
-                  </span>
-                  <h2 className="mt-3 font-display text-3xl leading-tight md:text-4xl">
-                    {featuredEvent.name}
-                  </h2>
-                  <p className="mt-1 text-sm text-cream/70">
-                    {featuredEvent.neighborhood} • {featuredEvent.date} •{" "}
-                    {featuredEvent.hours}
-                  </p>
-                </div>
-                <div className="flex flex-wrap items-center gap-3">
+          {/* Featured event — real photo hero */}
+          <section className="relative mt-6 overflow-hidden rounded-2xl border border-line bg-navy text-cream shadow-brand-lg">
+            <div className="relative h-72 md:h-96">
+              <img
+                src={eventRandolph}
+                alt="Randolph Street Market in the West Loop"
+                width={1280}
+                height={896}
+                className="absolute inset-0 h-full w-full object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-navy via-navy/70 to-navy/10" />
+              {/* Tape strip */}
+              <span className="absolute left-6 top-4 -rotate-3 rounded-sm bg-gold/85 px-3 py-1 font-script text-base text-navy shadow-brand-md">
+                happening now ✨
+              </span>
+              {/* Scribbled circle pin */}
+              <svg
+                className="absolute right-10 top-10 hidden h-24 w-24 -rotate-12 text-gold md:block"
+                viewBox="0 0 100 100"
+                fill="none"
+              >
+                <path
+                  d="M50 12 C 78 10 92 32 88 56 C 84 80 60 92 38 86 C 16 80 8 56 18 36 C 24 22 38 14 50 12 Z"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeDasharray="3 4"
+                />
+              </svg>
+              <div className="absolute inset-x-0 bottom-0 p-6 md:p-8">
+                <span className="inline-flex items-center gap-1.5 rounded-full bg-gold/20 px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wider text-gold-200">
+                  <Sparkles className="h-3 w-3" /> Featured today
+                </span>
+                <h2 className="mt-3 font-display text-3xl leading-tight md:text-5xl">
+                  {featuredEvent.name}
+                </h2>
+                <p className="mt-1 text-sm text-cream/80">
+                  {featuredEvent.neighborhood} • {featuredEvent.date} •{" "}
+                  {featuredEvent.hours}
+                </p>
+                <div className="mt-4 flex flex-wrap items-center gap-3">
                   <Stat label="Vendors" value={featuredEvent.vendors} />
-                  <span className="h-8 w-px bg-cream/15" />
+                  <span className="h-8 w-px bg-cream/20" />
                   <Stat
                     label="Followers"
                     value={`${(featuredEvent.followers / 1000).toFixed(1)}k`}
                   />
-                  <span className="h-8 w-px bg-cream/15" />
+                  <span className="h-8 w-px bg-cream/20" />
                   <Stat label="Booths mapped" value="186" />
                 </div>
-                <div className="flex flex-wrap gap-2">
-                  <button className="rounded-full bg-gold px-5 py-2.5 text-sm font-semibold text-navy transition hover:bg-gold-400">
+                <div className="mt-4 flex flex-wrap gap-2">
+                  <button className="group inline-flex items-center gap-1.5 rounded-full bg-gold px-5 py-2.5 text-sm font-semibold text-navy transition hover:bg-gold-400">
                     Open event map
+                    <ArrowUpRight className="h-4 w-4 transition group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
                   </button>
-                  <button className="rounded-full border border-cream/25 px-5 py-2.5 text-sm font-semibold text-cream transition hover:border-cream/60">
+                  <button className="rounded-full border border-cream/30 bg-navy/30 px-5 py-2.5 text-sm font-semibold text-cream backdrop-blur transition hover:border-cream/60">
                     Follow event
                   </button>
                 </div>
               </div>
-
-              <MapPreview />
             </div>
           </section>
 
           {/* Vendors */}
-          <section className="mt-8">
-            <div className="mb-3 flex items-end justify-between">
+          <section className="mt-10">
+            <div className="mb-4 flex items-end justify-between">
               <div>
-                <h3 className="font-display text-2xl">Vendors out today</h3>
-                <p className="text-sm text-ink-soft">
-                  {filtered.length} of {vendors.length} • near {`Chicago, IL`}
+                <p className="font-script text-2xl leading-none text-teal">
+                  out today —
+                </p>
+                <h3 className="mt-1 font-display text-3xl">Vendors near you</h3>
+                <p className="mt-1 text-sm text-ink-soft">
+                  {filtered.length} of {vendors.length} • near Chicago, IL
                 </p>
               </div>
               <button className="hidden items-center gap-1 text-sm font-medium text-teal hover:text-navy md:inline-flex">
@@ -377,7 +414,7 @@ function AppHome() {
               </button>
             </div>
 
-            <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+            <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
               {filtered.map((v) => (
                 <VendorCard
                   key={v.id}
@@ -397,11 +434,14 @@ function AppHome() {
           </section>
 
           {/* Following + notifications */}
-          <section className="mt-10 grid gap-4 md:grid-cols-2">
-            <div className="rounded-xl border border-line bg-paper p-5 shadow-brand-sm">
+          <section className="mt-12 grid gap-4 md:grid-cols-2">
+            <div className="relative rounded-xl border border-line bg-paper p-5 shadow-brand-sm">
+              <span className="absolute -top-3 left-5 -rotate-2 rounded-sm bg-teal-200/80 px-2 py-0.5 font-script text-sm text-teal shadow-brand-sm">
+                fresh drops
+              </span>
               <div className="mb-3 flex items-center justify-between">
                 <h4 className="font-display text-lg">From who you follow</h4>
-                <Heart className="h-4 w-4 text-teal" />
+                <Heart className="h-4 w-4 fill-teal text-teal" />
               </div>
               <ul className="space-y-3">
                 {notifications.map((n) => (
@@ -410,9 +450,7 @@ function AppHome() {
                       <n.icon className="h-4 w-4" />
                     </div>
                     <div className="min-w-0">
-                      <p className="text-sm font-medium text-navy">
-                        {n.title}
-                      </p>
+                      <p className="text-sm font-medium text-navy">{n.title}</p>
                       <p className="text-xs text-ink-soft">{n.detail}</p>
                     </div>
                   </li>
@@ -420,21 +458,25 @@ function AppHome() {
               </ul>
             </div>
 
-            <div className="rounded-xl border border-line bg-navy p-5 text-cream shadow-brand-md">
-              <div className="mb-3 flex items-center gap-2">
+            <div className="relative overflow-hidden rounded-xl border border-line bg-navy p-5 text-cream shadow-brand-md">
+              <span className="absolute -right-8 -top-8 h-32 w-32 rounded-full bg-gold/20 blur-2xl" />
+              <div className="relative mb-3 flex items-center gap-2">
                 <Store className="h-4 w-4 text-gold" />
                 <h4 className="font-display text-lg">Are you a vendor?</h4>
               </div>
-              <p className="text-sm text-cream/75">
+              <p className="relative text-sm text-cream/80">
                 Claim your booth, post your schedule, and get found by buyers
                 already looking for you.
               </p>
-              <ul className="mt-3 space-y-1.5 text-sm text-cream/80">
+              <p className="relative mt-3 font-script text-2xl leading-none text-gold-200">
+                Mind ya biz.
+              </p>
+              <ul className="relative mt-2 space-y-1.5 text-sm text-cream/80">
                 <li>• Free Starter listing</li>
                 <li>• Plus, Featured & Growth subscriptions</li>
-                <li>• Mind Ya Biz add-ons: site, CRM, QR, automations</li>
+                <li>• Add-ons: site, CRM, QR, automations</li>
               </ul>
-              <button className="mt-4 inline-flex items-center gap-1 rounded-full bg-gold px-4 py-2 text-sm font-semibold text-navy transition hover:bg-gold-400">
+              <button className="relative mt-4 inline-flex items-center gap-1 rounded-full bg-gold px-4 py-2 text-sm font-semibold text-navy transition hover:bg-gold-400">
                 Open Vendor Portal <ChevronRight className="h-4 w-4" />
               </button>
             </div>
@@ -517,7 +559,7 @@ function Stat({ label, value }: { label: string; value: string | number }) {
   return (
     <div className="flex flex-col">
       <span className="font-display text-2xl leading-none">{value}</span>
-      <span className="mt-1 text-[11px] uppercase tracking-wider text-cream/60">
+      <span className="mt-1 text-[11px] uppercase tracking-wider text-cream/70">
         {label}
       </span>
     </div>
@@ -534,36 +576,38 @@ function VendorCard({
   onToggle: () => void;
 }) {
   return (
-    <article className="group flex flex-col overflow-hidden rounded-xl border border-line bg-paper shadow-brand-sm transition hover:-translate-y-0.5 hover:shadow-brand-md">
-      <div
-        className={`relative flex h-28 items-end justify-between p-4 ${accentClasses[vendor.accent]}`}
-      >
-        <svg
-          className="absolute inset-0 h-full w-full opacity-30"
-          viewBox="0 0 200 100"
-          preserveAspectRatio="none"
-        >
-          <path
-            d="M0 70 Q 50 40 100 60 T 200 50"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeDasharray="4 6"
-          />
-        </svg>
-        <div className="relative">
-          <span className="inline-flex items-center rounded-full bg-black/15 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider backdrop-blur">
-            {vendor.category}
-          </span>
-          <p className="mt-2 font-display text-xl leading-tight">
-            {vendor.name}
-          </p>
-        </div>
+    <article
+      style={{ transform: `rotate(${vendor.tilt}deg)` }}
+      className="group flex flex-col overflow-hidden rounded-xl border border-line bg-paper shadow-brand-sm transition duration-300 hover:!rotate-0 hover:-translate-y-1 hover:shadow-brand-lg"
+    >
+      <div className="relative h-44 overflow-hidden">
+        <img
+          src={vendor.image}
+          alt={vendor.name}
+          width={800}
+          height={640}
+          loading="lazy"
+          className="absolute inset-0 h-full w-full object-cover transition duration-500 group-hover:scale-105"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-navy/75 via-navy/20 to-transparent" />
+        <span className="absolute left-3 top-3 inline-flex items-center rounded-full bg-cream/95 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-navy shadow-brand-sm">
+          {vendor.category}
+        </span>
         {vendor.featured && (
-          <span className="relative inline-flex items-center gap-1 rounded-full bg-gold px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-navy">
+          <span className="absolute right-3 top-3 inline-flex -rotate-3 items-center gap-1 rounded-full bg-gold px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-navy shadow-brand-md">
             <Sparkles className="h-3 w-3" /> Featured
           </span>
         )}
+        {vendor.scribble && (
+          <span className="absolute -right-1 bottom-12 -rotate-6 rounded-sm bg-cream/95 px-2 py-0.5 font-script text-base text-teal shadow-brand-sm">
+            {vendor.scribble}
+          </span>
+        )}
+        <div className="absolute inset-x-0 bottom-0 p-3">
+          <p className="font-display text-xl leading-tight text-cream drop-shadow">
+            {vendor.name}
+          </p>
+        </div>
       </div>
 
       <div className="flex flex-1 flex-col gap-3 p-4">
@@ -611,85 +655,5 @@ function VendorCard({
         </div>
       </div>
     </article>
-  );
-}
-
-function MapPreview() {
-  const pins = [
-    { x: 22, y: 38, label: "142", tone: "gold" },
-    { x: 58, y: 28, label: "071", tone: "cream" },
-    { x: 70, y: 62, label: "203", tone: "cream" },
-    { x: 38, y: 70, label: "118", tone: "cream" },
-    { x: 84, y: 44, label: "094", tone: "cream" },
-  ];
-  return (
-    <div className="relative aspect-[5/4] overflow-hidden rounded-xl border border-cream/15 bg-navy-700">
-      <svg
-        viewBox="0 0 100 80"
-        className="absolute inset-0 h-full w-full text-teal-400/40"
-        preserveAspectRatio="none"
-      >
-        <defs>
-          <pattern
-            id="grid"
-            width="8"
-            height="8"
-            patternUnits="userSpaceOnUse"
-          >
-            <path
-              d="M 8 0 L 0 0 0 8"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="0.3"
-            />
-          </pattern>
-        </defs>
-        <rect width="100" height="80" fill="url(#grid)" />
-        <path
-          d="M5 60 Q 25 30 55 45 T 95 25"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="0.8"
-          strokeDasharray="2 2"
-        />
-        <path
-          d="M10 20 L 90 20"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="0.4"
-        />
-        <path
-          d="M50 5 L 50 75"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="0.4"
-        />
-      </svg>
-      {pins.map((p, i) => (
-        <div
-          key={i}
-          style={{ left: `${p.x}%`, top: `${p.y}%` }}
-          className="absolute -translate-x-1/2 -translate-y-full"
-        >
-          <div
-            className={`flex h-7 min-w-7 items-center justify-center rounded-full px-1.5 text-[10px] font-bold shadow-brand-md ${
-              p.tone === "gold"
-                ? "bg-gold text-navy ring-2 ring-gold-200"
-                : "bg-cream text-navy"
-            }`}
-          >
-            {p.label}
-          </div>
-          <div
-            className={`mx-auto h-2 w-2 -translate-y-0.5 rotate-45 ${
-              p.tone === "gold" ? "bg-gold" : "bg-cream"
-            }`}
-          />
-        </div>
-      ))}
-      <div className="absolute bottom-3 left-3 rounded-md bg-navy/70 px-2 py-1 text-[10px] font-medium text-cream/80 backdrop-blur">
-        Randolph Street • mapped booths
-      </div>
-    </div>
   );
 }
