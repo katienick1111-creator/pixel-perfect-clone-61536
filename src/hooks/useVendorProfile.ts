@@ -51,7 +51,12 @@ function read(): VendorProfile {
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
     if (!raw) return defaultVendorProfile;
-    return { ...defaultVendorProfile, ...JSON.parse(raw) };
+    const parsed = JSON.parse(raw);
+    return {
+      ...defaultVendorProfile,
+      ...parsed,
+      socials: { ...defaultVendorProfile.socials, ...(parsed.socials ?? {}) },
+    };
   } catch {
     return defaultVendorProfile;
   }
