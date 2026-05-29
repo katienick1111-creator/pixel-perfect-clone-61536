@@ -199,7 +199,7 @@ function AppHome() {
           </div>
 
           {/* Polaroid fan */}
-          <div className="relative mx-auto h-[26rem] w-full max-w-md">
+          <div className="relative mx-auto h-[30rem] w-full max-w-md sm:h-[34rem]">
             {featured.map((v, i) => {
               const rotations = [-9, 4, -2];
               const offsets = [
