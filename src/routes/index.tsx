@@ -239,16 +239,12 @@ function AppHome() {
                       <span className="h-px w-2 bg-gold" />
                       not a fortune
                       <span className="h-px w-2 bg-gold" />
-
-                      <span className="h-px w-3 bg-gold" />
                     </span>
                   </span>
 
                   <span className="absolute -right-3 -top-2 font-script text-xl text-gold rotate-[12deg]">✦</span>
                 </span>
-
-
-
+            </h1>
 
 
             <p className="mt-4 max-w-md font-script text-xl leading-tight text-navy md:text-2xl">
