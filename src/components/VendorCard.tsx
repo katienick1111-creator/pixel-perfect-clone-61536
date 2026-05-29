@@ -1,11 +1,6 @@
-import { MapPin, Clock, Sparkles, Heart, CreditCard, Banknote, Smartphone } from "lucide-react";
-import type { Payment, Vendor } from "@/data/trovin";
-
-const paymentIcon: Record<Payment, typeof CreditCard> = {
-  Card: CreditCard,
-  Cash: Banknote,
-  Venmo: Smartphone,
-};
+import { MapPin, Clock, Sparkles, Heart } from "lucide-react";
+import type { Vendor } from "@/data/trovin";
+import { PaymentBrand } from "@/components/PaymentBrand";
 
 export function VendorCard({
   vendor,
@@ -67,18 +62,9 @@ export function VendorCard({
 
         <div className="flex items-center justify-between pt-2">
           <div className="flex items-center gap-1.5">
-            {vendor.payments.map((p) => {
-              const Icon = paymentIcon[p];
-              return (
-                <span
-                  key={p}
-                  title={p}
-                  className="inline-flex h-7 w-7 items-center justify-center rounded-md border border-line bg-cream text-ink-soft"
-                >
-                  <Icon className="h-3.5 w-3.5" />
-                </span>
-              );
-            })}
+            {vendor.payments.map((p) => (
+              <PaymentBrand key={p} brand={p} size={12} />
+            ))}
           </div>
           <button
             onClick={onToggle}

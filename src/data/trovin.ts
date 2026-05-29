@@ -15,7 +15,15 @@ export type Category =
   | "Food"
   | "Collectibles"
   | "Farmers";
-export type Payment = "Card" | "Cash" | "Venmo";
+export type Payment =
+  | "Card"
+  | "Cash"
+  | "Venmo"
+  | "CashApp"
+  | "ApplePay"
+  | "GooglePay"
+  | "PayPal"
+  | "Zelle";
 
 export type Vendor = {
   id: string;
@@ -213,4 +221,9 @@ export const paymentLabel: Record<Payment, string> = {
   Card: "Card",
   Cash: "Cash",
   Venmo: "Venmo",
+  CashApp: "Cash App",
+  ApplePay: "Apple Pay",
+  GooglePay: "Google Pay",
+  PayPal: "PayPal",
+  Zelle: "Zelle",
 };
