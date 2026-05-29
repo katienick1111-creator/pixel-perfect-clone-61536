@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import {
   Store,
   Eye,
@@ -10,8 +10,10 @@ import {
   MapPin,
   Clock,
   CalendarDays,
+  ExternalLink,
 } from "lucide-react";
 import { PaymentBrand, paymentLabel } from "@/components/PaymentBrand";
+import { SocialBrand, socialMeta, type SocialKey } from "@/components/SocialBrand";
 import { AppShell } from "@/components/AppShell";
 import { VendorCalendar } from "@/components/VendorCalendar";
 import {
