@@ -1,49 +1,64 @@
+## Plan: Trovin' main app screen
 
-## Goal
+Build the first real app interface for Trovin' as a vendor-first discovery platform for local markets, shows, fairs, food trucks, collectibles, and farmers markets.
 
-Establish Trovin's brand foundation in the app — design tokens, typography, and logo asset — so future feature work inherits the brand automatically. No marketing pages or product features yet.
+### What I’ll build
 
-## What I'll do
+1. **Replace the current brand showcase with an app UI**
+   - No marketing landing page.
+   - The `/` route becomes the main Trovin' app screen.
+   - Use the existing Trovin' logo, badge, colors, and typography already added.
 
-**1. Logo asset**
-- Save the full horizontal logo (Trovin' wordmark + tagline + pin/x marks) to `src/assets/trovin-logo.png` for use in headers/hero.
-- Save the circular badge variant to `src/assets/trovin-badge.png` for favicons, avatars, compact placements.
-- Wire `trovin-badge.png` as the favicon via `__root.tsx` head links.
+2. **Create a discovery-first dashboard**
+   - Header with Trovin' wordmark, Chicago pilot context, search, and notification/profile controls.
+   - Desktop app layout with a left navigation rail:
+     - Discover
+     - Events
+     - Map
+     - Following
+     - Vendor Portal
+   - Mobile-friendly layout with compact top controls and bottom navigation.
 
-**2. Design tokens in `src/styles.css`**
-Replace the default shadcn slate palette with Trovin's tokens from `style-guide.html`, converted to `oklch` (template requirement):
-- Brand: `--navy`, `--navy-700`, `--navy-500`, `--teal`, `--teal-400`, `--teal-200`, `--gold`, `--gold-400`, `--gold-200`
-- Neutrals: `--cream`, `--cream-deep`, `--paper`, `--ink`, `--ink-soft`, `--ink-mute`, `--line`
-- Semantic mapping so shadcn components inherit the brand:
-  - `--background` → cream, `--foreground` → navy
-  - `--primary` → navy, `--primary-foreground` → cream
-  - `--secondary` → teal, `--accent` → gold
-  - `--border` → line, `--ring` → teal
-- Dark mode: navy background, cream foreground, teal/gold accents preserved.
-- Keep all token names registered in `@theme inline` so Tailwind utilities like `bg-primary`, `text-accent`, `border-line` work.
-- Add brand shadows (`--shadow-sm/md/lg/gold`) and radius scale (`--r-sm` … `--r-pill`) as theme tokens.
+3. **Add core discovery content with mock data**
+   - Featured nearby event: e.g. “Randolph Street Market.”
+   - Vendor cards for categories from the PRD:
+     - Antiques
+     - Craft fairs
+     - Food trucks
+     - Collectibles
+     - Farmers markets
+   - Vendor details: category, event, today’s hours, payment methods, follow/save action, featured status.
 
-**3. Typography**
-- Add Google Fonts link in `__root.tsx` head: Fraunces (display), DM Sans (body), JetBrains Mono (mono), Caveat Brush (script accent).
-- Register `--font-display`, `--font-body`, `--font-mono`, `--font-script` in `@theme inline` so `font-display`, `font-body`, etc. work as Tailwind classes.
-- Set `body` to use DM Sans; headings default to Fraunces via a base layer rule.
+4. **Add filter/search experience**
+   - Search bar for vendor, keyword, event, or location.
+   - Filter chips for category, event, payment method, and “open today.”
+   - This will be visual/mock behavior for now, not database-backed.
 
-**4. Update `src/routes/index.tsx`**
-- Replace the placeholder blank-app screen with a minimal brand showcase: centered logo on cream background, "Find more. Miss less." tagline, small palette/type swatch strip below. Purpose is to verify tokens render correctly — not a marketing page.
-- Update the route's `head()` meta with Trovin name/description.
+5. **Add map-style event panel**
+   - A branded illustrated map/card area, not a real map API yet.
+   - Pins/booth markers for vendors.
+   - Category legend and “future booth overlays” feel from the PRD.
 
-**5. Update `__root.tsx` head**
-- Default title → "Trovin' — Find more. Miss less."
-- Description, og:title, og:description, og:image (logo), twitter card.
-- Favicon link → `trovin-badge.png`.
-- Google Fonts preconnect + stylesheet link.
+6. **Add following and notification cues**
+   - Small “followed vendor alert” panel.
+   - Event reminders and category recommendation examples.
+   - Make the app feel useful immediately, even with mock data.
 
-## Out of scope (next steps, not this plan)
-- Marketing landing page sections (hero copy, features, waitlist)
-- Auth, database, or any PRD product features
-- Reusable Button/Card brand variants beyond what semantic tokens give for free
+### Technical approach
 
-## Technical notes
-- Hex → oklch conversion done at write-time; values committed as oklch literals per template rule.
-- No new dependencies. Fonts loaded via `<link>` (no `@fontsource/*` packages).
-- `components.json` and existing shadcn components untouched — they'll pick up the new tokens automatically because we keep the same CSS variable names.
+- Edit primarily `src/routes/index.tsx`.
+- Keep the existing brand tokens in `src/styles.css`; only add small utility refinements if needed.
+- Use existing UI conventions and semantic Tailwind tokens.
+- No Lovable Cloud/database/auth yet, because you asked for the main app screen first.
+- No new dependencies.
+
+### Out of scope for this pass
+
+- Real login/signup
+- Real database tables
+- Vendor portal forms
+- Admin tools
+- Live maps/geolocation
+- Payment/subscription setup
+
+Those come next after the app screen direction is approved.
