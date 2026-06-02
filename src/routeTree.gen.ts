@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as WelcomeRouteImport } from './routes/welcome'
 import { Route as VendorRouteImport } from './routes/vendor'
+import { Route as QrRouteImport } from './routes/qr'
 import { Route as ProfileRouteImport } from './routes/profile'
 import { Route as MapRouteImport } from './routes/map'
 import { Route as LoginRouteImport } from './routes/login'
@@ -34,6 +35,11 @@ const WelcomeRoute = WelcomeRouteImport.update({
 const VendorRoute = VendorRouteImport.update({
   id: '/vendor',
   path: '/vendor',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const QrRoute = QrRouteImport.update({
+  id: '/qr',
+  path: '/qr',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ProfileRoute = ProfileRouteImport.update({
@@ -115,6 +121,7 @@ export interface FileRoutesByFullPath {
   '/login': typeof LoginRoute
   '/map': typeof MapRoute
   '/profile': typeof ProfileRoute
+  '/qr': typeof QrRoute
   '/vendor': typeof VendorRouteWithChildren
   '/welcome': typeof WelcomeRoute
   '/admin/events': typeof AdminEventsRoute
@@ -132,6 +139,7 @@ export interface FileRoutesByTo {
   '/login': typeof LoginRoute
   '/map': typeof MapRoute
   '/profile': typeof ProfileRoute
+  '/qr': typeof QrRoute
   '/vendor': typeof VendorRouteWithChildren
   '/welcome': typeof WelcomeRoute
   '/admin/events': typeof AdminEventsRoute
@@ -151,6 +159,7 @@ export interface FileRoutesById {
   '/login': typeof LoginRoute
   '/map': typeof MapRoute
   '/profile': typeof ProfileRoute
+  '/qr': typeof QrRoute
   '/vendor': typeof VendorRouteWithChildren
   '/welcome': typeof WelcomeRoute
   '/admin/events': typeof AdminEventsRoute
@@ -171,6 +180,7 @@ export interface FileRouteTypes {
     | '/login'
     | '/map'
     | '/profile'
+    | '/qr'
     | '/vendor'
     | '/welcome'
     | '/admin/events'
@@ -188,6 +198,7 @@ export interface FileRouteTypes {
     | '/login'
     | '/map'
     | '/profile'
+    | '/qr'
     | '/vendor'
     | '/welcome'
     | '/admin/events'
@@ -206,6 +217,7 @@ export interface FileRouteTypes {
     | '/login'
     | '/map'
     | '/profile'
+    | '/qr'
     | '/vendor'
     | '/welcome'
     | '/admin/events'
@@ -225,6 +237,7 @@ export interface RootRouteChildren {
   LoginRoute: typeof LoginRoute
   MapRoute: typeof MapRoute
   ProfileRoute: typeof ProfileRoute
+  QrRoute: typeof QrRoute
   VendorRoute: typeof VendorRouteWithChildren
   WelcomeRoute: typeof WelcomeRoute
   BoothIdRoute: typeof BoothIdRoute
@@ -245,6 +258,13 @@ declare module '@tanstack/react-router' {
       path: '/vendor'
       fullPath: '/vendor'
       preLoaderRoute: typeof VendorRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/qr': {
+      id: '/qr'
+      path: '/qr'
+      fullPath: '/qr'
+      preLoaderRoute: typeof QrRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/profile': {
@@ -383,6 +403,7 @@ const rootRouteChildren: RootRouteChildren = {
   LoginRoute: LoginRoute,
   MapRoute: MapRoute,
   ProfileRoute: ProfileRoute,
+  QrRoute: QrRoute,
   VendorRoute: VendorRouteWithChildren,
   WelcomeRoute: WelcomeRoute,
   BoothIdRoute: BoothIdRoute,
