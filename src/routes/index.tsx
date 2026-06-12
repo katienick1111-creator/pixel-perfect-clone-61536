@@ -364,9 +364,9 @@ function AppHome() {
           <p className="-rotate-2 font-script text-2xl leading-none text-teal">
             Live on the ground —
           </p>
-          <h3 className="mt-1 font-display text-4xl leading-tight text-navy">
+          <h2 className="mt-1 font-display text-4xl leading-tight text-navy">
             The Roster
-          </h3>
+          </h2>
           <div className="mt-2 flex items-center gap-2">
             <span className="inline-flex h-2 w-2 animate-pulse rounded-full bg-coral" />
             <span className="text-[10px] font-medium uppercase tracking-[0.18em] text-ink-soft">
