@@ -20,6 +20,7 @@ import { Route as FollowingRouteImport } from './routes/following'
 import { Route as EventsRouteImport } from './routes/events'
 import { Route as AdminRouteImport } from './routes/admin'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as LoyaltyIndexRouteImport } from './routes/loyalty.index'
 import { Route as AdminIndexRouteImport } from './routes/admin.index'
 import { Route as VendorPreviewRouteImport } from './routes/vendor.preview'
 import { Route as VVendorIdRouteImport } from './routes/v.$vendorId'
@@ -83,6 +84,11 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const LoyaltyIndexRoute = LoyaltyIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => LoyaltyRoute,
+} as any)
 const AdminIndexRoute = AdminIndexRouteImport.update({
   id: '/',
   path: '/',
@@ -125,7 +131,7 @@ export interface FileRoutesByFullPath {
   '/events': typeof EventsRoute
   '/following': typeof FollowingRoute
   '/login': typeof LoginRoute
-  '/loyalty': typeof LoyaltyRoute
+  '/loyalty': typeof LoyaltyRouteWithChildren
   '/map': typeof MapRoute
   '/profile': typeof ProfileRoute
   '/qr': typeof QrRoute
@@ -138,13 +144,13 @@ export interface FileRoutesByFullPath {
   '/v/$vendorId': typeof VVendorIdRoute
   '/vendor/preview': typeof VendorPreviewRoute
   '/admin/': typeof AdminIndexRoute
+  '/loyalty/': typeof LoyaltyIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/events': typeof EventsRoute
   '/following': typeof FollowingRoute
   '/login': typeof LoginRoute
-  '/loyalty': typeof LoyaltyRoute
   '/map': typeof MapRoute
   '/profile': typeof ProfileRoute
   '/qr': typeof QrRoute
@@ -157,6 +163,7 @@ export interface FileRoutesByTo {
   '/v/$vendorId': typeof VVendorIdRoute
   '/vendor/preview': typeof VendorPreviewRoute
   '/admin': typeof AdminIndexRoute
+  '/loyalty': typeof LoyaltyIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -165,7 +172,7 @@ export interface FileRoutesById {
   '/events': typeof EventsRoute
   '/following': typeof FollowingRoute
   '/login': typeof LoginRoute
-  '/loyalty': typeof LoyaltyRoute
+  '/loyalty': typeof LoyaltyRouteWithChildren
   '/map': typeof MapRoute
   '/profile': typeof ProfileRoute
   '/qr': typeof QrRoute
@@ -178,6 +185,7 @@ export interface FileRoutesById {
   '/v/$vendorId': typeof VVendorIdRoute
   '/vendor/preview': typeof VendorPreviewRoute
   '/admin/': typeof AdminIndexRoute
+  '/loyalty/': typeof LoyaltyIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -200,13 +208,13 @@ export interface FileRouteTypes {
     | '/v/$vendorId'
     | '/vendor/preview'
     | '/admin/'
+    | '/loyalty/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/events'
     | '/following'
     | '/login'
-    | '/loyalty'
     | '/map'
     | '/profile'
     | '/qr'
@@ -219,6 +227,7 @@ export interface FileRouteTypes {
     | '/v/$vendorId'
     | '/vendor/preview'
     | '/admin'
+    | '/loyalty'
   id:
     | '__root__'
     | '/'
@@ -239,6 +248,7 @@ export interface FileRouteTypes {
     | '/v/$vendorId'
     | '/vendor/preview'
     | '/admin/'
+    | '/loyalty/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -247,7 +257,7 @@ export interface RootRouteChildren {
   EventsRoute: typeof EventsRoute
   FollowingRoute: typeof FollowingRoute
   LoginRoute: typeof LoginRoute
-  LoyaltyRoute: typeof LoyaltyRoute
+  LoyaltyRoute: typeof LoyaltyRouteWithChildren
   MapRoute: typeof MapRoute
   ProfileRoute: typeof ProfileRoute
   QrRoute: typeof QrRoute
@@ -336,6 +346,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/loyalty/': {
+      id: '/loyalty/'
+      path: '/'
+      fullPath: '/loyalty/'
+      preLoaderRoute: typeof LoyaltyIndexRouteImport
+      parentRoute: typeof LoyaltyRoute
+    }
     '/admin/': {
       id: '/admin/'
       path: '/'
@@ -404,6 +421,17 @@ const AdminRouteChildren: AdminRouteChildren = {
 
 const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
 
+interface LoyaltyRouteChildren {
+  LoyaltyIndexRoute: typeof LoyaltyIndexRoute
+}
+
+const LoyaltyRouteChildren: LoyaltyRouteChildren = {
+  LoyaltyIndexRoute: LoyaltyIndexRoute,
+}
+
+const LoyaltyRouteWithChildren =
+  LoyaltyRoute._addFileChildren(LoyaltyRouteChildren)
+
 interface VendorRouteChildren {
   VendorPreviewRoute: typeof VendorPreviewRoute
 }
@@ -421,7 +449,7 @@ const rootRouteChildren: RootRouteChildren = {
   EventsRoute: EventsRoute,
   FollowingRoute: FollowingRoute,
   LoginRoute: LoginRoute,
-  LoyaltyRoute: LoyaltyRoute,
+  LoyaltyRoute: LoyaltyRouteWithChildren,
   MapRoute: MapRoute,
   ProfileRoute: ProfileRoute,
   QrRoute: QrRoute,
