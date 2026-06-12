@@ -1,7 +1,7 @@
 User-agent: *
 Allow: /
 Disallow: /admin
-Disallow: /loyalty/admin
+Disallow: /passport/admin
 Disallow: /login
 Disallow: /vendor/preview
 

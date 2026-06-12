@@ -1,16 +1,16 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { toast } from "sonner";
-import { useLoyalty, TIER_LABEL, type Tier } from "@/hooks/useLoyalty";
+import { usePassport, TIER_LABEL, type Tier } from "@/hooks/usePassport";
 import { MapPin, Users, ScanLine, BarChart3, Clock } from "lucide-react";
 
-export const Route = createFileRoute("/loyalty/vendor")({
-  component: VendorLoyaltyPage,
+export const Route = createFileRoute("/passport/vendor")({
+  component: VendorPassportPage,
 });
 
 const tiers: Tier[] = ["free", "starter", "plus", "pro"];
 
-function VendorLoyaltyPage() {
-  const { state, setVendor } = useLoyalty();
+function VendorPassportPage() {
+  const { state, setVendor } = usePassport();
   const v = state.vendor;
 
   const today = new Date();
@@ -30,7 +30,7 @@ function VendorLoyaltyPage() {
   return (
     <div>
       <p className="font-script text-2xl text-coral leading-none">your booth —</p>
-      <h1 className="mt-1 font-display text-3xl">Loyalty dashboard</h1>
+      <h1 className="mt-1 font-display text-3xl">Passport dashboard</h1>
 
       <section className="mt-4 rounded-2xl border border-line bg-paper p-4">
         <p className="font-mono text-[10px] uppercase tracking-widest text-ink-mute">membership tier</p>

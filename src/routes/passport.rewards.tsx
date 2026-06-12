@@ -1,14 +1,14 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { toast } from "sonner";
 import { Gift, CreditCard, Package } from "lucide-react";
-import { useLoyalty } from "@/hooks/useLoyalty";
+import { usePassport } from "@/hooks/usePassport";
 
-export const Route = createFileRoute("/loyalty/rewards")({
+export const Route = createFileRoute("/passport/rewards")({
   component: RewardsPage,
 });
 
 function RewardsPage() {
-  const { state, balance, redeem } = useLoyalty();
+  const { state, balance, redeem } = usePassport();
 
   const onRedeem = (id: string) => {
     const res = redeem(id);
@@ -23,12 +23,12 @@ function RewardsPage() {
           <p className="font-script text-2xl text-teal leading-none">cash 'em in —</p>
           <h1 className="mt-1 font-display text-3xl">Rewards</h1>
         </div>
-        <p className="font-mono text-sm text-ink-soft">{balance} B</p>
+        <p className="font-mono text-sm text-ink-soft">{balance} pts</p>
       </div>
 
       <div className="mt-4 grid grid-cols-2 gap-3">
         {state.rewards.map((r) => {
-          const afford = balance >= r.bytesCost;
+          const afford = balance >= r.pointsCost;
           const Icon = r.type === "visa" ? CreditCard : Package;
           return (
             <div key={r.id} className="rounded-2xl border border-line bg-paper p-4 flex flex-col">
@@ -42,7 +42,7 @@ function RewardsPage() {
               <p className="mt-2 text-sm font-semibold leading-tight">{r.name}</p>
               <p className="text-[11px] text-ink-mute uppercase tracking-wider">{r.type}</p>
               <div className="mt-auto flex items-center justify-between pt-3">
-                <span className="font-mono text-sm font-bold text-navy">{r.bytesCost} B</span>
+                <span className="font-mono text-sm font-bold text-navy">{r.pointsCost} pts</span>
                 <button
                   disabled={!afford}
                   onClick={() => onRedeem(r.id)}

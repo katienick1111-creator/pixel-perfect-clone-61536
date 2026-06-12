@@ -2,14 +2,14 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { toast } from "sonner";
 import { ScanLine, ClipboardPaste, Share2, MessageSquare, ShoppingBag, CheckCircle2 } from "lucide-react";
-import { useLoyalty, BYTES, isActionActive } from "@/hooks/useLoyalty";
+import { usePassport, POINTS, isActionActive } from "@/hooks/usePassport";
 
-export const Route = createFileRoute("/loyalty/scan")({
+export const Route = createFileRoute("/passport/scan")({
   component: ScanPage,
 });
 
 function ScanPage() {
-  const { state, scanCustomer, awardExtra } = useLoyalty();
+  const { state, scanCustomer, awardExtra } = usePassport();
   const [token, setToken] = useState("");
   const [lastScan, setLastScan] = useState<{ ok: boolean; awarded: number; message: string; duplicate?: boolean } | null>(null);
 
@@ -36,7 +36,7 @@ function ScanPage() {
     }
   };
 
-  const extra = (action: keyof typeof BYTES) => {
+  const extra = (action: keyof typeof POINTS) => {
     const res = awardExtra(action);
     if (res.ok) toast.success(res.message);
     else toast.error(res.message);
@@ -75,16 +75,16 @@ function ScanPage() {
         <div className={`mt-4 rounded-2xl border-2 p-5 ${lastScan.duplicate ? "border-gold bg-gold/10" : "border-teal bg-teal/10"}`}>
           <div className="flex items-center gap-2">
             <CheckCircle2 className="h-5 w-5 text-teal" />
-            <p className="font-display text-xl">{lastScan.duplicate ? "Already today" : `+${lastScan.awarded} Bytes`}</p>
+            <p className="font-display text-xl">{lastScan.duplicate ? "Already today" : `+${lastScan.awarded} points`}</p>
           </div>
           <p className="mt-1 text-sm text-ink-soft">{lastScan.message}</p>
 
           {!lastScan.duplicate && (
             <div className="mt-3 grid gap-2">
               <p className="font-mono text-[10px] uppercase tracking-widest text-ink-mute">extra actions for {tier}</p>
-              <ExtraButton enabled={canSocial} icon={Share2} label={`Social share (+${BYTES.social_share})`} onClick={() => extra("social_share")} />
+              <ExtraButton enabled={canSocial} icon={Share2} label={`Social share (+${POINTS.social_share})`} onClick={() => extra("social_share")} />
               <ExtraButton enabled={canReview} icon={MessageSquare} label={`Review (queued)`} onClick={() => extra("review")} />
-              <ExtraButton enabled={canPurchase} icon={ShoppingBag} label={`Confirm purchase (+${BYTES.purchase})`} onClick={() => extra("purchase")} />
+              <ExtraButton enabled={canPurchase} icon={ShoppingBag} label={`Confirm purchase (+${POINTS.purchase})`} onClick={() => extra("purchase")} />
             </div>
           )}
         </div>

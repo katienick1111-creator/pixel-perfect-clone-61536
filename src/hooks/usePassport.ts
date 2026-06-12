@@ -1,9 +1,9 @@
 import { useEffect, useState, useCallback } from "react";
 
-const STORAGE_KEY = "trovin:loyalty:v1";
-const EVENT = "trovin:loyalty:changed";
+const STORAGE_KEY = "trovin:passport:v1";
+const EVENT = "trovin:passport:changed";
 
-export const BYTES = {
+export const POINTS = {
   check_in: 10,
   social_share: 15,
   review: 20,
@@ -11,12 +11,12 @@ export const BYTES = {
 } as const;
 
 export type Tier = "free" | "starter" | "plus" | "pro";
-export type LoyaltyAction = keyof typeof BYTES | "redeem";
+export type PassportAction = keyof typeof POINTS | "redeem";
 
 export type LedgerEntry = {
   id: string;
-  action: LoyaltyAction;
-  bytes: number; // + earned, - spent
+  action: PassportAction;
+  points: number; // + earned, - spent
   vendorId: string | null;
   vendorName?: string | null;
   timestamp: number;
@@ -33,7 +33,7 @@ export type CheckIn = {
 export type Reward = {
   id: string;
   name: string;
-  bytesCost: number;
+  pointsCost: number;
   type: "merch" | "visa";
   imageUrl?: string;
 };
@@ -42,19 +42,19 @@ export type Redemption = {
   id: string;
   rewardId: string;
   rewardName: string;
-  bytesSpent: number;
+  pointsSpent: number;
   status: "requested" | "fulfilled";
   timestamp: number;
 };
 
-export type LoyaltyMe = {
+export type PassportMe = {
   id: string;
   role: "customer" | "vendor";
   name: string;
   personalQrToken: string;
 };
 
-export type LoyaltyVendor = {
+export type PassportVendor = {
   id: string;
   name: string;
   tier: Tier;
@@ -63,9 +63,9 @@ export type LoyaltyVendor = {
   endTime: string; // HH:MM
 };
 
-export type LoyaltyState = {
-  me: LoyaltyMe;
-  vendor: LoyaltyVendor;
+export type PassportState = {
+  me: PassportMe;
+  vendor: PassportVendor;
   ledger: LedgerEntry[];
   checkIns: CheckIn[];
   rewards: Reward[];
@@ -73,11 +73,11 @@ export type LoyaltyState = {
 };
 
 const seedRewards: Reward[] = [
-  { id: "r-sticker", name: "Trovin' Sticker Pack", bytesCost: 100, type: "merch" },
-  { id: "r-coffee", name: "Coffee Credit ($2.50)", bytesCost: 250, type: "merch" },
-  { id: "r-tote", name: "Trovin' Canvas Tote", bytesCost: 350, type: "merch" },
-  { id: "r-visa5", name: "$5 Visa Gift Card", bytesCost: 500, type: "visa" },
-  { id: "r-visa10", name: "$10 Visa Gift Card", bytesCost: 1000, type: "visa" },
+  { id: "r-sticker", name: "Trovin' Sticker Pack", pointsCost: 100, type: "merch" },
+  { id: "r-coffee", name: "Coffee Credit ($2.50)", pointsCost: 250, type: "merch" },
+  { id: "r-tote", name: "Trovin' Canvas Tote", pointsCost: 350, type: "merch" },
+  { id: "r-visa5", name: "$5 Visa Gift Card", pointsCost: 500, type: "visa" },
+  { id: "r-visa10", name: "$10 Visa Gift Card", pointsCost: 1000, type: "visa" },
 ];
 
 function uid() {
@@ -85,7 +85,7 @@ function uid() {
   return Math.random().toString(36).slice(2) + Date.now().toString(36);
 }
 
-function defaultState(): LoyaltyState {
+function defaultState(): PassportState {
   return {
     me: {
       id: uid(),
@@ -108,7 +108,7 @@ function defaultState(): LoyaltyState {
   };
 }
 
-function read(): LoyaltyState {
+function read(): PassportState {
   if (typeof window === "undefined") return defaultState();
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
@@ -130,24 +130,24 @@ function read(): LoyaltyState {
   }
 }
 
-function write(state: LoyaltyState) {
+function write(state: PassportState) {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
   window.dispatchEvent(new Event(EVENT));
 }
 
-const tierActions: Record<Tier, Array<keyof typeof BYTES>> = {
+const tierActions: Record<Tier, Array<keyof typeof POINTS>> = {
   free: ["check_in"],
   starter: ["check_in"],
   plus: ["check_in", "social_share", "review"],
   pro: ["check_in", "social_share", "review", "purchase"],
 };
 
-export function isActionActive(tier: Tier, action: keyof typeof BYTES) {
+export function isActionActive(tier: Tier, action: keyof typeof POINTS) {
   return tierActions[tier].includes(action);
 }
 
 export function balanceOf(ledger: LedgerEntry[]) {
-  return ledger.reduce((acc, e) => acc + e.bytes, 0);
+  return ledger.reduce((acc, e) => acc + e.points, 0);
 }
 
 const sameDay = (a: number, b: number) => {
@@ -155,8 +155,8 @@ const sameDay = (a: number, b: number) => {
   return da.getFullYear() === db.getFullYear() && da.getMonth() === db.getMonth() && da.getDate() === db.getDate();
 };
 
-export function useLoyalty() {
-  const [state, setState] = useState<LoyaltyState>(defaultState);
+export function usePassport() {
+  const [state, setState] = useState<PassportState>(defaultState);
 
   useEffect(() => {
     setState(read());
@@ -169,7 +169,7 @@ export function useLoyalty() {
     };
   }, []);
 
-  const mutate = useCallback((updater: (s: LoyaltyState) => LoyaltyState) => {
+  const mutate = useCallback((updater: (s: PassportState) => PassportState) => {
     setState((prev) => {
       const next = updater(prev);
       try { write(next); } catch { /* noop */ }
@@ -190,7 +190,7 @@ export function useLoyalty() {
       (c) => c.customerId === cur.me.id && c.vendorId === cur.vendor.id && sameDay(c.timestamp, today)
     );
     if (already) {
-      return { ok: true, awarded: 0, duplicate: true, message: "Already checked in here today — no extra Bytes." };
+      return { ok: true, awarded: 0, duplicate: true, message: "Already checked in here today — no extra points." };
     }
     const checkIn: CheckIn = {
       id: uid(),
@@ -202,7 +202,7 @@ export function useLoyalty() {
     const entry: LedgerEntry = {
       id: uid(),
       action: "check_in",
-      bytes: BYTES.check_in,
+      points: POINTS.check_in,
       vendorId: cur.vendor.id,
       vendorName: cur.vendor.name,
       timestamp: today,
@@ -210,23 +210,23 @@ export function useLoyalty() {
     const next = { ...cur, checkIns: [checkIn, ...cur.checkIns], ledger: [entry, ...cur.ledger] };
     write(next);
     setState(next);
-    return { ok: true, awarded: BYTES.check_in, message: `+${BYTES.check_in} Bytes — checked in!` };
+    return { ok: true, awarded: POINTS.check_in, message: `+${POINTS.check_in} points — checked in!` };
   }, []);
 
   // TODO(backend): move to server fn
-  const awardExtra = useCallback((action: keyof typeof BYTES): { ok: boolean; awarded: number; message: string } => {
+  const awardExtra = useCallback((action: keyof typeof POINTS): { ok: boolean; awarded: number; message: string } => {
     const cur = read();
     if (!isActionActive(cur.vendor.tier, action)) {
       return { ok: false, awarded: 0, message: "This action isn't available on your tier." };
     }
     if (action === "review") {
-      // Reviews queue for moderation — no Bytes yet
+      // Reviews queue for moderation — no points yet
       return { ok: true, awarded: 0, message: "Review submitted for approval." };
     }
     const entry: LedgerEntry = {
       id: uid(),
       action,
-      bytes: BYTES[action],
+      points: POINTS[action],
       vendorId: cur.vendor.id,
       vendorName: cur.vendor.name,
       timestamp: Date.now(),
@@ -234,7 +234,7 @@ export function useLoyalty() {
     const next = { ...cur, ledger: [entry, ...cur.ledger] };
     write(next);
     setState(next);
-    return { ok: true, awarded: BYTES[action], message: `+${BYTES[action]} Bytes awarded!` };
+    return { ok: true, awarded: POINTS[action], message: `+${POINTS[action]} points awarded!` };
   }, []);
 
   // TODO(backend): move to server fn
@@ -243,11 +243,11 @@ export function useLoyalty() {
     const reward = cur.rewards.find((r) => r.id === rewardId);
     if (!reward) return { ok: false, message: "Reward not found." };
     const bal = balanceOf(cur.ledger);
-    if (bal < reward.bytesCost) return { ok: false, message: "Not enough Bytes yet." };
+    if (bal < reward.pointsCost) return { ok: false, message: "Not enough points yet." };
     const entry: LedgerEntry = {
       id: uid(),
       action: "redeem",
-      bytes: -reward.bytesCost,
+      points: -reward.pointsCost,
       vendorId: null,
       vendorName: reward.name,
       timestamp: Date.now(),
@@ -256,7 +256,7 @@ export function useLoyalty() {
       id: uid(),
       rewardId: reward.id,
       rewardName: reward.name,
-      bytesSpent: reward.bytesCost,
+      pointsSpent: reward.pointsCost,
       status: "requested",
       timestamp: Date.now(),
     };
@@ -266,7 +266,7 @@ export function useLoyalty() {
     return { ok: true, message: `Redemption requested — ${reward.name}.` };
   }, []);
 
-  const setVendor = useCallback((patch: Partial<LoyaltyVendor>) => {
+  const setVendor = useCallback((patch: Partial<PassportVendor>) => {
     mutate((s) => ({ ...s, vendor: { ...s.vendor, ...patch } }));
   }, [mutate]);
 
@@ -293,7 +293,7 @@ export const TIER_LABEL: Record<Tier, string> = {
   pro: "Pro · $99/mo",
 };
 
-export const ACTION_LABEL: Record<LoyaltyAction, string> = {
+export const ACTION_LABEL: Record<PassportAction, string> = {
   check_in: "Check-in",
   social_share: "Social share",
   review: "Review",

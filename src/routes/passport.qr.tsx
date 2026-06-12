@@ -2,14 +2,14 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useRef, useState } from "react";
 import { QRCodeCanvas } from "qrcode.react";
 import { Copy, Check, RefreshCw } from "lucide-react";
-import { useLoyalty } from "@/hooks/useLoyalty";
+import { usePassport } from "@/hooks/usePassport";
 
-export const Route = createFileRoute("/loyalty/qr")({
+export const Route = createFileRoute("/passport/qr")({
   component: MyQrPage,
 });
 
 function MyQrPage() {
-  const { state, mutate } = useLoyalty();
+  const { state, mutate } = usePassport();
   const [copied, setCopied] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 

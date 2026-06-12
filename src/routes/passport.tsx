@@ -1,27 +1,27 @@
 import { createFileRoute, Link, Outlet, useRouterState } from "@tanstack/react-router";
 import { ArrowLeft, QrCode, Wallet, Gift, ScanLine, Store, ShieldCheck } from "lucide-react";
 
-export const Route = createFileRoute("/loyalty")({
+export const Route = createFileRoute("/passport")({
   head: () => ({
     meta: [
-      { title: "Loyalty — Trovin' Bytes" },
-      { name: "description", content: "Earn Bytes at every Trovin' booth. Redeem for rewards." },
+      { title: "Passport — Trovin'" },
+      { name: "description", content: "Earn points at every Trovin' booth. Redeem for rewards." },
     ],
   }),
-  component: LoyaltyLayout,
+  component: PassportLayout,
 });
 
 const tabs = [
-  { to: "/loyalty/qr" as const, label: "My QR", icon: QrCode },
-  { to: "/loyalty/wallet" as const, label: "Wallet", icon: Wallet },
-  { to: "/loyalty/rewards" as const, label: "Rewards", icon: Gift },
-  { to: "/loyalty/scan" as const, label: "Scan", icon: ScanLine },
-  { to: "/loyalty/vendor" as const, label: "Booth", icon: Store },
+  { to: "/passport/qr" as const, label: "My QR", icon: QrCode },
+  { to: "/passport/wallet" as const, label: "Wallet", icon: Wallet },
+  { to: "/passport/rewards" as const, label: "Rewards", icon: Gift },
+  { to: "/passport/scan" as const, label: "Scan", icon: ScanLine },
+  { to: "/passport/vendor" as const, label: "Booth", icon: Store },
 ];
 
-function LoyaltyLayout() {
+function PassportLayout() {
   const path = useRouterState({ select: (s) => s.location.pathname });
-  const isLanding = path === "/loyalty" || path === "/loyalty/";
+  const isLanding = path === "/passport" || path === "/passport/";
 
   return (
     <div className="min-h-screen bg-cream text-navy pb-24">
@@ -31,9 +31,9 @@ function LoyaltyLayout() {
             <ArrowLeft className="h-4 w-4" /> Trovin'
           </Link>
           <span className="rounded-full bg-gold px-2.5 py-1 text-[10px] font-bold uppercase tracking-widest text-navy">
-            bytes
+            Passport
           </span>
-          <Link to="/loyalty/admin" className="inline-flex items-center gap-1 text-[10px] font-semibold text-cream/70 hover:text-gold">
+          <Link to="/passport/admin" className="inline-flex items-center gap-1 text-[10px] font-semibold text-cream/70 hover:text-gold">
             <ShieldCheck className="h-3.5 w-3.5" /> admin
           </Link>
         </div>
