@@ -24,6 +24,7 @@ import { Route as LoyaltyIndexRouteImport } from './routes/loyalty.index'
 import { Route as AdminIndexRouteImport } from './routes/admin.index'
 import { Route as VendorPreviewRouteImport } from './routes/vendor.preview'
 import { Route as VVendorIdRouteImport } from './routes/v.$vendorId'
+import { Route as LoyaltyQrRouteImport } from './routes/loyalty.qr'
 import { Route as BoothIdRouteImport } from './routes/booth.$id'
 import { Route as AdminVendorsRouteImport } from './routes/admin.vendors'
 import { Route as AdminShoppersRouteImport } from './routes/admin.shoppers'
@@ -104,6 +105,11 @@ const VVendorIdRoute = VVendorIdRouteImport.update({
   path: '/v/$vendorId',
   getParentRoute: () => rootRouteImport,
 } as any)
+const LoyaltyQrRoute = LoyaltyQrRouteImport.update({
+  id: '/qr',
+  path: '/qr',
+  getParentRoute: () => LoyaltyRoute,
+} as any)
 const BoothIdRoute = BoothIdRouteImport.update({
   id: '/booth/$id',
   path: '/booth/$id',
@@ -141,6 +147,7 @@ export interface FileRoutesByFullPath {
   '/admin/shoppers': typeof AdminShoppersRoute
   '/admin/vendors': typeof AdminVendorsRoute
   '/booth/$id': typeof BoothIdRoute
+  '/loyalty/qr': typeof LoyaltyQrRoute
   '/v/$vendorId': typeof VVendorIdRoute
   '/vendor/preview': typeof VendorPreviewRoute
   '/admin/': typeof AdminIndexRoute
@@ -160,6 +167,7 @@ export interface FileRoutesByTo {
   '/admin/shoppers': typeof AdminShoppersRoute
   '/admin/vendors': typeof AdminVendorsRoute
   '/booth/$id': typeof BoothIdRoute
+  '/loyalty/qr': typeof LoyaltyQrRoute
   '/v/$vendorId': typeof VVendorIdRoute
   '/vendor/preview': typeof VendorPreviewRoute
   '/admin': typeof AdminIndexRoute
@@ -182,6 +190,7 @@ export interface FileRoutesById {
   '/admin/shoppers': typeof AdminShoppersRoute
   '/admin/vendors': typeof AdminVendorsRoute
   '/booth/$id': typeof BoothIdRoute
+  '/loyalty/qr': typeof LoyaltyQrRoute
   '/v/$vendorId': typeof VVendorIdRoute
   '/vendor/preview': typeof VendorPreviewRoute
   '/admin/': typeof AdminIndexRoute
@@ -205,6 +214,7 @@ export interface FileRouteTypes {
     | '/admin/shoppers'
     | '/admin/vendors'
     | '/booth/$id'
+    | '/loyalty/qr'
     | '/v/$vendorId'
     | '/vendor/preview'
     | '/admin/'
@@ -224,6 +234,7 @@ export interface FileRouteTypes {
     | '/admin/shoppers'
     | '/admin/vendors'
     | '/booth/$id'
+    | '/loyalty/qr'
     | '/v/$vendorId'
     | '/vendor/preview'
     | '/admin'
@@ -245,6 +256,7 @@ export interface FileRouteTypes {
     | '/admin/shoppers'
     | '/admin/vendors'
     | '/booth/$id'
+    | '/loyalty/qr'
     | '/v/$vendorId'
     | '/vendor/preview'
     | '/admin/'
@@ -374,6 +386,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof VVendorIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/loyalty/qr': {
+      id: '/loyalty/qr'
+      path: '/qr'
+      fullPath: '/loyalty/qr'
+      preLoaderRoute: typeof LoyaltyQrRouteImport
+      parentRoute: typeof LoyaltyRoute
+    }
     '/booth/$id': {
       id: '/booth/$id'
       path: '/booth/$id'
@@ -422,10 +441,12 @@ const AdminRouteChildren: AdminRouteChildren = {
 const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
 
 interface LoyaltyRouteChildren {
+  LoyaltyQrRoute: typeof LoyaltyQrRoute
   LoyaltyIndexRoute: typeof LoyaltyIndexRoute
 }
 
 const LoyaltyRouteChildren: LoyaltyRouteChildren = {
+  LoyaltyQrRoute: LoyaltyQrRoute,
   LoyaltyIndexRoute: LoyaltyIndexRoute,
 }
 
