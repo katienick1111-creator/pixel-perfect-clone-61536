@@ -195,9 +195,9 @@ function MapPage() {
               {active.scribble ?? "tap a pin"}
             </span>
           </div>
-          <h3 className="mt-4 font-display text-2xl leading-tight">
+          <h2 className="mt-4 font-display text-2xl leading-tight">
             {active.name}
-          </h3>
+          </h2>
           <p className="mt-1 flex items-center gap-1.5 text-sm text-ink-soft">
             <MapPin className="h-3.5 w-3.5 text-teal" />
             {active.neighborhood}
