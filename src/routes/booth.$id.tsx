@@ -155,9 +155,9 @@ function BoothPage() {
               </span>
             )}
             <div className="absolute inset-x-0 bottom-0 p-4">
-              <p className="font-script text-4xl leading-none text-cream drop-shadow">
+              <h1 className="font-script text-4xl leading-none text-cream drop-shadow">
                 {booth.name}
-              </p>
+              </h1>
             </div>
           </div>
 
