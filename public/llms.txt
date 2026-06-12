@@ -1,0 +1,18 @@
+# Trovin'
+
+> Trovin' helps Chicago shoppers find local vendors, flea markets, food trucks, and craft fairs — and earn Bytes loyalty points as they go.
+
+Trovin' is a photo-first guide to small vendors and pop-up markets. Shoppers follow favorite booths so they never lose track of a great find, and vendors get a free presence with optional paid tiers.
+
+## Pages
+
+- [Home](/): Discover live vendors and what's happening in Chicago today.
+- [Events](/events): All the markets, fairs, and pop-ups happening this week — submit your own for approval.
+- [Map](/map): Satellite map of every market and pop-up, filterable by category and date.
+- [Following](/following): Vendors you've followed and their next drops.
+- [Loyalty (Bytes)](/loyalty): Earn Bytes at every booth and redeem for rewards.
+- [Welcome](/welcome): Sign up or sign in to save vendors and start earning.
+
+## Optional
+
+- [Share QR](/qr): A QR code that points to the Trovin' site.

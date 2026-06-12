@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as WelcomeRouteImport } from './routes/welcome'
 import { Route as VendorRouteImport } from './routes/vendor'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as QrRouteImport } from './routes/qr'
 import { Route as ProfileRouteImport } from './routes/profile'
 import { Route as MapRouteImport } from './routes/map'
@@ -43,6 +44,11 @@ const WelcomeRoute = WelcomeRouteImport.update({
 const VendorRoute = VendorRouteImport.update({
   id: '/vendor',
   path: '/vendor',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
   getParentRoute: () => rootRouteImport,
 } as any)
 const QrRoute = QrRouteImport.update({
@@ -171,6 +177,7 @@ export interface FileRoutesByFullPath {
   '/map': typeof MapRoute
   '/profile': typeof ProfileRoute
   '/qr': typeof QrRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/vendor': typeof VendorRouteWithChildren
   '/welcome': typeof WelcomeRoute
   '/admin/events': typeof AdminEventsRoute
@@ -196,6 +203,7 @@ export interface FileRoutesByTo {
   '/map': typeof MapRoute
   '/profile': typeof ProfileRoute
   '/qr': typeof QrRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/vendor': typeof VendorRouteWithChildren
   '/welcome': typeof WelcomeRoute
   '/admin/events': typeof AdminEventsRoute
@@ -224,6 +232,7 @@ export interface FileRoutesById {
   '/map': typeof MapRoute
   '/profile': typeof ProfileRoute
   '/qr': typeof QrRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/vendor': typeof VendorRouteWithChildren
   '/welcome': typeof WelcomeRoute
   '/admin/events': typeof AdminEventsRoute
@@ -253,6 +262,7 @@ export interface FileRouteTypes {
     | '/map'
     | '/profile'
     | '/qr'
+    | '/sitemap.xml'
     | '/vendor'
     | '/welcome'
     | '/admin/events'
@@ -278,6 +288,7 @@ export interface FileRouteTypes {
     | '/map'
     | '/profile'
     | '/qr'
+    | '/sitemap.xml'
     | '/vendor'
     | '/welcome'
     | '/admin/events'
@@ -305,6 +316,7 @@ export interface FileRouteTypes {
     | '/map'
     | '/profile'
     | '/qr'
+    | '/sitemap.xml'
     | '/vendor'
     | '/welcome'
     | '/admin/events'
@@ -333,6 +345,7 @@ export interface RootRouteChildren {
   MapRoute: typeof MapRoute
   ProfileRoute: typeof ProfileRoute
   QrRoute: typeof QrRoute
+  SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   VendorRoute: typeof VendorRouteWithChildren
   WelcomeRoute: typeof WelcomeRoute
   BoothIdRoute: typeof BoothIdRoute
@@ -353,6 +366,13 @@ declare module '@tanstack/react-router' {
       path: '/vendor'
       fullPath: '/vendor'
       preLoaderRoute: typeof VendorRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/qr': {
@@ -579,6 +599,7 @@ const rootRouteChildren: RootRouteChildren = {
   MapRoute: MapRoute,
   ProfileRoute: ProfileRoute,
   QrRoute: QrRoute,
+  SitemapDotxmlRoute: SitemapDotxmlRoute,
   VendorRoute: VendorRouteWithChildren,
   WelcomeRoute: WelcomeRoute,
   BoothIdRoute: BoothIdRoute,
