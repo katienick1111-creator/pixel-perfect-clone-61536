@@ -14,6 +14,7 @@ import { Route as VendorRouteImport } from './routes/vendor'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as QrRouteImport } from './routes/qr'
 import { Route as ProfileRouteImport } from './routes/profile'
+import { Route as PassportRouteImport } from './routes/passport'
 import { Route as MapRouteImport } from './routes/map'
 import { Route as LoyaltyRouteImport } from './routes/loyalty'
 import { Route as LoginRouteImport } from './routes/login'
@@ -21,10 +22,17 @@ import { Route as FollowingRouteImport } from './routes/following'
 import { Route as EventsRouteImport } from './routes/events'
 import { Route as AdminRouteImport } from './routes/admin'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as PassportIndexRouteImport } from './routes/passport.index'
 import { Route as LoyaltyIndexRouteImport } from './routes/loyalty.index'
 import { Route as AdminIndexRouteImport } from './routes/admin.index'
 import { Route as VendorPreviewRouteImport } from './routes/vendor.preview'
 import { Route as VVendorIdRouteImport } from './routes/v.$vendorId'
+import { Route as PassportWalletRouteImport } from './routes/passport.wallet'
+import { Route as PassportVendorRouteImport } from './routes/passport.vendor'
+import { Route as PassportScanRouteImport } from './routes/passport.scan'
+import { Route as PassportRewardsRouteImport } from './routes/passport.rewards'
+import { Route as PassportQrRouteImport } from './routes/passport.qr'
+import { Route as PassportAdminRouteImport } from './routes/passport.admin'
 import { Route as LoyaltyWalletRouteImport } from './routes/loyalty.wallet'
 import { Route as LoyaltyVendorRouteImport } from './routes/loyalty.vendor'
 import { Route as LoyaltyScanRouteImport } from './routes/loyalty.scan'
@@ -59,6 +67,11 @@ const QrRoute = QrRouteImport.update({
 const ProfileRoute = ProfileRouteImport.update({
   id: '/profile',
   path: '/profile',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PassportRoute = PassportRouteImport.update({
+  id: '/passport',
+  path: '/passport',
   getParentRoute: () => rootRouteImport,
 } as any)
 const MapRoute = MapRouteImport.update({
@@ -96,6 +109,11 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PassportIndexRoute = PassportIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => PassportRoute,
+} as any)
 const LoyaltyIndexRoute = LoyaltyIndexRouteImport.update({
   id: '/',
   path: '/',
@@ -115,6 +133,36 @@ const VVendorIdRoute = VVendorIdRouteImport.update({
   id: '/v/$vendorId',
   path: '/v/$vendorId',
   getParentRoute: () => rootRouteImport,
+} as any)
+const PassportWalletRoute = PassportWalletRouteImport.update({
+  id: '/wallet',
+  path: '/wallet',
+  getParentRoute: () => PassportRoute,
+} as any)
+const PassportVendorRoute = PassportVendorRouteImport.update({
+  id: '/vendor',
+  path: '/vendor',
+  getParentRoute: () => PassportRoute,
+} as any)
+const PassportScanRoute = PassportScanRouteImport.update({
+  id: '/scan',
+  path: '/scan',
+  getParentRoute: () => PassportRoute,
+} as any)
+const PassportRewardsRoute = PassportRewardsRouteImport.update({
+  id: '/rewards',
+  path: '/rewards',
+  getParentRoute: () => PassportRoute,
+} as any)
+const PassportQrRoute = PassportQrRouteImport.update({
+  id: '/qr',
+  path: '/qr',
+  getParentRoute: () => PassportRoute,
+} as any)
+const PassportAdminRoute = PassportAdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => PassportRoute,
 } as any)
 const LoyaltyWalletRoute = LoyaltyWalletRouteImport.update({
   id: '/wallet',
@@ -175,6 +223,7 @@ export interface FileRoutesByFullPath {
   '/login': typeof LoginRoute
   '/loyalty': typeof LoyaltyRouteWithChildren
   '/map': typeof MapRoute
+  '/passport': typeof PassportRouteWithChildren
   '/profile': typeof ProfileRoute
   '/qr': typeof QrRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
@@ -190,10 +239,17 @@ export interface FileRoutesByFullPath {
   '/loyalty/scan': typeof LoyaltyScanRoute
   '/loyalty/vendor': typeof LoyaltyVendorRoute
   '/loyalty/wallet': typeof LoyaltyWalletRoute
+  '/passport/admin': typeof PassportAdminRoute
+  '/passport/qr': typeof PassportQrRoute
+  '/passport/rewards': typeof PassportRewardsRoute
+  '/passport/scan': typeof PassportScanRoute
+  '/passport/vendor': typeof PassportVendorRoute
+  '/passport/wallet': typeof PassportWalletRoute
   '/v/$vendorId': typeof VVendorIdRoute
   '/vendor/preview': typeof VendorPreviewRoute
   '/admin/': typeof AdminIndexRoute
   '/loyalty/': typeof LoyaltyIndexRoute
+  '/passport/': typeof PassportIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -216,10 +272,17 @@ export interface FileRoutesByTo {
   '/loyalty/scan': typeof LoyaltyScanRoute
   '/loyalty/vendor': typeof LoyaltyVendorRoute
   '/loyalty/wallet': typeof LoyaltyWalletRoute
+  '/passport/admin': typeof PassportAdminRoute
+  '/passport/qr': typeof PassportQrRoute
+  '/passport/rewards': typeof PassportRewardsRoute
+  '/passport/scan': typeof PassportScanRoute
+  '/passport/vendor': typeof PassportVendorRoute
+  '/passport/wallet': typeof PassportWalletRoute
   '/v/$vendorId': typeof VVendorIdRoute
   '/vendor/preview': typeof VendorPreviewRoute
   '/admin': typeof AdminIndexRoute
   '/loyalty': typeof LoyaltyIndexRoute
+  '/passport': typeof PassportIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -230,6 +293,7 @@ export interface FileRoutesById {
   '/login': typeof LoginRoute
   '/loyalty': typeof LoyaltyRouteWithChildren
   '/map': typeof MapRoute
+  '/passport': typeof PassportRouteWithChildren
   '/profile': typeof ProfileRoute
   '/qr': typeof QrRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
@@ -245,10 +309,17 @@ export interface FileRoutesById {
   '/loyalty/scan': typeof LoyaltyScanRoute
   '/loyalty/vendor': typeof LoyaltyVendorRoute
   '/loyalty/wallet': typeof LoyaltyWalletRoute
+  '/passport/admin': typeof PassportAdminRoute
+  '/passport/qr': typeof PassportQrRoute
+  '/passport/rewards': typeof PassportRewardsRoute
+  '/passport/scan': typeof PassportScanRoute
+  '/passport/vendor': typeof PassportVendorRoute
+  '/passport/wallet': typeof PassportWalletRoute
   '/v/$vendorId': typeof VVendorIdRoute
   '/vendor/preview': typeof VendorPreviewRoute
   '/admin/': typeof AdminIndexRoute
   '/loyalty/': typeof LoyaltyIndexRoute
+  '/passport/': typeof PassportIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -260,6 +331,7 @@ export interface FileRouteTypes {
     | '/login'
     | '/loyalty'
     | '/map'
+    | '/passport'
     | '/profile'
     | '/qr'
     | '/sitemap.xml'
@@ -275,10 +347,17 @@ export interface FileRouteTypes {
     | '/loyalty/scan'
     | '/loyalty/vendor'
     | '/loyalty/wallet'
+    | '/passport/admin'
+    | '/passport/qr'
+    | '/passport/rewards'
+    | '/passport/scan'
+    | '/passport/vendor'
+    | '/passport/wallet'
     | '/v/$vendorId'
     | '/vendor/preview'
     | '/admin/'
     | '/loyalty/'
+    | '/passport/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -301,10 +380,17 @@ export interface FileRouteTypes {
     | '/loyalty/scan'
     | '/loyalty/vendor'
     | '/loyalty/wallet'
+    | '/passport/admin'
+    | '/passport/qr'
+    | '/passport/rewards'
+    | '/passport/scan'
+    | '/passport/vendor'
+    | '/passport/wallet'
     | '/v/$vendorId'
     | '/vendor/preview'
     | '/admin'
     | '/loyalty'
+    | '/passport'
   id:
     | '__root__'
     | '/'
@@ -314,6 +400,7 @@ export interface FileRouteTypes {
     | '/login'
     | '/loyalty'
     | '/map'
+    | '/passport'
     | '/profile'
     | '/qr'
     | '/sitemap.xml'
@@ -329,10 +416,17 @@ export interface FileRouteTypes {
     | '/loyalty/scan'
     | '/loyalty/vendor'
     | '/loyalty/wallet'
+    | '/passport/admin'
+    | '/passport/qr'
+    | '/passport/rewards'
+    | '/passport/scan'
+    | '/passport/vendor'
+    | '/passport/wallet'
     | '/v/$vendorId'
     | '/vendor/preview'
     | '/admin/'
     | '/loyalty/'
+    | '/passport/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -343,6 +437,7 @@ export interface RootRouteChildren {
   LoginRoute: typeof LoginRoute
   LoyaltyRoute: typeof LoyaltyRouteWithChildren
   MapRoute: typeof MapRoute
+  PassportRoute: typeof PassportRouteWithChildren
   ProfileRoute: typeof ProfileRoute
   QrRoute: typeof QrRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
@@ -387,6 +482,13 @@ declare module '@tanstack/react-router' {
       path: '/profile'
       fullPath: '/profile'
       preLoaderRoute: typeof ProfileRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/passport': {
+      id: '/passport'
+      path: '/passport'
+      fullPath: '/passport'
+      preLoaderRoute: typeof PassportRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/map': {
@@ -438,6 +540,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/passport/': {
+      id: '/passport/'
+      path: '/'
+      fullPath: '/passport/'
+      preLoaderRoute: typeof PassportIndexRouteImport
+      parentRoute: typeof PassportRoute
+    }
     '/loyalty/': {
       id: '/loyalty/'
       path: '/'
@@ -465,6 +574,48 @@ declare module '@tanstack/react-router' {
       fullPath: '/v/$vendorId'
       preLoaderRoute: typeof VVendorIdRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/passport/wallet': {
+      id: '/passport/wallet'
+      path: '/wallet'
+      fullPath: '/passport/wallet'
+      preLoaderRoute: typeof PassportWalletRouteImport
+      parentRoute: typeof PassportRoute
+    }
+    '/passport/vendor': {
+      id: '/passport/vendor'
+      path: '/vendor'
+      fullPath: '/passport/vendor'
+      preLoaderRoute: typeof PassportVendorRouteImport
+      parentRoute: typeof PassportRoute
+    }
+    '/passport/scan': {
+      id: '/passport/scan'
+      path: '/scan'
+      fullPath: '/passport/scan'
+      preLoaderRoute: typeof PassportScanRouteImport
+      parentRoute: typeof PassportRoute
+    }
+    '/passport/rewards': {
+      id: '/passport/rewards'
+      path: '/rewards'
+      fullPath: '/passport/rewards'
+      preLoaderRoute: typeof PassportRewardsRouteImport
+      parentRoute: typeof PassportRoute
+    }
+    '/passport/qr': {
+      id: '/passport/qr'
+      path: '/qr'
+      fullPath: '/passport/qr'
+      preLoaderRoute: typeof PassportQrRouteImport
+      parentRoute: typeof PassportRoute
+    }
+    '/passport/admin': {
+      id: '/passport/admin'
+      path: '/admin'
+      fullPath: '/passport/admin'
+      preLoaderRoute: typeof PassportAdminRouteImport
+      parentRoute: typeof PassportRoute
     }
     '/loyalty/wallet': {
       id: '/loyalty/wallet'
@@ -578,6 +729,30 @@ const LoyaltyRouteChildren: LoyaltyRouteChildren = {
 const LoyaltyRouteWithChildren =
   LoyaltyRoute._addFileChildren(LoyaltyRouteChildren)
 
+interface PassportRouteChildren {
+  PassportAdminRoute: typeof PassportAdminRoute
+  PassportQrRoute: typeof PassportQrRoute
+  PassportRewardsRoute: typeof PassportRewardsRoute
+  PassportScanRoute: typeof PassportScanRoute
+  PassportVendorRoute: typeof PassportVendorRoute
+  PassportWalletRoute: typeof PassportWalletRoute
+  PassportIndexRoute: typeof PassportIndexRoute
+}
+
+const PassportRouteChildren: PassportRouteChildren = {
+  PassportAdminRoute: PassportAdminRoute,
+  PassportQrRoute: PassportQrRoute,
+  PassportRewardsRoute: PassportRewardsRoute,
+  PassportScanRoute: PassportScanRoute,
+  PassportVendorRoute: PassportVendorRoute,
+  PassportWalletRoute: PassportWalletRoute,
+  PassportIndexRoute: PassportIndexRoute,
+}
+
+const PassportRouteWithChildren = PassportRoute._addFileChildren(
+  PassportRouteChildren,
+)
+
 interface VendorRouteChildren {
   VendorPreviewRoute: typeof VendorPreviewRoute
 }
@@ -597,6 +772,7 @@ const rootRouteChildren: RootRouteChildren = {
   LoginRoute: LoginRoute,
   LoyaltyRoute: LoyaltyRouteWithChildren,
   MapRoute: MapRoute,
+  PassportRoute: PassportRouteWithChildren,
   ProfileRoute: ProfileRoute,
   QrRoute: QrRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
@@ -608,13 +784,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
