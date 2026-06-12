@@ -151,8 +151,34 @@ function EventsPage() {
     return allEvents.sort((a, b) => a.date!.getTime() - b.date!.getTime());
   }, [allEvents, selectedDay]);
 
+  const eventJsonLd = useMemo(() => {
+    const upcoming = allEvents
+      .filter((e) => e.date && e.date.getTime() >= Date.now() - 86_400_000)
+      .slice(0, 12);
+    if (upcoming.length === 0) return null;
+    return {
+      "@context": "https://schema.org",
+      "@graph": upcoming.map((e) => ({
+        "@type": "Event",
+        name: e.name,
+        startDate: e.date!.toISOString(),
+        eventStatus: "https://schema.org/EventScheduled",
+        eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
+        location: {
+          "@type": "Place",
+          name: e.neighborhood,
+          address: { "@type": "PostalAddress", addressLocality: "Chicago", addressRegion: "IL", addressCountry: "US" },
+        },
+        image: e.image,
+      })),
+    };
+  }, [allEvents]);
+
   return (
     <AppShell>
+      {eventJsonLd && (
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(eventJsonLd) }} />
+      )}
       <div className="mb-6 flex items-start justify-between gap-4">
         <PageHeader
           scribble="what's on —"
