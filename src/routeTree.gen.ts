@@ -14,6 +14,7 @@ import { Route as VendorRouteImport } from './routes/vendor'
 import { Route as QrRouteImport } from './routes/qr'
 import { Route as ProfileRouteImport } from './routes/profile'
 import { Route as MapRouteImport } from './routes/map'
+import { Route as LoyaltyRouteImport } from './routes/loyalty'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as FollowingRouteImport } from './routes/following'
 import { Route as EventsRouteImport } from './routes/events'
@@ -50,6 +51,11 @@ const ProfileRoute = ProfileRouteImport.update({
 const MapRoute = MapRouteImport.update({
   id: '/map',
   path: '/map',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LoyaltyRoute = LoyaltyRouteImport.update({
+  id: '/loyalty',
+  path: '/loyalty',
   getParentRoute: () => rootRouteImport,
 } as any)
 const LoginRoute = LoginRouteImport.update({
@@ -119,6 +125,7 @@ export interface FileRoutesByFullPath {
   '/events': typeof EventsRoute
   '/following': typeof FollowingRoute
   '/login': typeof LoginRoute
+  '/loyalty': typeof LoyaltyRoute
   '/map': typeof MapRoute
   '/profile': typeof ProfileRoute
   '/qr': typeof QrRoute
@@ -137,6 +144,7 @@ export interface FileRoutesByTo {
   '/events': typeof EventsRoute
   '/following': typeof FollowingRoute
   '/login': typeof LoginRoute
+  '/loyalty': typeof LoyaltyRoute
   '/map': typeof MapRoute
   '/profile': typeof ProfileRoute
   '/qr': typeof QrRoute
@@ -157,6 +165,7 @@ export interface FileRoutesById {
   '/events': typeof EventsRoute
   '/following': typeof FollowingRoute
   '/login': typeof LoginRoute
+  '/loyalty': typeof LoyaltyRoute
   '/map': typeof MapRoute
   '/profile': typeof ProfileRoute
   '/qr': typeof QrRoute
@@ -178,6 +187,7 @@ export interface FileRouteTypes {
     | '/events'
     | '/following'
     | '/login'
+    | '/loyalty'
     | '/map'
     | '/profile'
     | '/qr'
@@ -196,6 +206,7 @@ export interface FileRouteTypes {
     | '/events'
     | '/following'
     | '/login'
+    | '/loyalty'
     | '/map'
     | '/profile'
     | '/qr'
@@ -215,6 +226,7 @@ export interface FileRouteTypes {
     | '/events'
     | '/following'
     | '/login'
+    | '/loyalty'
     | '/map'
     | '/profile'
     | '/qr'
@@ -235,6 +247,7 @@ export interface RootRouteChildren {
   EventsRoute: typeof EventsRoute
   FollowingRoute: typeof FollowingRoute
   LoginRoute: typeof LoginRoute
+  LoyaltyRoute: typeof LoyaltyRoute
   MapRoute: typeof MapRoute
   ProfileRoute: typeof ProfileRoute
   QrRoute: typeof QrRoute
@@ -279,6 +292,13 @@ declare module '@tanstack/react-router' {
       path: '/map'
       fullPath: '/map'
       preLoaderRoute: typeof MapRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/loyalty': {
+      id: '/loyalty'
+      path: '/loyalty'
+      fullPath: '/loyalty'
+      preLoaderRoute: typeof LoyaltyRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/login': {
@@ -401,6 +421,7 @@ const rootRouteChildren: RootRouteChildren = {
   EventsRoute: EventsRoute,
   FollowingRoute: FollowingRoute,
   LoginRoute: LoginRoute,
+  LoyaltyRoute: LoyaltyRoute,
   MapRoute: MapRoute,
   ProfileRoute: ProfileRoute,
   QrRoute: QrRoute,
@@ -412,3 +433,13 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
