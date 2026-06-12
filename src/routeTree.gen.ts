@@ -14,14 +14,22 @@ import { Route as VendorRouteImport } from './routes/vendor'
 import { Route as QrRouteImport } from './routes/qr'
 import { Route as ProfileRouteImport } from './routes/profile'
 import { Route as MapRouteImport } from './routes/map'
+import { Route as LoyaltyRouteImport } from './routes/loyalty'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as FollowingRouteImport } from './routes/following'
 import { Route as EventsRouteImport } from './routes/events'
 import { Route as AdminRouteImport } from './routes/admin'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as LoyaltyIndexRouteImport } from './routes/loyalty.index'
 import { Route as AdminIndexRouteImport } from './routes/admin.index'
 import { Route as VendorPreviewRouteImport } from './routes/vendor.preview'
 import { Route as VVendorIdRouteImport } from './routes/v.$vendorId'
+import { Route as LoyaltyWalletRouteImport } from './routes/loyalty.wallet'
+import { Route as LoyaltyVendorRouteImport } from './routes/loyalty.vendor'
+import { Route as LoyaltyScanRouteImport } from './routes/loyalty.scan'
+import { Route as LoyaltyRewardsRouteImport } from './routes/loyalty.rewards'
+import { Route as LoyaltyQrRouteImport } from './routes/loyalty.qr'
+import { Route as LoyaltyAdminRouteImport } from './routes/loyalty.admin'
 import { Route as BoothIdRouteImport } from './routes/booth.$id'
 import { Route as AdminVendorsRouteImport } from './routes/admin.vendors'
 import { Route as AdminShoppersRouteImport } from './routes/admin.shoppers'
@@ -52,6 +60,11 @@ const MapRoute = MapRouteImport.update({
   path: '/map',
   getParentRoute: () => rootRouteImport,
 } as any)
+const LoyaltyRoute = LoyaltyRouteImport.update({
+  id: '/loyalty',
+  path: '/loyalty',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const LoginRoute = LoginRouteImport.update({
   id: '/login',
   path: '/login',
@@ -77,6 +90,11 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const LoyaltyIndexRoute = LoyaltyIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => LoyaltyRoute,
+} as any)
 const AdminIndexRoute = AdminIndexRouteImport.update({
   id: '/',
   path: '/',
@@ -91,6 +109,36 @@ const VVendorIdRoute = VVendorIdRouteImport.update({
   id: '/v/$vendorId',
   path: '/v/$vendorId',
   getParentRoute: () => rootRouteImport,
+} as any)
+const LoyaltyWalletRoute = LoyaltyWalletRouteImport.update({
+  id: '/wallet',
+  path: '/wallet',
+  getParentRoute: () => LoyaltyRoute,
+} as any)
+const LoyaltyVendorRoute = LoyaltyVendorRouteImport.update({
+  id: '/vendor',
+  path: '/vendor',
+  getParentRoute: () => LoyaltyRoute,
+} as any)
+const LoyaltyScanRoute = LoyaltyScanRouteImport.update({
+  id: '/scan',
+  path: '/scan',
+  getParentRoute: () => LoyaltyRoute,
+} as any)
+const LoyaltyRewardsRoute = LoyaltyRewardsRouteImport.update({
+  id: '/rewards',
+  path: '/rewards',
+  getParentRoute: () => LoyaltyRoute,
+} as any)
+const LoyaltyQrRoute = LoyaltyQrRouteImport.update({
+  id: '/qr',
+  path: '/qr',
+  getParentRoute: () => LoyaltyRoute,
+} as any)
+const LoyaltyAdminRoute = LoyaltyAdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => LoyaltyRoute,
 } as any)
 const BoothIdRoute = BoothIdRouteImport.update({
   id: '/booth/$id',
@@ -119,6 +167,7 @@ export interface FileRoutesByFullPath {
   '/events': typeof EventsRoute
   '/following': typeof FollowingRoute
   '/login': typeof LoginRoute
+  '/loyalty': typeof LoyaltyRouteWithChildren
   '/map': typeof MapRoute
   '/profile': typeof ProfileRoute
   '/qr': typeof QrRoute
@@ -128,9 +177,16 @@ export interface FileRoutesByFullPath {
   '/admin/shoppers': typeof AdminShoppersRoute
   '/admin/vendors': typeof AdminVendorsRoute
   '/booth/$id': typeof BoothIdRoute
+  '/loyalty/admin': typeof LoyaltyAdminRoute
+  '/loyalty/qr': typeof LoyaltyQrRoute
+  '/loyalty/rewards': typeof LoyaltyRewardsRoute
+  '/loyalty/scan': typeof LoyaltyScanRoute
+  '/loyalty/vendor': typeof LoyaltyVendorRoute
+  '/loyalty/wallet': typeof LoyaltyWalletRoute
   '/v/$vendorId': typeof VVendorIdRoute
   '/vendor/preview': typeof VendorPreviewRoute
   '/admin/': typeof AdminIndexRoute
+  '/loyalty/': typeof LoyaltyIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -146,9 +202,16 @@ export interface FileRoutesByTo {
   '/admin/shoppers': typeof AdminShoppersRoute
   '/admin/vendors': typeof AdminVendorsRoute
   '/booth/$id': typeof BoothIdRoute
+  '/loyalty/admin': typeof LoyaltyAdminRoute
+  '/loyalty/qr': typeof LoyaltyQrRoute
+  '/loyalty/rewards': typeof LoyaltyRewardsRoute
+  '/loyalty/scan': typeof LoyaltyScanRoute
+  '/loyalty/vendor': typeof LoyaltyVendorRoute
+  '/loyalty/wallet': typeof LoyaltyWalletRoute
   '/v/$vendorId': typeof VVendorIdRoute
   '/vendor/preview': typeof VendorPreviewRoute
   '/admin': typeof AdminIndexRoute
+  '/loyalty': typeof LoyaltyIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -157,6 +220,7 @@ export interface FileRoutesById {
   '/events': typeof EventsRoute
   '/following': typeof FollowingRoute
   '/login': typeof LoginRoute
+  '/loyalty': typeof LoyaltyRouteWithChildren
   '/map': typeof MapRoute
   '/profile': typeof ProfileRoute
   '/qr': typeof QrRoute
@@ -166,9 +230,16 @@ export interface FileRoutesById {
   '/admin/shoppers': typeof AdminShoppersRoute
   '/admin/vendors': typeof AdminVendorsRoute
   '/booth/$id': typeof BoothIdRoute
+  '/loyalty/admin': typeof LoyaltyAdminRoute
+  '/loyalty/qr': typeof LoyaltyQrRoute
+  '/loyalty/rewards': typeof LoyaltyRewardsRoute
+  '/loyalty/scan': typeof LoyaltyScanRoute
+  '/loyalty/vendor': typeof LoyaltyVendorRoute
+  '/loyalty/wallet': typeof LoyaltyWalletRoute
   '/v/$vendorId': typeof VVendorIdRoute
   '/vendor/preview': typeof VendorPreviewRoute
   '/admin/': typeof AdminIndexRoute
+  '/loyalty/': typeof LoyaltyIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -178,6 +249,7 @@ export interface FileRouteTypes {
     | '/events'
     | '/following'
     | '/login'
+    | '/loyalty'
     | '/map'
     | '/profile'
     | '/qr'
@@ -187,9 +259,16 @@ export interface FileRouteTypes {
     | '/admin/shoppers'
     | '/admin/vendors'
     | '/booth/$id'
+    | '/loyalty/admin'
+    | '/loyalty/qr'
+    | '/loyalty/rewards'
+    | '/loyalty/scan'
+    | '/loyalty/vendor'
+    | '/loyalty/wallet'
     | '/v/$vendorId'
     | '/vendor/preview'
     | '/admin/'
+    | '/loyalty/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -205,9 +284,16 @@ export interface FileRouteTypes {
     | '/admin/shoppers'
     | '/admin/vendors'
     | '/booth/$id'
+    | '/loyalty/admin'
+    | '/loyalty/qr'
+    | '/loyalty/rewards'
+    | '/loyalty/scan'
+    | '/loyalty/vendor'
+    | '/loyalty/wallet'
     | '/v/$vendorId'
     | '/vendor/preview'
     | '/admin'
+    | '/loyalty'
   id:
     | '__root__'
     | '/'
@@ -215,6 +301,7 @@ export interface FileRouteTypes {
     | '/events'
     | '/following'
     | '/login'
+    | '/loyalty'
     | '/map'
     | '/profile'
     | '/qr'
@@ -224,9 +311,16 @@ export interface FileRouteTypes {
     | '/admin/shoppers'
     | '/admin/vendors'
     | '/booth/$id'
+    | '/loyalty/admin'
+    | '/loyalty/qr'
+    | '/loyalty/rewards'
+    | '/loyalty/scan'
+    | '/loyalty/vendor'
+    | '/loyalty/wallet'
     | '/v/$vendorId'
     | '/vendor/preview'
     | '/admin/'
+    | '/loyalty/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -235,6 +329,7 @@ export interface RootRouteChildren {
   EventsRoute: typeof EventsRoute
   FollowingRoute: typeof FollowingRoute
   LoginRoute: typeof LoginRoute
+  LoyaltyRoute: typeof LoyaltyRouteWithChildren
   MapRoute: typeof MapRoute
   ProfileRoute: typeof ProfileRoute
   QrRoute: typeof QrRoute
@@ -281,6 +376,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MapRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/loyalty': {
+      id: '/loyalty'
+      path: '/loyalty'
+      fullPath: '/loyalty'
+      preLoaderRoute: typeof LoyaltyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/login': {
       id: '/login'
       path: '/login'
@@ -316,6 +418,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/loyalty/': {
+      id: '/loyalty/'
+      path: '/'
+      fullPath: '/loyalty/'
+      preLoaderRoute: typeof LoyaltyIndexRouteImport
+      parentRoute: typeof LoyaltyRoute
+    }
     '/admin/': {
       id: '/admin/'
       path: '/'
@@ -336,6 +445,48 @@ declare module '@tanstack/react-router' {
       fullPath: '/v/$vendorId'
       preLoaderRoute: typeof VVendorIdRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/loyalty/wallet': {
+      id: '/loyalty/wallet'
+      path: '/wallet'
+      fullPath: '/loyalty/wallet'
+      preLoaderRoute: typeof LoyaltyWalletRouteImport
+      parentRoute: typeof LoyaltyRoute
+    }
+    '/loyalty/vendor': {
+      id: '/loyalty/vendor'
+      path: '/vendor'
+      fullPath: '/loyalty/vendor'
+      preLoaderRoute: typeof LoyaltyVendorRouteImport
+      parentRoute: typeof LoyaltyRoute
+    }
+    '/loyalty/scan': {
+      id: '/loyalty/scan'
+      path: '/scan'
+      fullPath: '/loyalty/scan'
+      preLoaderRoute: typeof LoyaltyScanRouteImport
+      parentRoute: typeof LoyaltyRoute
+    }
+    '/loyalty/rewards': {
+      id: '/loyalty/rewards'
+      path: '/rewards'
+      fullPath: '/loyalty/rewards'
+      preLoaderRoute: typeof LoyaltyRewardsRouteImport
+      parentRoute: typeof LoyaltyRoute
+    }
+    '/loyalty/qr': {
+      id: '/loyalty/qr'
+      path: '/qr'
+      fullPath: '/loyalty/qr'
+      preLoaderRoute: typeof LoyaltyQrRouteImport
+      parentRoute: typeof LoyaltyRoute
+    }
+    '/loyalty/admin': {
+      id: '/loyalty/admin'
+      path: '/admin'
+      fullPath: '/loyalty/admin'
+      preLoaderRoute: typeof LoyaltyAdminRouteImport
+      parentRoute: typeof LoyaltyRoute
     }
     '/booth/$id': {
       id: '/booth/$id'
@@ -384,6 +535,29 @@ const AdminRouteChildren: AdminRouteChildren = {
 
 const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
 
+interface LoyaltyRouteChildren {
+  LoyaltyAdminRoute: typeof LoyaltyAdminRoute
+  LoyaltyQrRoute: typeof LoyaltyQrRoute
+  LoyaltyRewardsRoute: typeof LoyaltyRewardsRoute
+  LoyaltyScanRoute: typeof LoyaltyScanRoute
+  LoyaltyVendorRoute: typeof LoyaltyVendorRoute
+  LoyaltyWalletRoute: typeof LoyaltyWalletRoute
+  LoyaltyIndexRoute: typeof LoyaltyIndexRoute
+}
+
+const LoyaltyRouteChildren: LoyaltyRouteChildren = {
+  LoyaltyAdminRoute: LoyaltyAdminRoute,
+  LoyaltyQrRoute: LoyaltyQrRoute,
+  LoyaltyRewardsRoute: LoyaltyRewardsRoute,
+  LoyaltyScanRoute: LoyaltyScanRoute,
+  LoyaltyVendorRoute: LoyaltyVendorRoute,
+  LoyaltyWalletRoute: LoyaltyWalletRoute,
+  LoyaltyIndexRoute: LoyaltyIndexRoute,
+}
+
+const LoyaltyRouteWithChildren =
+  LoyaltyRoute._addFileChildren(LoyaltyRouteChildren)
+
 interface VendorRouteChildren {
   VendorPreviewRoute: typeof VendorPreviewRoute
 }
@@ -401,6 +575,7 @@ const rootRouteChildren: RootRouteChildren = {
   EventsRoute: EventsRoute,
   FollowingRoute: FollowingRoute,
   LoginRoute: LoginRoute,
+  LoyaltyRoute: LoyaltyRouteWithChildren,
   MapRoute: MapRoute,
   ProfileRoute: ProfileRoute,
   QrRoute: QrRoute,
@@ -412,3 +587,13 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}

@@ -303,6 +303,13 @@ function AppHome() {
                 <Store className="h-4 w-4" />
                 I'm a vendor
               </a>
+              <Link
+                to="/loyalty"
+                className="inline-flex items-center gap-1.5 rounded-full bg-gold px-4 py-2.5 text-sm font-bold text-navy shadow-brand-sm transition hover:bg-gold-400"
+              >
+                <Sparkles className="h-4 w-4" />
+                Earn Bytes
+              </Link>
             </div>
           </div>
         </div>
