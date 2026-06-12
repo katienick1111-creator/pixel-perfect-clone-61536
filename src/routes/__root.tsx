@@ -82,8 +82,29 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "twitter:card", content: "summary" },
       { name: "twitter:title", content: "Trovin' — Find more. Miss less." },
       { name: "twitter:description", content: "Trovin' helps you find more and miss less wherever your travels take you." },
-      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/536742bf-465d-49ff-bbe4-d249b4ed3150/id-preview-6ead512e--f244825b-c2e7-4284-9fb5-bbe0bced7ece.lovable.app-1780081821176.png" },
-      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/536742bf-465d-49ff-bbe4-d249b4ed3150/id-preview-6ead512e--f244825b-c2e7-4284-9fb5-bbe0bced7ece.lovable.app-1780081821176.png" },
+    ],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@graph": [
+            {
+              "@type": "Organization",
+              "@id": "https://pixel-perfect-clone-61536.lovable.app/#org",
+              name: "Trovin'",
+              url: "https://pixel-perfect-clone-61536.lovable.app/",
+            },
+            {
+              "@type": "WebSite",
+              "@id": "https://pixel-perfect-clone-61536.lovable.app/#site",
+              name: "Trovin'",
+              url: "https://pixel-perfect-clone-61536.lovable.app/",
+              publisher: { "@id": "https://pixel-perfect-clone-61536.lovable.app/#org" },
+            },
+          ],
+        }),
+      },
     ],
     links: [
       { rel: "stylesheet", href: appCss },

@@ -9,13 +9,13 @@ const heroImage = events[0].image;
 export const Route = createFileRoute("/welcome")({
   head: () => ({
     meta: [
-      { title: "Welcome to Trover — find more, miss less" },
+      { title: "Welcome to Trovin' — find more, miss less" },
       {
         name: "description",
         content:
           "Sign up or continue as a guest. Save your favorite vendors and never lose track of a great booth again.",
       },
-      { property: "og:title", content: "Welcome to Trover" },
+      { property: "og:title", content: "Welcome to Trovin'" },
       {
         property: "og:description",
         content:

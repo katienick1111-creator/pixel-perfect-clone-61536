@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /loyalty/admin
+Disallow: /login
+Disallow: /vendor/preview
+
+Sitemap: https://pixel-perfect-clone-61536.lovable.app/sitemap.xml

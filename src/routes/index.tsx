@@ -21,22 +21,13 @@ const heroEvent = events[0];
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Trovin' — Find more. Miss less." },
-      {
-        name: "description",
-        content:
-          "Discover vendors, flea markets, food trucks, and craft fairs near you. Trovin' helps you spend the day, not a fortune.",
-      },
-      { property: "og:title", content: "Trovin' — Find more. Miss less." },
-      {
-        property: "og:description",
-        content:
-          "Discover vendors, flea markets, food trucks, and craft fairs near you.",
-      },
-      { property: "og:image", content: heroEvent.image },
-      { property: "og:url", content: "/" },
+      { property: "og:url", content: "https://pixel-perfect-clone-61536.lovable.app/" },
     ],
-    links: [{ rel: "canonical", href: "/" }],
+    links: [
+      { rel: "canonical", href: "https://pixel-perfect-clone-61536.lovable.app/" },
+      // LCP boost: home hero image is the first big paint
+      { rel: "preload", as: "image", href: heroEvent.image, fetchpriority: "high" } as any,
+    ],
   }),
   component: AppHome,
 });
@@ -373,9 +364,9 @@ function AppHome() {
           <p className="-rotate-2 font-script text-2xl leading-none text-teal">
             Live on the ground —
           </p>
-          <h3 className="mt-1 font-display text-4xl leading-tight text-navy">
+          <h2 className="mt-1 font-display text-4xl leading-tight text-navy">
             The Roster
-          </h3>
+          </h2>
           <div className="mt-2 flex items-center gap-2">
             <span className="inline-flex h-2 w-2 animate-pulse rounded-full bg-coral" />
             <span className="text-[10px] font-medium uppercase tracking-[0.18em] text-ink-soft">

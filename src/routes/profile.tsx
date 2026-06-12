@@ -139,9 +139,9 @@ function ProfilePage() {
         <p className="font-script text-2xl leading-none text-teal -rotate-1 origin-left">
           stuff I'm into
         </p>
-        <h3 className="mt-2 font-display text-xl text-ink-soft">
+        <h2 className="mt-2 font-display text-xl text-ink-soft">
           tap to tune your feed
-        </h3>
+        </h2>
         <div className="mt-4 flex flex-wrap gap-2.5">
           {categories
             .filter((c) => c.key !== "All")
