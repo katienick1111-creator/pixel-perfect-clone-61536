@@ -163,10 +163,10 @@ function MapPage() {
 
             {/* corner controls */}
             <div className="absolute right-4 top-4 flex flex-col gap-2">
-              <button className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-paper text-navy shadow-brand-md transition hover:bg-cream">
+              <button aria-label="Recenter map" className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-paper text-navy shadow-brand-md transition hover:bg-cream">
                 <Navigation className="h-4 w-4" />
               </button>
-              <button className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-paper text-navy shadow-brand-md transition hover:bg-cream">
+              <button aria-label="Toggle map layers" className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-paper text-navy shadow-brand-md transition hover:bg-cream">
                 <Layers className="h-4 w-4" />
               </button>
             </div>
