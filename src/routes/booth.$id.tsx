@@ -12,7 +12,42 @@ import {
 } from "@/components/SocialBrand";
 
 export const Route = createFileRoute("/booth/$id")({
-  head: () => ({ meta: [{ title: "Booth — Trovin'" }] }),
+  head: ({ params }) => {
+    const v = vendors.find((x) => x.id === params.id);
+    const name = v?.name ?? "Booth";
+    const tagline = v?.tagline ?? "A vendor on Trovin'.";
+    const title = `${name} — Trovin'`.slice(0, 60);
+    const desc = `${name} · ${v?.category ?? "vendor"} at ${v?.event ?? "Trovin'"}. ${tagline}`.slice(0, 160);
+    const url = `https://pixel-perfect-clone-61536.lovable.app/booth/${params.id}`;
+    return {
+      meta: [
+        { title },
+        { name: "description", content: desc },
+        { property: "og:title", content: title },
+        { property: "og:description", content: desc },
+        { property: "og:url", content: url },
+        { property: "og:type", content: "profile" },
+        ...(v?.image ? [{ property: "og:image", content: v.image }] : []),
+      ],
+      links: [{ rel: "canonical", href: url }],
+      scripts: v
+        ? [
+            {
+              type: "application/ld+json",
+              children: JSON.stringify({
+                "@context": "https://schema.org",
+                "@type": "LocalBusiness",
+                name: v.name,
+                description: v.tagline,
+                image: v.image,
+                category: v.category,
+                url,
+              }),
+            },
+          ]
+        : undefined,
+    };
+  },
   component: BoothPage,
 });
 
