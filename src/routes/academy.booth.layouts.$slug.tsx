@@ -46,8 +46,8 @@ const zoneInfo: Record<LayoutZone["kind"], { label: string; color: string; desc:
 };
 
 function LayoutDetail() {
-  const { layout } = Route.useLoaderData();
-  const usedZones = Array.from(new Set(layout.zones.map((z) => z.kind)));
+  const { layout } = Route.useLoaderData() as { layout: BoothLayout };
+  const usedZones = Array.from(new Set(layout.zones.map((z) => z.kind))) as LayoutZone["kind"][];
 
   return (
     <article>

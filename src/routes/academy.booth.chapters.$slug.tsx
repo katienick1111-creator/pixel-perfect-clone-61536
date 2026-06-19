@@ -2,7 +2,7 @@ import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { ArrowLeft, ArrowRight, Check, CheckCircle2, Circle } from "lucide-react";
 import { AcademyPageHeader } from "@/components/AcademyShell";
-import { boothChapters } from "@/data/booth";
+import { boothChapters, type BoothChapter } from "@/data/booth";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
 import { toast } from "sonner";
@@ -43,7 +43,7 @@ export const Route = createFileRoute("/academy/booth/chapters/$slug")({
 const LS_KEY = "trovin.academy.booth.progress";
 
 function ChapterPage() {
-  const { chapter } = Route.useLoaderData();
+  const { chapter } = Route.useLoaderData() as { chapter: BoothChapter };
   const { user } = useAuth();
   const [completed, setCompleted] = useState<Set<string>>(new Set());
 
