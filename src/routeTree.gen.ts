@@ -44,6 +44,7 @@ import { Route as AcademyDashboardRouteImport } from './routes/academy.dashboard
 import { Route as AcademyCommunityRouteImport } from './routes/academy.community'
 import { Route as AcademyCategoriesRouteImport } from './routes/academy.categories'
 import { Route as AcademyAdminRouteImport } from './routes/academy.admin'
+import { Route as AcademyToolsPricingRouteImport } from './routes/academy.tools.pricing'
 import { Route as AcademyToolsPackingRouteImport } from './routes/academy.tools.packing'
 import { Route as AcademyCSlugRouteImport } from './routes/academy.c.$slug'
 
@@ -222,6 +223,11 @@ const AcademyAdminRoute = AcademyAdminRouteImport.update({
   path: '/admin',
   getParentRoute: () => AcademyRoute,
 } as any)
+const AcademyToolsPricingRoute = AcademyToolsPricingRouteImport.update({
+  id: '/tools/pricing',
+  path: '/tools/pricing',
+  getParentRoute: () => AcademyRoute,
+} as any)
 const AcademyToolsPackingRoute = AcademyToolsPackingRouteImport.update({
   id: '/tools/packing',
   path: '/tools/packing',
@@ -271,6 +277,7 @@ export interface FileRoutesByFullPath {
   '/passport/': typeof PassportIndexRoute
   '/academy/c/$slug': typeof AcademyCSlugRoute
   '/academy/tools/packing': typeof AcademyToolsPackingRoute
+  '/academy/tools/pricing': typeof AcademyToolsPricingRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -307,6 +314,7 @@ export interface FileRoutesByTo {
   '/passport': typeof PassportIndexRoute
   '/academy/c/$slug': typeof AcademyCSlugRoute
   '/academy/tools/packing': typeof AcademyToolsPackingRoute
+  '/academy/tools/pricing': typeof AcademyToolsPricingRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -347,6 +355,7 @@ export interface FileRoutesById {
   '/passport/': typeof PassportIndexRoute
   '/academy/c/$slug': typeof AcademyCSlugRoute
   '/academy/tools/packing': typeof AcademyToolsPackingRoute
+  '/academy/tools/pricing': typeof AcademyToolsPricingRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -388,6 +397,7 @@ export interface FileRouteTypes {
     | '/passport/'
     | '/academy/c/$slug'
     | '/academy/tools/packing'
+    | '/academy/tools/pricing'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -424,6 +434,7 @@ export interface FileRouteTypes {
     | '/passport'
     | '/academy/c/$slug'
     | '/academy/tools/packing'
+    | '/academy/tools/pricing'
   id:
     | '__root__'
     | '/'
@@ -463,6 +474,7 @@ export interface FileRouteTypes {
     | '/passport/'
     | '/academy/c/$slug'
     | '/academy/tools/packing'
+    | '/academy/tools/pricing'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -730,6 +742,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AcademyAdminRouteImport
       parentRoute: typeof AcademyRoute
     }
+    '/academy/tools/pricing': {
+      id: '/academy/tools/pricing'
+      path: '/tools/pricing'
+      fullPath: '/academy/tools/pricing'
+      preLoaderRoute: typeof AcademyToolsPricingRouteImport
+      parentRoute: typeof AcademyRoute
+    }
     '/academy/tools/packing': {
       id: '/academy/tools/packing'
       path: '/tools/packing'
@@ -758,6 +777,7 @@ interface AcademyRouteChildren {
   AcademyIndexRoute: typeof AcademyIndexRoute
   AcademyCSlugRoute: typeof AcademyCSlugRoute
   AcademyToolsPackingRoute: typeof AcademyToolsPackingRoute
+  AcademyToolsPricingRoute: typeof AcademyToolsPricingRoute
 }
 
 const AcademyRouteChildren: AcademyRouteChildren = {
@@ -771,6 +791,7 @@ const AcademyRouteChildren: AcademyRouteChildren = {
   AcademyIndexRoute: AcademyIndexRoute,
   AcademyCSlugRoute: AcademyCSlugRoute,
   AcademyToolsPackingRoute: AcademyToolsPackingRoute,
+  AcademyToolsPricingRoute: AcademyToolsPricingRoute,
 }
 
 const AcademyRouteWithChildren =

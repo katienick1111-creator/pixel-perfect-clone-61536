@@ -302,7 +302,7 @@ function PricingCalculator() {
     if (activeId) {
       const { error } = await supabase
         .from("academy_pricing_calculations")
-        .update({ name, inputs: inputs as unknown as Record<string, unknown> })
+        .update({ name, inputs: inputs as unknown as never })
         .eq("id", activeId);
       if (error) {
         toast.error("Save failed.");
@@ -323,7 +323,7 @@ function PricingCalculator() {
         .insert({
           user_id: user.id,
           name,
-          inputs: inputs as unknown as Record<string, unknown>,
+          inputs: inputs as unknown as never,
         })
         .select("id, name, inputs, is_favorite, updated_at")
         .single();
@@ -353,7 +353,7 @@ function PricingCalculator() {
       .insert({
         user_id: user.id,
         name: `${c.name} (copy)`,
-        inputs: c.inputs as unknown as Record<string, unknown>,
+        inputs: c.inputs as unknown as never,
       })
       .select("id, name, inputs, is_favorite, updated_at")
       .single();
