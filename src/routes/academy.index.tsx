@@ -41,8 +41,11 @@ function AcademyHome() {
               planners that travel with you. Lessons from vendors who've done it.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
-              <Link to="/academy/categories" className="ac-btn">
-                Start with categories <ArrowRight className="h-4 w-4" />
+              <Link to="/academy/booth" className="ac-btn">
+                Booth Setup Masterclass <ArrowRight className="h-4 w-4" />
+              </Link>
+              <Link to="/academy/categories" className="ac-btn-ghost">
+                <BookOpen className="h-4 w-4" /> Categories
               </Link>
               <Link to="/academy/tools/packing" className="ac-btn-ghost">
                 <Sparkles className="h-4 w-4" /> Packing tool
