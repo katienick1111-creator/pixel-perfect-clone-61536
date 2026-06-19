@@ -67,6 +67,96 @@ export type Database = {
           },
         ]
       }
+      academy_booth_checklists: {
+        Row: {
+          created_at: string
+          data: Json
+          id: string
+          is_favorite: boolean
+          name: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          data?: Json
+          id?: string
+          is_favorite?: boolean
+          name?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          data?: Json
+          id?: string
+          is_favorite?: boolean
+          name?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      academy_booth_designs: {
+        Row: {
+          created_at: string
+          data: Json
+          id: string
+          is_favorite: boolean
+          name: string
+          size: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          data?: Json
+          id?: string
+          is_favorite?: boolean
+          name?: string
+          size?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          data?: Json
+          id?: string
+          is_favorite?: boolean
+          name?: string
+          size?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      academy_booth_progress: {
+        Row: {
+          completed_at: string
+          created_at: string
+          id: string
+          lesson_slug: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          completed_at?: string
+          created_at?: string
+          id?: string
+          lesson_slug: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          completed_at?: string
+          created_at?: string
+          id?: string
+          lesson_slug?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       academy_categories: {
         Row: {
           created_at: string
@@ -270,6 +360,27 @@ export type Database = {
           id?: string
           resource_ref?: string
           resource_type?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      academy_gallery_favorites: {
+        Row: {
+          created_at: string
+          id: string
+          image_slug: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          image_slug: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          image_slug?: string
           user_id?: string
         }
         Relationships: []
