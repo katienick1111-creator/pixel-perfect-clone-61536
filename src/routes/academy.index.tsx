@@ -45,7 +45,10 @@ function AcademyHome() {
                 Start with categories <ArrowRight className="h-4 w-4" />
               </Link>
               <Link to="/academy/tools/packing" className="ac-btn-ghost">
-                <Sparkles className="h-4 w-4" /> Try the packing tool
+                <Sparkles className="h-4 w-4" /> Packing tool
+              </Link>
+              <Link to="/academy/tools/pricing" className="ac-btn-ghost">
+                <Sparkles className="h-4 w-4" /> Pricing calculator
               </Link>
             </div>
           </div>
