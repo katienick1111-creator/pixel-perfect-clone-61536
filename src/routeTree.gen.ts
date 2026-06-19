@@ -20,9 +20,11 @@ import { Route as LoginRouteImport } from './routes/login'
 import { Route as FollowingRouteImport } from './routes/following'
 import { Route as EventsRouteImport } from './routes/events'
 import { Route as AdminRouteImport } from './routes/admin'
+import { Route as AcademyRouteImport } from './routes/academy'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as PassportIndexRouteImport } from './routes/passport.index'
 import { Route as AdminIndexRouteImport } from './routes/admin.index'
+import { Route as AcademyIndexRouteImport } from './routes/academy.index'
 import { Route as VendorPreviewRouteImport } from './routes/vendor.preview'
 import { Route as VVendorIdRouteImport } from './routes/v.$vendorId'
 import { Route as PassportWalletRouteImport } from './routes/passport.wallet'
@@ -35,6 +37,9 @@ import { Route as BoothIdRouteImport } from './routes/booth.$id'
 import { Route as AdminVendorsRouteImport } from './routes/admin.vendors'
 import { Route as AdminShoppersRouteImport } from './routes/admin.shoppers'
 import { Route as AdminEventsRouteImport } from './routes/admin.events'
+import { Route as AcademyDashboardRouteImport } from './routes/academy.dashboard'
+import { Route as AcademyCategoriesRouteImport } from './routes/academy.categories'
+import { Route as AcademyCSlugRouteImport } from './routes/academy.c.$slug'
 
 const WelcomeRoute = WelcomeRouteImport.update({
   id: '/welcome',
@@ -91,6 +96,11 @@ const AdminRoute = AdminRouteImport.update({
   path: '/admin',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AcademyRoute = AcademyRouteImport.update({
+  id: '/academy',
+  path: '/academy',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -105,6 +115,11 @@ const AdminIndexRoute = AdminIndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => AdminRoute,
+} as any)
+const AcademyIndexRoute = AcademyIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AcademyRoute,
 } as any)
 const VendorPreviewRoute = VendorPreviewRouteImport.update({
   id: '/preview',
@@ -166,9 +181,25 @@ const AdminEventsRoute = AdminEventsRouteImport.update({
   path: '/events',
   getParentRoute: () => AdminRoute,
 } as any)
+const AcademyDashboardRoute = AcademyDashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => AcademyRoute,
+} as any)
+const AcademyCategoriesRoute = AcademyCategoriesRouteImport.update({
+  id: '/categories',
+  path: '/categories',
+  getParentRoute: () => AcademyRoute,
+} as any)
+const AcademyCSlugRoute = AcademyCSlugRouteImport.update({
+  id: '/c/$slug',
+  path: '/c/$slug',
+  getParentRoute: () => AcademyRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/academy': typeof AcademyRouteWithChildren
   '/admin': typeof AdminRouteWithChildren
   '/events': typeof EventsRoute
   '/following': typeof FollowingRoute
@@ -180,6 +211,8 @@ export interface FileRoutesByFullPath {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/vendor': typeof VendorRouteWithChildren
   '/welcome': typeof WelcomeRoute
+  '/academy/categories': typeof AcademyCategoriesRoute
+  '/academy/dashboard': typeof AcademyDashboardRoute
   '/admin/events': typeof AdminEventsRoute
   '/admin/shoppers': typeof AdminShoppersRoute
   '/admin/vendors': typeof AdminVendorsRoute
@@ -192,8 +225,10 @@ export interface FileRoutesByFullPath {
   '/passport/wallet': typeof PassportWalletRoute
   '/v/$vendorId': typeof VVendorIdRoute
   '/vendor/preview': typeof VendorPreviewRoute
+  '/academy/': typeof AcademyIndexRoute
   '/admin/': typeof AdminIndexRoute
   '/passport/': typeof PassportIndexRoute
+  '/academy/c/$slug': typeof AcademyCSlugRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -206,6 +241,8 @@ export interface FileRoutesByTo {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/vendor': typeof VendorRouteWithChildren
   '/welcome': typeof WelcomeRoute
+  '/academy/categories': typeof AcademyCategoriesRoute
+  '/academy/dashboard': typeof AcademyDashboardRoute
   '/admin/events': typeof AdminEventsRoute
   '/admin/shoppers': typeof AdminShoppersRoute
   '/admin/vendors': typeof AdminVendorsRoute
@@ -218,12 +255,15 @@ export interface FileRoutesByTo {
   '/passport/wallet': typeof PassportWalletRoute
   '/v/$vendorId': typeof VVendorIdRoute
   '/vendor/preview': typeof VendorPreviewRoute
+  '/academy': typeof AcademyIndexRoute
   '/admin': typeof AdminIndexRoute
   '/passport': typeof PassportIndexRoute
+  '/academy/c/$slug': typeof AcademyCSlugRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/academy': typeof AcademyRouteWithChildren
   '/admin': typeof AdminRouteWithChildren
   '/events': typeof EventsRoute
   '/following': typeof FollowingRoute
@@ -235,6 +275,8 @@ export interface FileRoutesById {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/vendor': typeof VendorRouteWithChildren
   '/welcome': typeof WelcomeRoute
+  '/academy/categories': typeof AcademyCategoriesRoute
+  '/academy/dashboard': typeof AcademyDashboardRoute
   '/admin/events': typeof AdminEventsRoute
   '/admin/shoppers': typeof AdminShoppersRoute
   '/admin/vendors': typeof AdminVendorsRoute
@@ -247,13 +289,16 @@ export interface FileRoutesById {
   '/passport/wallet': typeof PassportWalletRoute
   '/v/$vendorId': typeof VVendorIdRoute
   '/vendor/preview': typeof VendorPreviewRoute
+  '/academy/': typeof AcademyIndexRoute
   '/admin/': typeof AdminIndexRoute
   '/passport/': typeof PassportIndexRoute
+  '/academy/c/$slug': typeof AcademyCSlugRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/academy'
     | '/admin'
     | '/events'
     | '/following'
@@ -265,6 +310,8 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/vendor'
     | '/welcome'
+    | '/academy/categories'
+    | '/academy/dashboard'
     | '/admin/events'
     | '/admin/shoppers'
     | '/admin/vendors'
@@ -277,8 +324,10 @@ export interface FileRouteTypes {
     | '/passport/wallet'
     | '/v/$vendorId'
     | '/vendor/preview'
+    | '/academy/'
     | '/admin/'
     | '/passport/'
+    | '/academy/c/$slug'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -291,6 +340,8 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/vendor'
     | '/welcome'
+    | '/academy/categories'
+    | '/academy/dashboard'
     | '/admin/events'
     | '/admin/shoppers'
     | '/admin/vendors'
@@ -303,11 +354,14 @@ export interface FileRouteTypes {
     | '/passport/wallet'
     | '/v/$vendorId'
     | '/vendor/preview'
+    | '/academy'
     | '/admin'
     | '/passport'
+    | '/academy/c/$slug'
   id:
     | '__root__'
     | '/'
+    | '/academy'
     | '/admin'
     | '/events'
     | '/following'
@@ -319,6 +373,8 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/vendor'
     | '/welcome'
+    | '/academy/categories'
+    | '/academy/dashboard'
     | '/admin/events'
     | '/admin/shoppers'
     | '/admin/vendors'
@@ -331,12 +387,15 @@ export interface FileRouteTypes {
     | '/passport/wallet'
     | '/v/$vendorId'
     | '/vendor/preview'
+    | '/academy/'
     | '/admin/'
     | '/passport/'
+    | '/academy/c/$slug'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AcademyRoute: typeof AcademyRouteWithChildren
   AdminRoute: typeof AdminRouteWithChildren
   EventsRoute: typeof EventsRoute
   FollowingRoute: typeof FollowingRoute
@@ -431,6 +490,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/academy': {
+      id: '/academy'
+      path: '/academy'
+      fullPath: '/academy'
+      preLoaderRoute: typeof AcademyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -451,6 +517,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/admin/'
       preLoaderRoute: typeof AdminIndexRouteImport
       parentRoute: typeof AdminRoute
+    }
+    '/academy/': {
+      id: '/academy/'
+      path: '/'
+      fullPath: '/academy/'
+      preLoaderRoute: typeof AcademyIndexRouteImport
+      parentRoute: typeof AcademyRoute
     }
     '/vendor/preview': {
       id: '/vendor/preview'
@@ -536,8 +609,46 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminEventsRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/academy/dashboard': {
+      id: '/academy/dashboard'
+      path: '/dashboard'
+      fullPath: '/academy/dashboard'
+      preLoaderRoute: typeof AcademyDashboardRouteImport
+      parentRoute: typeof AcademyRoute
+    }
+    '/academy/categories': {
+      id: '/academy/categories'
+      path: '/categories'
+      fullPath: '/academy/categories'
+      preLoaderRoute: typeof AcademyCategoriesRouteImport
+      parentRoute: typeof AcademyRoute
+    }
+    '/academy/c/$slug': {
+      id: '/academy/c/$slug'
+      path: '/c/$slug'
+      fullPath: '/academy/c/$slug'
+      preLoaderRoute: typeof AcademyCSlugRouteImport
+      parentRoute: typeof AcademyRoute
+    }
   }
 }
+
+interface AcademyRouteChildren {
+  AcademyCategoriesRoute: typeof AcademyCategoriesRoute
+  AcademyDashboardRoute: typeof AcademyDashboardRoute
+  AcademyIndexRoute: typeof AcademyIndexRoute
+  AcademyCSlugRoute: typeof AcademyCSlugRoute
+}
+
+const AcademyRouteChildren: AcademyRouteChildren = {
+  AcademyCategoriesRoute: AcademyCategoriesRoute,
+  AcademyDashboardRoute: AcademyDashboardRoute,
+  AcademyIndexRoute: AcademyIndexRoute,
+  AcademyCSlugRoute: AcademyCSlugRoute,
+}
+
+const AcademyRouteWithChildren =
+  AcademyRoute._addFileChildren(AcademyRouteChildren)
 
 interface AdminRouteChildren {
   AdminEventsRoute: typeof AdminEventsRoute
@@ -592,6 +703,7 @@ const VendorRouteWithChildren =
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AcademyRoute: AcademyRouteWithChildren,
   AdminRoute: AdminRouteWithChildren,
   EventsRoute: EventsRoute,
   FollowingRoute: FollowingRoute,
