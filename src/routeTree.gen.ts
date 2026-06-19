@@ -37,8 +37,14 @@ import { Route as BoothIdRouteImport } from './routes/booth.$id'
 import { Route as AdminVendorsRouteImport } from './routes/admin.vendors'
 import { Route as AdminShoppersRouteImport } from './routes/admin.shoppers'
 import { Route as AdminEventsRouteImport } from './routes/admin.events'
+import { Route as AcademySearchRouteImport } from './routes/academy.search'
+import { Route as AcademyFavoritesRouteImport } from './routes/academy.favorites'
+import { Route as AcademyDownloadsRouteImport } from './routes/academy.downloads'
 import { Route as AcademyDashboardRouteImport } from './routes/academy.dashboard'
+import { Route as AcademyCommunityRouteImport } from './routes/academy.community'
 import { Route as AcademyCategoriesRouteImport } from './routes/academy.categories'
+import { Route as AcademyAdminRouteImport } from './routes/academy.admin'
+import { Route as AcademyToolsPackingRouteImport } from './routes/academy.tools.packing'
 import { Route as AcademyCSlugRouteImport } from './routes/academy.c.$slug'
 
 const WelcomeRoute = WelcomeRouteImport.update({
@@ -181,14 +187,44 @@ const AdminEventsRoute = AdminEventsRouteImport.update({
   path: '/events',
   getParentRoute: () => AdminRoute,
 } as any)
+const AcademySearchRoute = AcademySearchRouteImport.update({
+  id: '/search',
+  path: '/search',
+  getParentRoute: () => AcademyRoute,
+} as any)
+const AcademyFavoritesRoute = AcademyFavoritesRouteImport.update({
+  id: '/favorites',
+  path: '/favorites',
+  getParentRoute: () => AcademyRoute,
+} as any)
+const AcademyDownloadsRoute = AcademyDownloadsRouteImport.update({
+  id: '/downloads',
+  path: '/downloads',
+  getParentRoute: () => AcademyRoute,
+} as any)
 const AcademyDashboardRoute = AcademyDashboardRouteImport.update({
   id: '/dashboard',
   path: '/dashboard',
   getParentRoute: () => AcademyRoute,
 } as any)
+const AcademyCommunityRoute = AcademyCommunityRouteImport.update({
+  id: '/community',
+  path: '/community',
+  getParentRoute: () => AcademyRoute,
+} as any)
 const AcademyCategoriesRoute = AcademyCategoriesRouteImport.update({
   id: '/categories',
   path: '/categories',
+  getParentRoute: () => AcademyRoute,
+} as any)
+const AcademyAdminRoute = AcademyAdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => AcademyRoute,
+} as any)
+const AcademyToolsPackingRoute = AcademyToolsPackingRouteImport.update({
+  id: '/tools/packing',
+  path: '/tools/packing',
   getParentRoute: () => AcademyRoute,
 } as any)
 const AcademyCSlugRoute = AcademyCSlugRouteImport.update({
@@ -211,8 +247,13 @@ export interface FileRoutesByFullPath {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/vendor': typeof VendorRouteWithChildren
   '/welcome': typeof WelcomeRoute
+  '/academy/admin': typeof AcademyAdminRoute
   '/academy/categories': typeof AcademyCategoriesRoute
+  '/academy/community': typeof AcademyCommunityRoute
   '/academy/dashboard': typeof AcademyDashboardRoute
+  '/academy/downloads': typeof AcademyDownloadsRoute
+  '/academy/favorites': typeof AcademyFavoritesRoute
+  '/academy/search': typeof AcademySearchRoute
   '/admin/events': typeof AdminEventsRoute
   '/admin/shoppers': typeof AdminShoppersRoute
   '/admin/vendors': typeof AdminVendorsRoute
@@ -229,6 +270,7 @@ export interface FileRoutesByFullPath {
   '/admin/': typeof AdminIndexRoute
   '/passport/': typeof PassportIndexRoute
   '/academy/c/$slug': typeof AcademyCSlugRoute
+  '/academy/tools/packing': typeof AcademyToolsPackingRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -241,8 +283,13 @@ export interface FileRoutesByTo {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/vendor': typeof VendorRouteWithChildren
   '/welcome': typeof WelcomeRoute
+  '/academy/admin': typeof AcademyAdminRoute
   '/academy/categories': typeof AcademyCategoriesRoute
+  '/academy/community': typeof AcademyCommunityRoute
   '/academy/dashboard': typeof AcademyDashboardRoute
+  '/academy/downloads': typeof AcademyDownloadsRoute
+  '/academy/favorites': typeof AcademyFavoritesRoute
+  '/academy/search': typeof AcademySearchRoute
   '/admin/events': typeof AdminEventsRoute
   '/admin/shoppers': typeof AdminShoppersRoute
   '/admin/vendors': typeof AdminVendorsRoute
@@ -259,6 +306,7 @@ export interface FileRoutesByTo {
   '/admin': typeof AdminIndexRoute
   '/passport': typeof PassportIndexRoute
   '/academy/c/$slug': typeof AcademyCSlugRoute
+  '/academy/tools/packing': typeof AcademyToolsPackingRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -275,8 +323,13 @@ export interface FileRoutesById {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/vendor': typeof VendorRouteWithChildren
   '/welcome': typeof WelcomeRoute
+  '/academy/admin': typeof AcademyAdminRoute
   '/academy/categories': typeof AcademyCategoriesRoute
+  '/academy/community': typeof AcademyCommunityRoute
   '/academy/dashboard': typeof AcademyDashboardRoute
+  '/academy/downloads': typeof AcademyDownloadsRoute
+  '/academy/favorites': typeof AcademyFavoritesRoute
+  '/academy/search': typeof AcademySearchRoute
   '/admin/events': typeof AdminEventsRoute
   '/admin/shoppers': typeof AdminShoppersRoute
   '/admin/vendors': typeof AdminVendorsRoute
@@ -293,6 +346,7 @@ export interface FileRoutesById {
   '/admin/': typeof AdminIndexRoute
   '/passport/': typeof PassportIndexRoute
   '/academy/c/$slug': typeof AcademyCSlugRoute
+  '/academy/tools/packing': typeof AcademyToolsPackingRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -310,8 +364,13 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/vendor'
     | '/welcome'
+    | '/academy/admin'
     | '/academy/categories'
+    | '/academy/community'
     | '/academy/dashboard'
+    | '/academy/downloads'
+    | '/academy/favorites'
+    | '/academy/search'
     | '/admin/events'
     | '/admin/shoppers'
     | '/admin/vendors'
@@ -328,6 +387,7 @@ export interface FileRouteTypes {
     | '/admin/'
     | '/passport/'
     | '/academy/c/$slug'
+    | '/academy/tools/packing'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -340,8 +400,13 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/vendor'
     | '/welcome'
+    | '/academy/admin'
     | '/academy/categories'
+    | '/academy/community'
     | '/academy/dashboard'
+    | '/academy/downloads'
+    | '/academy/favorites'
+    | '/academy/search'
     | '/admin/events'
     | '/admin/shoppers'
     | '/admin/vendors'
@@ -358,6 +423,7 @@ export interface FileRouteTypes {
     | '/admin'
     | '/passport'
     | '/academy/c/$slug'
+    | '/academy/tools/packing'
   id:
     | '__root__'
     | '/'
@@ -373,8 +439,13 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/vendor'
     | '/welcome'
+    | '/academy/admin'
     | '/academy/categories'
+    | '/academy/community'
     | '/academy/dashboard'
+    | '/academy/downloads'
+    | '/academy/favorites'
+    | '/academy/search'
     | '/admin/events'
     | '/admin/shoppers'
     | '/admin/vendors'
@@ -391,6 +462,7 @@ export interface FileRouteTypes {
     | '/admin/'
     | '/passport/'
     | '/academy/c/$slug'
+    | '/academy/tools/packing'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -609,6 +681,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminEventsRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/academy/search': {
+      id: '/academy/search'
+      path: '/search'
+      fullPath: '/academy/search'
+      preLoaderRoute: typeof AcademySearchRouteImport
+      parentRoute: typeof AcademyRoute
+    }
+    '/academy/favorites': {
+      id: '/academy/favorites'
+      path: '/favorites'
+      fullPath: '/academy/favorites'
+      preLoaderRoute: typeof AcademyFavoritesRouteImport
+      parentRoute: typeof AcademyRoute
+    }
+    '/academy/downloads': {
+      id: '/academy/downloads'
+      path: '/downloads'
+      fullPath: '/academy/downloads'
+      preLoaderRoute: typeof AcademyDownloadsRouteImport
+      parentRoute: typeof AcademyRoute
+    }
     '/academy/dashboard': {
       id: '/academy/dashboard'
       path: '/dashboard'
@@ -616,11 +709,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AcademyDashboardRouteImport
       parentRoute: typeof AcademyRoute
     }
+    '/academy/community': {
+      id: '/academy/community'
+      path: '/community'
+      fullPath: '/academy/community'
+      preLoaderRoute: typeof AcademyCommunityRouteImport
+      parentRoute: typeof AcademyRoute
+    }
     '/academy/categories': {
       id: '/academy/categories'
       path: '/categories'
       fullPath: '/academy/categories'
       preLoaderRoute: typeof AcademyCategoriesRouteImport
+      parentRoute: typeof AcademyRoute
+    }
+    '/academy/admin': {
+      id: '/academy/admin'
+      path: '/admin'
+      fullPath: '/academy/admin'
+      preLoaderRoute: typeof AcademyAdminRouteImport
+      parentRoute: typeof AcademyRoute
+    }
+    '/academy/tools/packing': {
+      id: '/academy/tools/packing'
+      path: '/tools/packing'
+      fullPath: '/academy/tools/packing'
+      preLoaderRoute: typeof AcademyToolsPackingRouteImport
       parentRoute: typeof AcademyRoute
     }
     '/academy/c/$slug': {
@@ -634,17 +748,29 @@ declare module '@tanstack/react-router' {
 }
 
 interface AcademyRouteChildren {
+  AcademyAdminRoute: typeof AcademyAdminRoute
   AcademyCategoriesRoute: typeof AcademyCategoriesRoute
+  AcademyCommunityRoute: typeof AcademyCommunityRoute
   AcademyDashboardRoute: typeof AcademyDashboardRoute
+  AcademyDownloadsRoute: typeof AcademyDownloadsRoute
+  AcademyFavoritesRoute: typeof AcademyFavoritesRoute
+  AcademySearchRoute: typeof AcademySearchRoute
   AcademyIndexRoute: typeof AcademyIndexRoute
   AcademyCSlugRoute: typeof AcademyCSlugRoute
+  AcademyToolsPackingRoute: typeof AcademyToolsPackingRoute
 }
 
 const AcademyRouteChildren: AcademyRouteChildren = {
+  AcademyAdminRoute: AcademyAdminRoute,
   AcademyCategoriesRoute: AcademyCategoriesRoute,
+  AcademyCommunityRoute: AcademyCommunityRoute,
   AcademyDashboardRoute: AcademyDashboardRoute,
+  AcademyDownloadsRoute: AcademyDownloadsRoute,
+  AcademyFavoritesRoute: AcademyFavoritesRoute,
+  AcademySearchRoute: AcademySearchRoute,
   AcademyIndexRoute: AcademyIndexRoute,
   AcademyCSlugRoute: AcademyCSlugRoute,
+  AcademyToolsPackingRoute: AcademyToolsPackingRoute,
 }
 
 const AcademyRouteWithChildren =
