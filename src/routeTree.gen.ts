@@ -44,9 +44,19 @@ import { Route as AcademyDashboardRouteImport } from './routes/academy.dashboard
 import { Route as AcademyCommunityRouteImport } from './routes/academy.community'
 import { Route as AcademyCategoriesRouteImport } from './routes/academy.categories'
 import { Route as AcademyAdminRouteImport } from './routes/academy.admin'
+import { Route as AcademyBoothIndexRouteImport } from './routes/academy.booth.index'
 import { Route as AcademyToolsPricingRouteImport } from './routes/academy.tools.pricing'
 import { Route as AcademyToolsPackingRouteImport } from './routes/academy.tools.packing'
 import { Route as AcademyCSlugRouteImport } from './routes/academy.c.$slug'
+import { Route as AcademyBoothLayoutsRouteImport } from './routes/academy.booth.layouts'
+import { Route as AcademyBoothGalleryRouteImport } from './routes/academy.booth.gallery'
+import { Route as AcademyBoothDownloadsRouteImport } from './routes/academy.booth.downloads'
+import { Route as AcademyBoothToolsIndexRouteImport } from './routes/academy.booth.tools.index'
+import { Route as AcademyBoothToolsTimelineRouteImport } from './routes/academy.booth.tools.timeline'
+import { Route as AcademyBoothToolsPlannerRouteImport } from './routes/academy.booth.tools.planner'
+import { Route as AcademyBoothToolsChecklistRouteImport } from './routes/academy.booth.tools.checklist'
+import { Route as AcademyBoothLayoutsSlugRouteImport } from './routes/academy.booth.layouts.$slug'
+import { Route as AcademyBoothChaptersSlugRouteImport } from './routes/academy.booth.chapters.$slug'
 
 const WelcomeRoute = WelcomeRouteImport.update({
   id: '/welcome',
@@ -223,6 +233,11 @@ const AcademyAdminRoute = AcademyAdminRouteImport.update({
   path: '/admin',
   getParentRoute: () => AcademyRoute,
 } as any)
+const AcademyBoothIndexRoute = AcademyBoothIndexRouteImport.update({
+  id: '/booth/',
+  path: '/booth/',
+  getParentRoute: () => AcademyRoute,
+} as any)
 const AcademyToolsPricingRoute = AcademyToolsPricingRouteImport.update({
   id: '/tools/pricing',
   path: '/tools/pricing',
@@ -238,6 +253,55 @@ const AcademyCSlugRoute = AcademyCSlugRouteImport.update({
   path: '/c/$slug',
   getParentRoute: () => AcademyRoute,
 } as any)
+const AcademyBoothLayoutsRoute = AcademyBoothLayoutsRouteImport.update({
+  id: '/booth/layouts',
+  path: '/booth/layouts',
+  getParentRoute: () => AcademyRoute,
+} as any)
+const AcademyBoothGalleryRoute = AcademyBoothGalleryRouteImport.update({
+  id: '/booth/gallery',
+  path: '/booth/gallery',
+  getParentRoute: () => AcademyRoute,
+} as any)
+const AcademyBoothDownloadsRoute = AcademyBoothDownloadsRouteImport.update({
+  id: '/booth/downloads',
+  path: '/booth/downloads',
+  getParentRoute: () => AcademyRoute,
+} as any)
+const AcademyBoothToolsIndexRoute = AcademyBoothToolsIndexRouteImport.update({
+  id: '/booth/tools/',
+  path: '/booth/tools/',
+  getParentRoute: () => AcademyRoute,
+} as any)
+const AcademyBoothToolsTimelineRoute =
+  AcademyBoothToolsTimelineRouteImport.update({
+    id: '/booth/tools/timeline',
+    path: '/booth/tools/timeline',
+    getParentRoute: () => AcademyRoute,
+  } as any)
+const AcademyBoothToolsPlannerRoute =
+  AcademyBoothToolsPlannerRouteImport.update({
+    id: '/booth/tools/planner',
+    path: '/booth/tools/planner',
+    getParentRoute: () => AcademyRoute,
+  } as any)
+const AcademyBoothToolsChecklistRoute =
+  AcademyBoothToolsChecklistRouteImport.update({
+    id: '/booth/tools/checklist',
+    path: '/booth/tools/checklist',
+    getParentRoute: () => AcademyRoute,
+  } as any)
+const AcademyBoothLayoutsSlugRoute = AcademyBoothLayoutsSlugRouteImport.update({
+  id: '/$slug',
+  path: '/$slug',
+  getParentRoute: () => AcademyBoothLayoutsRoute,
+} as any)
+const AcademyBoothChaptersSlugRoute =
+  AcademyBoothChaptersSlugRouteImport.update({
+    id: '/booth/chapters/$slug',
+    path: '/booth/chapters/$slug',
+    getParentRoute: () => AcademyRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -275,9 +339,19 @@ export interface FileRoutesByFullPath {
   '/academy/': typeof AcademyIndexRoute
   '/admin/': typeof AdminIndexRoute
   '/passport/': typeof PassportIndexRoute
+  '/academy/booth/downloads': typeof AcademyBoothDownloadsRoute
+  '/academy/booth/gallery': typeof AcademyBoothGalleryRoute
+  '/academy/booth/layouts': typeof AcademyBoothLayoutsRouteWithChildren
   '/academy/c/$slug': typeof AcademyCSlugRoute
   '/academy/tools/packing': typeof AcademyToolsPackingRoute
   '/academy/tools/pricing': typeof AcademyToolsPricingRoute
+  '/academy/booth/': typeof AcademyBoothIndexRoute
+  '/academy/booth/chapters/$slug': typeof AcademyBoothChaptersSlugRoute
+  '/academy/booth/layouts/$slug': typeof AcademyBoothLayoutsSlugRoute
+  '/academy/booth/tools/checklist': typeof AcademyBoothToolsChecklistRoute
+  '/academy/booth/tools/planner': typeof AcademyBoothToolsPlannerRoute
+  '/academy/booth/tools/timeline': typeof AcademyBoothToolsTimelineRoute
+  '/academy/booth/tools/': typeof AcademyBoothToolsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -312,9 +386,19 @@ export interface FileRoutesByTo {
   '/academy': typeof AcademyIndexRoute
   '/admin': typeof AdminIndexRoute
   '/passport': typeof PassportIndexRoute
+  '/academy/booth/downloads': typeof AcademyBoothDownloadsRoute
+  '/academy/booth/gallery': typeof AcademyBoothGalleryRoute
+  '/academy/booth/layouts': typeof AcademyBoothLayoutsRouteWithChildren
   '/academy/c/$slug': typeof AcademyCSlugRoute
   '/academy/tools/packing': typeof AcademyToolsPackingRoute
   '/academy/tools/pricing': typeof AcademyToolsPricingRoute
+  '/academy/booth': typeof AcademyBoothIndexRoute
+  '/academy/booth/chapters/$slug': typeof AcademyBoothChaptersSlugRoute
+  '/academy/booth/layouts/$slug': typeof AcademyBoothLayoutsSlugRoute
+  '/academy/booth/tools/checklist': typeof AcademyBoothToolsChecklistRoute
+  '/academy/booth/tools/planner': typeof AcademyBoothToolsPlannerRoute
+  '/academy/booth/tools/timeline': typeof AcademyBoothToolsTimelineRoute
+  '/academy/booth/tools': typeof AcademyBoothToolsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -353,9 +437,19 @@ export interface FileRoutesById {
   '/academy/': typeof AcademyIndexRoute
   '/admin/': typeof AdminIndexRoute
   '/passport/': typeof PassportIndexRoute
+  '/academy/booth/downloads': typeof AcademyBoothDownloadsRoute
+  '/academy/booth/gallery': typeof AcademyBoothGalleryRoute
+  '/academy/booth/layouts': typeof AcademyBoothLayoutsRouteWithChildren
   '/academy/c/$slug': typeof AcademyCSlugRoute
   '/academy/tools/packing': typeof AcademyToolsPackingRoute
   '/academy/tools/pricing': typeof AcademyToolsPricingRoute
+  '/academy/booth/': typeof AcademyBoothIndexRoute
+  '/academy/booth/chapters/$slug': typeof AcademyBoothChaptersSlugRoute
+  '/academy/booth/layouts/$slug': typeof AcademyBoothLayoutsSlugRoute
+  '/academy/booth/tools/checklist': typeof AcademyBoothToolsChecklistRoute
+  '/academy/booth/tools/planner': typeof AcademyBoothToolsPlannerRoute
+  '/academy/booth/tools/timeline': typeof AcademyBoothToolsTimelineRoute
+  '/academy/booth/tools/': typeof AcademyBoothToolsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -395,9 +489,19 @@ export interface FileRouteTypes {
     | '/academy/'
     | '/admin/'
     | '/passport/'
+    | '/academy/booth/downloads'
+    | '/academy/booth/gallery'
+    | '/academy/booth/layouts'
     | '/academy/c/$slug'
     | '/academy/tools/packing'
     | '/academy/tools/pricing'
+    | '/academy/booth/'
+    | '/academy/booth/chapters/$slug'
+    | '/academy/booth/layouts/$slug'
+    | '/academy/booth/tools/checklist'
+    | '/academy/booth/tools/planner'
+    | '/academy/booth/tools/timeline'
+    | '/academy/booth/tools/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -432,9 +536,19 @@ export interface FileRouteTypes {
     | '/academy'
     | '/admin'
     | '/passport'
+    | '/academy/booth/downloads'
+    | '/academy/booth/gallery'
+    | '/academy/booth/layouts'
     | '/academy/c/$slug'
     | '/academy/tools/packing'
     | '/academy/tools/pricing'
+    | '/academy/booth'
+    | '/academy/booth/chapters/$slug'
+    | '/academy/booth/layouts/$slug'
+    | '/academy/booth/tools/checklist'
+    | '/academy/booth/tools/planner'
+    | '/academy/booth/tools/timeline'
+    | '/academy/booth/tools'
   id:
     | '__root__'
     | '/'
@@ -472,9 +586,19 @@ export interface FileRouteTypes {
     | '/academy/'
     | '/admin/'
     | '/passport/'
+    | '/academy/booth/downloads'
+    | '/academy/booth/gallery'
+    | '/academy/booth/layouts'
     | '/academy/c/$slug'
     | '/academy/tools/packing'
     | '/academy/tools/pricing'
+    | '/academy/booth/'
+    | '/academy/booth/chapters/$slug'
+    | '/academy/booth/layouts/$slug'
+    | '/academy/booth/tools/checklist'
+    | '/academy/booth/tools/planner'
+    | '/academy/booth/tools/timeline'
+    | '/academy/booth/tools/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -742,6 +866,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AcademyAdminRouteImport
       parentRoute: typeof AcademyRoute
     }
+    '/academy/booth/': {
+      id: '/academy/booth/'
+      path: '/booth'
+      fullPath: '/academy/booth/'
+      preLoaderRoute: typeof AcademyBoothIndexRouteImport
+      parentRoute: typeof AcademyRoute
+    }
     '/academy/tools/pricing': {
       id: '/academy/tools/pricing'
       path: '/tools/pricing'
@@ -763,8 +894,82 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AcademyCSlugRouteImport
       parentRoute: typeof AcademyRoute
     }
+    '/academy/booth/layouts': {
+      id: '/academy/booth/layouts'
+      path: '/booth/layouts'
+      fullPath: '/academy/booth/layouts'
+      preLoaderRoute: typeof AcademyBoothLayoutsRouteImport
+      parentRoute: typeof AcademyRoute
+    }
+    '/academy/booth/gallery': {
+      id: '/academy/booth/gallery'
+      path: '/booth/gallery'
+      fullPath: '/academy/booth/gallery'
+      preLoaderRoute: typeof AcademyBoothGalleryRouteImport
+      parentRoute: typeof AcademyRoute
+    }
+    '/academy/booth/downloads': {
+      id: '/academy/booth/downloads'
+      path: '/booth/downloads'
+      fullPath: '/academy/booth/downloads'
+      preLoaderRoute: typeof AcademyBoothDownloadsRouteImport
+      parentRoute: typeof AcademyRoute
+    }
+    '/academy/booth/tools/': {
+      id: '/academy/booth/tools/'
+      path: '/booth/tools'
+      fullPath: '/academy/booth/tools/'
+      preLoaderRoute: typeof AcademyBoothToolsIndexRouteImport
+      parentRoute: typeof AcademyRoute
+    }
+    '/academy/booth/tools/timeline': {
+      id: '/academy/booth/tools/timeline'
+      path: '/booth/tools/timeline'
+      fullPath: '/academy/booth/tools/timeline'
+      preLoaderRoute: typeof AcademyBoothToolsTimelineRouteImport
+      parentRoute: typeof AcademyRoute
+    }
+    '/academy/booth/tools/planner': {
+      id: '/academy/booth/tools/planner'
+      path: '/booth/tools/planner'
+      fullPath: '/academy/booth/tools/planner'
+      preLoaderRoute: typeof AcademyBoothToolsPlannerRouteImport
+      parentRoute: typeof AcademyRoute
+    }
+    '/academy/booth/tools/checklist': {
+      id: '/academy/booth/tools/checklist'
+      path: '/booth/tools/checklist'
+      fullPath: '/academy/booth/tools/checklist'
+      preLoaderRoute: typeof AcademyBoothToolsChecklistRouteImport
+      parentRoute: typeof AcademyRoute
+    }
+    '/academy/booth/layouts/$slug': {
+      id: '/academy/booth/layouts/$slug'
+      path: '/$slug'
+      fullPath: '/academy/booth/layouts/$slug'
+      preLoaderRoute: typeof AcademyBoothLayoutsSlugRouteImport
+      parentRoute: typeof AcademyBoothLayoutsRoute
+    }
+    '/academy/booth/chapters/$slug': {
+      id: '/academy/booth/chapters/$slug'
+      path: '/booth/chapters/$slug'
+      fullPath: '/academy/booth/chapters/$slug'
+      preLoaderRoute: typeof AcademyBoothChaptersSlugRouteImport
+      parentRoute: typeof AcademyRoute
+    }
   }
 }
+
+interface AcademyBoothLayoutsRouteChildren {
+  AcademyBoothLayoutsSlugRoute: typeof AcademyBoothLayoutsSlugRoute
+}
+
+const AcademyBoothLayoutsRouteChildren: AcademyBoothLayoutsRouteChildren = {
+  AcademyBoothLayoutsSlugRoute: AcademyBoothLayoutsSlugRoute,
+}
+
+const AcademyBoothLayoutsRouteWithChildren =
+  AcademyBoothLayoutsRoute._addFileChildren(AcademyBoothLayoutsRouteChildren)
 
 interface AcademyRouteChildren {
   AcademyAdminRoute: typeof AcademyAdminRoute
@@ -775,9 +980,18 @@ interface AcademyRouteChildren {
   AcademyFavoritesRoute: typeof AcademyFavoritesRoute
   AcademySearchRoute: typeof AcademySearchRoute
   AcademyIndexRoute: typeof AcademyIndexRoute
+  AcademyBoothDownloadsRoute: typeof AcademyBoothDownloadsRoute
+  AcademyBoothGalleryRoute: typeof AcademyBoothGalleryRoute
+  AcademyBoothLayoutsRoute: typeof AcademyBoothLayoutsRouteWithChildren
   AcademyCSlugRoute: typeof AcademyCSlugRoute
   AcademyToolsPackingRoute: typeof AcademyToolsPackingRoute
   AcademyToolsPricingRoute: typeof AcademyToolsPricingRoute
+  AcademyBoothIndexRoute: typeof AcademyBoothIndexRoute
+  AcademyBoothChaptersSlugRoute: typeof AcademyBoothChaptersSlugRoute
+  AcademyBoothToolsChecklistRoute: typeof AcademyBoothToolsChecklistRoute
+  AcademyBoothToolsPlannerRoute: typeof AcademyBoothToolsPlannerRoute
+  AcademyBoothToolsTimelineRoute: typeof AcademyBoothToolsTimelineRoute
+  AcademyBoothToolsIndexRoute: typeof AcademyBoothToolsIndexRoute
 }
 
 const AcademyRouteChildren: AcademyRouteChildren = {
@@ -789,9 +1003,18 @@ const AcademyRouteChildren: AcademyRouteChildren = {
   AcademyFavoritesRoute: AcademyFavoritesRoute,
   AcademySearchRoute: AcademySearchRoute,
   AcademyIndexRoute: AcademyIndexRoute,
+  AcademyBoothDownloadsRoute: AcademyBoothDownloadsRoute,
+  AcademyBoothGalleryRoute: AcademyBoothGalleryRoute,
+  AcademyBoothLayoutsRoute: AcademyBoothLayoutsRouteWithChildren,
   AcademyCSlugRoute: AcademyCSlugRoute,
   AcademyToolsPackingRoute: AcademyToolsPackingRoute,
   AcademyToolsPricingRoute: AcademyToolsPricingRoute,
+  AcademyBoothIndexRoute: AcademyBoothIndexRoute,
+  AcademyBoothChaptersSlugRoute: AcademyBoothChaptersSlugRoute,
+  AcademyBoothToolsChecklistRoute: AcademyBoothToolsChecklistRoute,
+  AcademyBoothToolsPlannerRoute: AcademyBoothToolsPlannerRoute,
+  AcademyBoothToolsTimelineRoute: AcademyBoothToolsTimelineRoute,
+  AcademyBoothToolsIndexRoute: AcademyBoothToolsIndexRoute,
 }
 
 const AcademyRouteWithChildren =
@@ -868,13 +1091,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
