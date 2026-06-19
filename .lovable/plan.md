@@ -1,72 +1,121 @@
-## Trovin' Loyalty — Phase 1 (frontend demo)
+# Trovin Academy — Full MVP Build Plan
 
-A clickable, self-contained loyalty section using **localStorage** so you can walk through the whole loop on the published preview. No DB changes yet — backend wiring is a follow-up once the flow feels right.
+A new top-level tab inside Trovin: a premium vendor operating system. Independent design system (editorial cream), interactive-first worksheets, dashboard, community, and admin, all backed by Lovable Cloud with autosave.
 
-### New routes (all under `/loyalty`)
+Given scope (~30+ new files, 8 new tables, 10 calculators), this will land across **3 sequenced turns** so each turn is reviewable.
 
+---
+
+## Design System (Editorial Cream)
+
+- **Palette**: paper `#FAF7F2`, ink `#1A1A1A`, terracotta `#C8553D` (primary), forest `#2E5E4E` (secondary), muted sand `#E8E0D3`.
+- **Type**: `Fraunces` (display serif, headlines) + `Inter Tight` (body) via `@fontsource`. Distinct from rest of app.
+- **Motifs**: thin rules, generous margins, lowercase eyebrow labels, numbered section markers, soft paper grain shadow.
+- New tokens scoped under `.academy` class on `<AcademyShell>` so it doesn't bleed into the rest of Trovin.
+
+---
+
+## Routes (all under `/academy`)
+
+```text
+/academy                    home (hero, featured categories, tip of the week)
+/academy/categories         grid of 8 categories
+/academy/c/$slug            category detail (articles + tools + downloads)
+/academy/search             global search
+/academy/downloads          download library
+/academy/favorites          saved resources
+/academy/dashboard          member dashboard
+/academy/community          feed
+/academy/admin              admin (gated to role=admin)
+/academy/tools/packing
+/academy/tools/inventory
+/academy/tools/expenses
+/academy/tools/sales
+/academy/tools/pricing
+/academy/tools/profit
+/academy/tools/event-planner
+/academy/tools/goals
+/academy/tools/mileage
+/academy/tools/crm
+/academy/article/$slug
 ```
-src/routes/
-  loyalty.tsx              layout + tabbed footer (My QR · Wallet · Rewards · Scan)
-  loyalty.index.tsx        landing: explains Bytes, "I'm a customer / I'm a vendor"
-  loyalty.qr.tsx           Customer: big personal QR + token
-  loyalty.wallet.tsx       Customer: Bytes balance + ledger history
-  loyalty.rewards.tsx      Customer: catalog grid, Redeem button
-  loyalty.scan.tsx         Vendor: paste/enter customer token → check-in
-  loyalty.vendor.tsx       Vendor: tier picker + today's "I'm here now" + dashboard stats
-  loyalty.admin.tsx        Admin: manage reward catalog (add/edit/remove)
+
+All under `_authenticated/` since worksheets autosave to the user's account; home + categories are also accessible signed-out (preview mode).
+
+---
+
+## Database (Lovable Cloud)
+
+New tables, all RLS-scoped to `auth.uid()` except public-readable content:
+
+| Table | Purpose | Access |
+|---|---|---|
+| `academy_categories` | 8 seeded categories | public read, admin write |
+| `academy_articles` | tips/guides | public read (published), admin write |
+| `academy_downloads` | downloadable files metadata | public read, admin write |
+| `academy_favorites` | per-user saves | owner only |
+| `academy_worksheets` | autosaved JSON state per tool per user | owner only |
+| `academy_goals` | goal tracker rows | owner only |
+| `academy_community_posts` | community feed | authenticated read, owner write |
+| `academy_community_comments` | replies | authenticated read, owner write |
+| `academy_download_log` | analytics | insert: authenticated, read: admin |
+
+Worksheet table holds `{ user_id, tool_slug, data jsonb, updated_at }` — one row per tool per user, upserted on every change.
+
+---
+
+## Interactive Tool Pattern
+
+Every tool follows the same shape:
+
+```text
+<ToolShell title eyebrow>
+  <AutosaveProvider toolSlug="packing">
+    {/* tool-specific form */}
+  </AutosaveProvider>
+  <ToolActions>  // Download PDF, Print, Reset
+</ToolShell>
 ```
 
-A small entry card on the home page (`/`) and a link in the vendor dashboard (`/vendor`) point into `/loyalty`.
+- `useAutosaveWorksheet(slug)` hook: loads row on mount, debounced upsert on change, optimistic local state.
+- PDF export: client-side via `jspdf` + `html2canvas` (Worker-compatible).
+- Print: `window.print()` with a print stylesheet.
 
-### Data (localStorage only for now)
+---
 
-One namespaced store `trovin:loyalty:v1` holding:
-- `me` — `{ role, name, personalQrToken }` (token generated on first visit via `crypto.randomUUID()`)
-- `wallet` — `{ balance, ledger: LedgerEntry[] }`
-- `checkIns` — `CheckIn[]` (used to enforce 1/vendor/day)
-- `vendorProfile` — `{ tier, isLive, placeName, startTime, endTime }` (merged with existing `useVendorProfile`)
-- `rewards` — seeded catalog, admin-editable
-- `redemptions` — `Redemption[]`
+## Turn Sequence
 
-A `useLoyalty()` hook wraps reads/writes and fires a `trovin:loyalty:changed` event so all open tabs stay in sync (same pattern as `useVendorProfile`).
+**Turn 1 (this turn) — Foundation**
+- Migration: all 9 tables + RLS + grants + seed categories.
+- Design tokens, fonts, `AcademyShell`, top-nav entry in main app.
+- Routes: home, categories, category detail, dashboard skeleton.
+- `useAutosaveWorksheet` hook + one flagship tool (Packing Checklist) end-to-end with PDF/print.
 
-### Hard-coded rules (enforced in the hook, not the UI)
+**Turn 2 — Tools + Library**
+- Remaining 9 interactive tools.
+- Downloads library + favorites.
+- Global search.
+- Article viewer.
 
-- Earning values fixed: check-in 10, social 15, review 20, purchase 25.
-- 1 Byte = $0.01 (display only).
-- Tier gates which buttons render after a successful scan:
-  - Free / Starter → only check-in fires automatically
-  - Plus → check-in + "Social share (+15)" + "Review (+20)" (review queued as `pending`, no Bytes yet)
-  - Pro → all of the above + "Confirm purchase (+25)"
-- One check-in per customer per vendor per day — repeat scan shows "Already checked in today" and awards 0.
-- No customer-initiated check-in anywhere in the UI.
+**Turn 3 — Community + Admin**
+- Community feed + comments.
+- Admin console (CRUD on articles, downloads, categories; feature toggles; analytics view).
+- Polish, empty states, error boundaries on every loader, OG tags on shareable routes.
 
-### Screens (Phase 1 scope only)
+---
 
-**Customer**
-1. `/loyalty` landing — explains program, role toggle.
-2. `/loyalty/qr` — large QR (using existing `qrcode.react`) encoding `personalQrToken`, plus the raw token with copy button (so you can paste it into Scan during the demo).
-3. `/loyalty/wallet` — balance card + scrollable ledger (action, vendor, +/− bytes, timestamp).
-4. `/loyalty/rewards` — grid of seeded rewards ($5 Visa / 500, $10 Visa / 1000, Trovin' tote / 350, sticker pack / 100, coffee credit / 250). Redeem disabled when balance < cost; on tap, deducts Bytes, writes negative ledger entry, creates `requested` redemption, shows toast.
+## Technical Section
 
-**Vendor**
-5. `/loyalty/vendor` — tier picker (Free/Starter/Plus/Pro), "I'm here now" form (place name + end time → LiveSession), dashboard tiles: today's check-ins, new follows (placeholder), scans, and (Pro only) a "peak hours" mini-chart from the check-in log.
-6. `/loyalty/scan` — input field for customer token + "Scan" button → validates against the saved `me.personalQrToken`, runs the check-in flow, then renders tier-gated extra action buttons. Confirmation card shows what was awarded.
+- Server fns in `src/lib/academy.functions.ts` with `requireSupabaseAuth`; public reads (categories, published articles, downloads index) via a separate `academy.public.functions.ts` using server publishable client + `TO anon` SELECT policies.
+- Admin gating: `_authenticated/academy/admin/route.tsx` calls `has_role(uid, 'admin')` via existing RPC.
+- Files: PDFs/images uploaded to a new `academy` storage bucket (created in Turn 2 alongside admin upload UI).
+- No edits to `routeTree.gen.ts` (auto-generated).
+- New top-level nav entry added to `AppShell` (existing component) — does not change current app visuals.
 
-**Admin**
-7. `/loyalty/admin` — list/add/edit/remove rewards (name, cost in Bytes, type merch/visa, image URL). Gated by the existing admin role check pattern used in `/admin`.
+---
 
-### Out of scope (per spec, "Later phases")
+## Out of scope for MVP
 
-Founding offer, referrals, boost packs, games, compliance helper, automated fulfillment, real camera scanner, server-side enforcement.
-
-### Technical notes
-
-- Stack: TanStack Start routes, Tailwind tokens already in `src/styles.css`, `qrcode.react` already installed, `sonner` for toasts.
-- No DB migration in this phase.
-- All "server-like" rules (tier gating, daily de-dupe, fixed values) live in `src/hooks/useLoyalty.ts` so the eventual backend port is a 1:1 swap.
-- A clear `// TODO(backend): move to server fn` comment on every mutation that will need to become a `createServerFn`.
-
-### Follow-up (not this turn)
-
-Once you've clicked through and approved the flow, Phase 1.5 = port `useLoyalty` mutations to real tables (`bytes_wallets`, `ledger_entries`, `check_ins`, `live_sessions`, `rewards`, `redemptions`) with RLS, and add the actual camera scanner.
+- AI features (architecture-ready hooks left as TODOs but no model calls this build).
+- Native mobile push.
+- Per-vendor analytics beyond download counts.

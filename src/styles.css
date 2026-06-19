@@ -225,3 +225,115 @@
   50% { transform: translateY(-1px) }
 }
 
+/* ===========================================================
+ * Trovin Academy — scoped premium editorial design system
+ * Apply by wrapping a tree in <div class="academy">.
+ * Independent palette + type so it doesn't bleed into Trovin.
+ * =========================================================== */
+.academy {
+  --ac-paper: #FAF7F2;
+  --ac-paper-2: #F4EFE5;
+  --ac-ink: #1A1A1A;
+  --ac-ink-soft: #555048;
+  --ac-ink-mute: #8A8378;
+  --ac-rule: #1A1A1A;
+  --ac-rule-soft: #D9D2C4;
+  --ac-terracotta: #C8553D;
+  --ac-terracotta-soft: #E8B7AB;
+  --ac-forest: #2E5E4E;
+  --ac-forest-soft: #B7CFC5;
+  --ac-sand: #E8E0D3;
+  --ac-cream-deep: #EFE7D6;
+
+  background-color: var(--ac-paper);
+  color: var(--ac-ink);
+  font-family: "DM Sans", "DM Sans", system-ui, sans-serif;
+  font-feature-settings: "ss01", "cv11";
+}
+.academy h1,
+.academy h2,
+.academy h3,
+.academy h4 {
+  font-family: "Fraunces", Georgia, serif;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  color: var(--ac-ink);
+}
+.academy .ac-eyebrow {
+  font-family: "DM Sans", system-ui, sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: lowercase;
+  color: var(--ac-ink-mute);
+}
+.academy .ac-rule {
+  border-top: 1px solid var(--ac-rule);
+}
+.academy .ac-rule-soft {
+  border-top: 1px solid var(--ac-rule-soft);
+}
+.academy .ac-card {
+  background: #fff;
+  border: 1px solid var(--ac-rule-soft);
+  border-radius: 4px;
+  box-shadow: 0 1px 0 var(--ac-rule-soft), 0 24px 40px -32px rgba(26,26,26,0.18);
+}
+.academy .ac-btn {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  padding: 0.75rem 1.1rem;
+  background: var(--ac-ink); color: var(--ac-paper);
+  font-weight: 500; font-size: 14px;
+  border-radius: 999px; transition: background 120ms ease;
+}
+.academy .ac-btn:hover { background: #000; }
+.academy .ac-btn-ghost {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  padding: 0.7rem 1rem;
+  border: 1px solid var(--ac-rule);
+  border-radius: 999px;
+  font-weight: 500; font-size: 14px;
+  color: var(--ac-ink); background: transparent;
+}
+.academy .ac-btn-ghost:hover { background: var(--ac-cream-deep); }
+.academy .ac-chip {
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  padding: 0.3rem 0.7rem;
+  border-radius: 999px;
+  background: var(--ac-cream-deep);
+  color: var(--ac-ink-soft);
+  font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
+}
+.academy .ac-number {
+  font-family: "Fraunces", serif;
+  font-feature-settings: "lnum";
+  font-size: 11px;
+  color: var(--ac-terracotta);
+  letter-spacing: 0.05em;
+}
+.academy .ac-input {
+  width: 100%;
+  background: #fff;
+  border: 1px solid var(--ac-rule-soft);
+  padding: 0.65rem 0.85rem;
+  border-radius: 3px;
+  font-size: 14px;
+  color: var(--ac-ink);
+}
+.academy .ac-input:focus {
+  outline: none; border-color: var(--ac-ink);
+}
+.academy .ac-paper-grain {
+  background-image:
+    radial-gradient(rgba(0,0,0,0.025) 1px, transparent 1px),
+    radial-gradient(rgba(0,0,0,0.02) 1px, transparent 1px);
+  background-size: 6px 6px, 13px 13px;
+  background-position: 0 0, 3px 3px;
+}
+
+@media print {
+  .ac-no-print { display: none !important; }
+  .academy { background: white !important; }
+  .ac-card { box-shadow: none !important; border: 1px solid #ccc !important; }
+}
+
+
