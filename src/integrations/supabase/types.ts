@@ -771,6 +771,7 @@ export type Database = {
           category_slug: string
           cons: string[]
           created_at: string
+          created_by: string | null
           full_description: string | null
           id: string
           image_url: string | null
@@ -801,6 +802,7 @@ export type Database = {
           category_slug: string
           cons?: string[]
           created_at?: string
+          created_by?: string | null
           full_description?: string | null
           id?: string
           image_url?: string | null
@@ -831,6 +833,7 @@ export type Database = {
           category_slug?: string
           cons?: string[]
           created_at?: string
+          created_by?: string | null
           full_description?: string | null
           id?: string
           image_url?: string | null

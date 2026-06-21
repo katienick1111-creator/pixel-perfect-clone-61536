@@ -138,7 +138,7 @@ function slugify(s: string) {
 
 function AdminMustHaves() {
   const { user, loading: authLoading } = useAuth();
-  const [isAdmin, setIsAdmin] = useState<boolean | null>(null);
+  const [access, setAccess] = useState<null | "admin" | "vendor" | "none">(null);
   const [cats, setCats] = useState<Category[]>([]);
   const [products, setProducts] = useState<Product[]>([]);
   const [editing, setEditing] = useState<Product | null>(null);
@@ -147,14 +147,22 @@ function AdminMustHaves() {
 
   useEffect(() => {
     if (authLoading) return;
-    if (!user) { setIsAdmin(false); return; }
-    supabase.rpc("has_role", { _user_id: user.id, _role: "admin" }).then(({ data }) => {
-      setIsAdmin(!!data);
-    });
+    if (!user) { setAccess("none"); return; }
+    (async () => {
+      const [a, v] = await Promise.all([
+        supabase.rpc("has_role", { _user_id: user.id, _role: "admin" }),
+        supabase.rpc("has_role", { _user_id: user.id, _role: "vendor" }),
+      ]);
+      setAccess(a.data ? "admin" : v.data ? "vendor" : "none");
+    })();
   }, [user, authLoading]);
 
+  const isAdmin = access === "admin";
+  const isVendor = access === "vendor";
+  const hasAccess = isAdmin || isVendor;
+
   useEffect(() => {
-    if (!isAdmin) return;
+    if (!hasAccess) return;
     (async () => {
       const [c, p] = await Promise.all([
         supabase.from("academy_musthave_categories").select("slug,title,group_name").order("group_name").order("sort_order"),
@@ -163,7 +171,7 @@ function AdminMustHaves() {
       setCats((c.data as Category[]) ?? []);
       setProducts((p.data as Product[]) ?? []);
     })();
-  }, [isAdmin]);
+  }, [hasAccess]);
 
   const filtered = useMemo(() => {
     const q = query.toLowerCase();
@@ -264,21 +272,21 @@ function AdminMustHaves() {
     }
   };
 
-  if (authLoading || isAdmin === null) {
+  if (authLoading || access === null) {
     return <p className="text-sm text-[var(--ac-ink-mute)]">Loading…</p>;
   }
   if (!user) {
     return (
       <div className="ac-card p-10 text-center">
-        <p>Sign in to access admin tools.</p>
+        <p>Sign in to add products.</p>
         <Link to="/auth" className="ac-btn mt-4">Sign in</Link>
       </div>
     );
   }
-  if (!isAdmin) {
+  if (!hasAccess) {
     return (
       <div className="ac-card p-10 text-center">
-        <p>Admin access only.</p>
+        <p>Vendor or admin access required to add products.</p>
         <Link to="/academy/must-haves" className="ac-btn-ghost mt-4">Back to library</Link>
       </div>
     );
@@ -287,9 +295,11 @@ function AdminMustHaves() {
   return (
     <div>
       <AcademyPageHeader
-        eyebrow="admin"
-        title="Vendor Must-Haves admin."
-        description="Add, edit, feature, and remove products. Changes appear instantly in the public library."
+        eyebrow={isAdmin ? "admin" : "vendor"}
+        title={isAdmin ? "Vendor Must-Haves admin." : "Add your products."}
+        description={isAdmin
+          ? "Add, edit, feature, and remove products. Changes appear instantly in the public library."
+          : "Add the products you sell or recommend. You can edit and remove the ones you add."}
         actions={
           <>
             <Link to="/academy/must-haves" className="ac-btn-ghost text-xs">View library</Link>
