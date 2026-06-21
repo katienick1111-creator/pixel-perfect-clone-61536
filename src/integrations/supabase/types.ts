@@ -706,6 +706,163 @@ export type Database = {
         }
         Relationships: []
       }
+      academy_musthave_categories: {
+        Row: {
+          created_at: string
+          group_name: string
+          id: string
+          slug: string
+          sort_order: number
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          group_name: string
+          id?: string
+          slug: string
+          sort_order?: number
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          group_name?: string
+          id?: string
+          slug?: string
+          sort_order?: number
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      academy_musthave_favorites: {
+        Row: {
+          created_at: string
+          product_id: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          product_id: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          product_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "academy_musthave_favorites_product_id_fkey"
+            columns: ["product_id"]
+            isOneToOne: false
+            referencedRelation: "academy_musthave_products"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      academy_musthave_products: {
+        Row: {
+          affiliate_url: string | null
+          best_for: string[]
+          best_uses: string[]
+          brand: string | null
+          category_slug: string
+          cons: string[]
+          created_at: string
+          full_description: string | null
+          id: string
+          image_url: string | null
+          images: string[]
+          is_featured: boolean
+          is_staff_pick: boolean
+          is_trovin_recommended: boolean
+          name: string
+          popularity: number
+          price_display: string | null
+          price_max: number | null
+          price_min: number | null
+          pros: string[]
+          purchase_url: string | null
+          rating: number | null
+          rating_count: number
+          short_description: string | null
+          slug: string
+          sort_order: number
+          updated_at: string
+          why_recommended: string | null
+        }
+        Insert: {
+          affiliate_url?: string | null
+          best_for?: string[]
+          best_uses?: string[]
+          brand?: string | null
+          category_slug: string
+          cons?: string[]
+          created_at?: string
+          full_description?: string | null
+          id?: string
+          image_url?: string | null
+          images?: string[]
+          is_featured?: boolean
+          is_staff_pick?: boolean
+          is_trovin_recommended?: boolean
+          name: string
+          popularity?: number
+          price_display?: string | null
+          price_max?: number | null
+          price_min?: number | null
+          pros?: string[]
+          purchase_url?: string | null
+          rating?: number | null
+          rating_count?: number
+          short_description?: string | null
+          slug: string
+          sort_order?: number
+          updated_at?: string
+          why_recommended?: string | null
+        }
+        Update: {
+          affiliate_url?: string | null
+          best_for?: string[]
+          best_uses?: string[]
+          brand?: string | null
+          category_slug?: string
+          cons?: string[]
+          created_at?: string
+          full_description?: string | null
+          id?: string
+          image_url?: string | null
+          images?: string[]
+          is_featured?: boolean
+          is_staff_pick?: boolean
+          is_trovin_recommended?: boolean
+          name?: string
+          popularity?: number
+          price_display?: string | null
+          price_max?: number | null
+          price_min?: number | null
+          pros?: string[]
+          purchase_url?: string | null
+          rating?: number | null
+          rating_count?: number
+          short_description?: string | null
+          slug?: string
+          sort_order?: number
+          updated_at?: string
+          why_recommended?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "academy_musthave_products_category_slug_fkey"
+            columns: ["category_slug"]
+            isOneToOne: false
+            referencedRelation: "academy_musthave_categories"
+            referencedColumns: ["slug"]
+          },
+        ]
+      }
       academy_pricing_calculations: {
         Row: {
           created_at: string

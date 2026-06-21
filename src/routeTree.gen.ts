@@ -44,6 +44,7 @@ import { Route as AcademyDashboardRouteImport } from './routes/academy.dashboard
 import { Route as AcademyCommunityRouteImport } from './routes/academy.community'
 import { Route as AcademyCategoriesRouteImport } from './routes/academy.categories'
 import { Route as AcademyAdminRouteImport } from './routes/academy.admin'
+import { Route as AcademyMustHavesIndexRouteImport } from './routes/academy.must-haves.index'
 import { Route as AcademyBoothIndexRouteImport } from './routes/academy.booth.index'
 import { Route as AcademyToolsSalesRouteImport } from './routes/academy.tools.sales'
 import { Route as AcademyToolsProfitRouteImport } from './routes/academy.tools.profit'
@@ -54,10 +55,12 @@ import { Route as AcademyToolsGoalsRouteImport } from './routes/academy.tools.go
 import { Route as AcademyToolsExpensesRouteImport } from './routes/academy.tools.expenses'
 import { Route as AcademyToolsEventPlannerRouteImport } from './routes/academy.tools.event-planner'
 import { Route as AcademyToolsCrmRouteImport } from './routes/academy.tools.crm'
+import { Route as AcademyMustHavesSlugRouteImport } from './routes/academy.must-haves.$slug'
 import { Route as AcademyCSlugRouteImport } from './routes/academy.c.$slug'
 import { Route as AcademyBoothLayoutsRouteImport } from './routes/academy.booth.layouts'
 import { Route as AcademyBoothGalleryRouteImport } from './routes/academy.booth.gallery'
 import { Route as AcademyBoothDownloadsRouteImport } from './routes/academy.booth.downloads'
+import { Route as AcademyAdminMustHavesRouteImport } from './routes/academy.admin.must-haves'
 import { Route as AcademyBoothToolsIndexRouteImport } from './routes/academy.booth.tools.index'
 import { Route as AcademyBoothToolsTimelineRouteImport } from './routes/academy.booth.tools.timeline'
 import { Route as AcademyBoothToolsPlannerRouteImport } from './routes/academy.booth.tools.planner'
@@ -240,6 +243,11 @@ const AcademyAdminRoute = AcademyAdminRouteImport.update({
   path: '/admin',
   getParentRoute: () => AcademyRoute,
 } as any)
+const AcademyMustHavesIndexRoute = AcademyMustHavesIndexRouteImport.update({
+  id: '/must-haves/',
+  path: '/must-haves/',
+  getParentRoute: () => AcademyRoute,
+} as any)
 const AcademyBoothIndexRoute = AcademyBoothIndexRouteImport.update({
   id: '/booth/',
   path: '/booth/',
@@ -291,6 +299,11 @@ const AcademyToolsCrmRoute = AcademyToolsCrmRouteImport.update({
   path: '/tools/crm',
   getParentRoute: () => AcademyRoute,
 } as any)
+const AcademyMustHavesSlugRoute = AcademyMustHavesSlugRouteImport.update({
+  id: '/must-haves/$slug',
+  path: '/must-haves/$slug',
+  getParentRoute: () => AcademyRoute,
+} as any)
 const AcademyCSlugRoute = AcademyCSlugRouteImport.update({
   id: '/c/$slug',
   path: '/c/$slug',
@@ -310,6 +323,11 @@ const AcademyBoothDownloadsRoute = AcademyBoothDownloadsRouteImport.update({
   id: '/booth/downloads',
   path: '/booth/downloads',
   getParentRoute: () => AcademyRoute,
+} as any)
+const AcademyAdminMustHavesRoute = AcademyAdminMustHavesRouteImport.update({
+  id: '/must-haves',
+  path: '/must-haves',
+  getParentRoute: () => AcademyAdminRoute,
 } as any)
 const AcademyBoothToolsIndexRoute = AcademyBoothToolsIndexRouteImport.update({
   id: '/booth/tools/',
@@ -360,7 +378,7 @@ export interface FileRoutesByFullPath {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/vendor': typeof VendorRouteWithChildren
   '/welcome': typeof WelcomeRoute
-  '/academy/admin': typeof AcademyAdminRoute
+  '/academy/admin': typeof AcademyAdminRouteWithChildren
   '/academy/categories': typeof AcademyCategoriesRoute
   '/academy/community': typeof AcademyCommunityRoute
   '/academy/dashboard': typeof AcademyDashboardRoute
@@ -382,10 +400,12 @@ export interface FileRoutesByFullPath {
   '/academy/': typeof AcademyIndexRoute
   '/admin/': typeof AdminIndexRoute
   '/passport/': typeof PassportIndexRoute
+  '/academy/admin/must-haves': typeof AcademyAdminMustHavesRoute
   '/academy/booth/downloads': typeof AcademyBoothDownloadsRoute
   '/academy/booth/gallery': typeof AcademyBoothGalleryRoute
   '/academy/booth/layouts': typeof AcademyBoothLayoutsRouteWithChildren
   '/academy/c/$slug': typeof AcademyCSlugRoute
+  '/academy/must-haves/$slug': typeof AcademyMustHavesSlugRoute
   '/academy/tools/crm': typeof AcademyToolsCrmRoute
   '/academy/tools/event-planner': typeof AcademyToolsEventPlannerRoute
   '/academy/tools/expenses': typeof AcademyToolsExpensesRoute
@@ -396,6 +416,7 @@ export interface FileRoutesByFullPath {
   '/academy/tools/profit': typeof AcademyToolsProfitRoute
   '/academy/tools/sales': typeof AcademyToolsSalesRoute
   '/academy/booth/': typeof AcademyBoothIndexRoute
+  '/academy/must-haves/': typeof AcademyMustHavesIndexRoute
   '/academy/booth/chapters/$slug': typeof AcademyBoothChaptersSlugRoute
   '/academy/booth/layouts/$slug': typeof AcademyBoothLayoutsSlugRoute
   '/academy/booth/tools/checklist': typeof AcademyBoothToolsChecklistRoute
@@ -414,7 +435,7 @@ export interface FileRoutesByTo {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/vendor': typeof VendorRouteWithChildren
   '/welcome': typeof WelcomeRoute
-  '/academy/admin': typeof AcademyAdminRoute
+  '/academy/admin': typeof AcademyAdminRouteWithChildren
   '/academy/categories': typeof AcademyCategoriesRoute
   '/academy/community': typeof AcademyCommunityRoute
   '/academy/dashboard': typeof AcademyDashboardRoute
@@ -436,10 +457,12 @@ export interface FileRoutesByTo {
   '/academy': typeof AcademyIndexRoute
   '/admin': typeof AdminIndexRoute
   '/passport': typeof PassportIndexRoute
+  '/academy/admin/must-haves': typeof AcademyAdminMustHavesRoute
   '/academy/booth/downloads': typeof AcademyBoothDownloadsRoute
   '/academy/booth/gallery': typeof AcademyBoothGalleryRoute
   '/academy/booth/layouts': typeof AcademyBoothLayoutsRouteWithChildren
   '/academy/c/$slug': typeof AcademyCSlugRoute
+  '/academy/must-haves/$slug': typeof AcademyMustHavesSlugRoute
   '/academy/tools/crm': typeof AcademyToolsCrmRoute
   '/academy/tools/event-planner': typeof AcademyToolsEventPlannerRoute
   '/academy/tools/expenses': typeof AcademyToolsExpensesRoute
@@ -450,6 +473,7 @@ export interface FileRoutesByTo {
   '/academy/tools/profit': typeof AcademyToolsProfitRoute
   '/academy/tools/sales': typeof AcademyToolsSalesRoute
   '/academy/booth': typeof AcademyBoothIndexRoute
+  '/academy/must-haves': typeof AcademyMustHavesIndexRoute
   '/academy/booth/chapters/$slug': typeof AcademyBoothChaptersSlugRoute
   '/academy/booth/layouts/$slug': typeof AcademyBoothLayoutsSlugRoute
   '/academy/booth/tools/checklist': typeof AcademyBoothToolsChecklistRoute
@@ -472,7 +496,7 @@ export interface FileRoutesById {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/vendor': typeof VendorRouteWithChildren
   '/welcome': typeof WelcomeRoute
-  '/academy/admin': typeof AcademyAdminRoute
+  '/academy/admin': typeof AcademyAdminRouteWithChildren
   '/academy/categories': typeof AcademyCategoriesRoute
   '/academy/community': typeof AcademyCommunityRoute
   '/academy/dashboard': typeof AcademyDashboardRoute
@@ -494,10 +518,12 @@ export interface FileRoutesById {
   '/academy/': typeof AcademyIndexRoute
   '/admin/': typeof AdminIndexRoute
   '/passport/': typeof PassportIndexRoute
+  '/academy/admin/must-haves': typeof AcademyAdminMustHavesRoute
   '/academy/booth/downloads': typeof AcademyBoothDownloadsRoute
   '/academy/booth/gallery': typeof AcademyBoothGalleryRoute
   '/academy/booth/layouts': typeof AcademyBoothLayoutsRouteWithChildren
   '/academy/c/$slug': typeof AcademyCSlugRoute
+  '/academy/must-haves/$slug': typeof AcademyMustHavesSlugRoute
   '/academy/tools/crm': typeof AcademyToolsCrmRoute
   '/academy/tools/event-planner': typeof AcademyToolsEventPlannerRoute
   '/academy/tools/expenses': typeof AcademyToolsExpensesRoute
@@ -508,6 +534,7 @@ export interface FileRoutesById {
   '/academy/tools/profit': typeof AcademyToolsProfitRoute
   '/academy/tools/sales': typeof AcademyToolsSalesRoute
   '/academy/booth/': typeof AcademyBoothIndexRoute
+  '/academy/must-haves/': typeof AcademyMustHavesIndexRoute
   '/academy/booth/chapters/$slug': typeof AcademyBoothChaptersSlugRoute
   '/academy/booth/layouts/$slug': typeof AcademyBoothLayoutsSlugRoute
   '/academy/booth/tools/checklist': typeof AcademyBoothToolsChecklistRoute
@@ -553,10 +580,12 @@ export interface FileRouteTypes {
     | '/academy/'
     | '/admin/'
     | '/passport/'
+    | '/academy/admin/must-haves'
     | '/academy/booth/downloads'
     | '/academy/booth/gallery'
     | '/academy/booth/layouts'
     | '/academy/c/$slug'
+    | '/academy/must-haves/$slug'
     | '/academy/tools/crm'
     | '/academy/tools/event-planner'
     | '/academy/tools/expenses'
@@ -567,6 +596,7 @@ export interface FileRouteTypes {
     | '/academy/tools/profit'
     | '/academy/tools/sales'
     | '/academy/booth/'
+    | '/academy/must-haves/'
     | '/academy/booth/chapters/$slug'
     | '/academy/booth/layouts/$slug'
     | '/academy/booth/tools/checklist'
@@ -607,10 +637,12 @@ export interface FileRouteTypes {
     | '/academy'
     | '/admin'
     | '/passport'
+    | '/academy/admin/must-haves'
     | '/academy/booth/downloads'
     | '/academy/booth/gallery'
     | '/academy/booth/layouts'
     | '/academy/c/$slug'
+    | '/academy/must-haves/$slug'
     | '/academy/tools/crm'
     | '/academy/tools/event-planner'
     | '/academy/tools/expenses'
@@ -621,6 +653,7 @@ export interface FileRouteTypes {
     | '/academy/tools/profit'
     | '/academy/tools/sales'
     | '/academy/booth'
+    | '/academy/must-haves'
     | '/academy/booth/chapters/$slug'
     | '/academy/booth/layouts/$slug'
     | '/academy/booth/tools/checklist'
@@ -664,10 +697,12 @@ export interface FileRouteTypes {
     | '/academy/'
     | '/admin/'
     | '/passport/'
+    | '/academy/admin/must-haves'
     | '/academy/booth/downloads'
     | '/academy/booth/gallery'
     | '/academy/booth/layouts'
     | '/academy/c/$slug'
+    | '/academy/must-haves/$slug'
     | '/academy/tools/crm'
     | '/academy/tools/event-planner'
     | '/academy/tools/expenses'
@@ -678,6 +713,7 @@ export interface FileRouteTypes {
     | '/academy/tools/profit'
     | '/academy/tools/sales'
     | '/academy/booth/'
+    | '/academy/must-haves/'
     | '/academy/booth/chapters/$slug'
     | '/academy/booth/layouts/$slug'
     | '/academy/booth/tools/checklist'
@@ -951,6 +987,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AcademyAdminRouteImport
       parentRoute: typeof AcademyRoute
     }
+    '/academy/must-haves/': {
+      id: '/academy/must-haves/'
+      path: '/must-haves'
+      fullPath: '/academy/must-haves/'
+      preLoaderRoute: typeof AcademyMustHavesIndexRouteImport
+      parentRoute: typeof AcademyRoute
+    }
     '/academy/booth/': {
       id: '/academy/booth/'
       path: '/booth'
@@ -1021,6 +1064,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AcademyToolsCrmRouteImport
       parentRoute: typeof AcademyRoute
     }
+    '/academy/must-haves/$slug': {
+      id: '/academy/must-haves/$slug'
+      path: '/must-haves/$slug'
+      fullPath: '/academy/must-haves/$slug'
+      preLoaderRoute: typeof AcademyMustHavesSlugRouteImport
+      parentRoute: typeof AcademyRoute
+    }
     '/academy/c/$slug': {
       id: '/academy/c/$slug'
       path: '/c/$slug'
@@ -1048,6 +1098,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/academy/booth/downloads'
       preLoaderRoute: typeof AcademyBoothDownloadsRouteImport
       parentRoute: typeof AcademyRoute
+    }
+    '/academy/admin/must-haves': {
+      id: '/academy/admin/must-haves'
+      path: '/must-haves'
+      fullPath: '/academy/admin/must-haves'
+      preLoaderRoute: typeof AcademyAdminMustHavesRouteImport
+      parentRoute: typeof AcademyAdminRoute
     }
     '/academy/booth/tools/': {
       id: '/academy/booth/tools/'
@@ -1094,6 +1151,18 @@ declare module '@tanstack/react-router' {
   }
 }
 
+interface AcademyAdminRouteChildren {
+  AcademyAdminMustHavesRoute: typeof AcademyAdminMustHavesRoute
+}
+
+const AcademyAdminRouteChildren: AcademyAdminRouteChildren = {
+  AcademyAdminMustHavesRoute: AcademyAdminMustHavesRoute,
+}
+
+const AcademyAdminRouteWithChildren = AcademyAdminRoute._addFileChildren(
+  AcademyAdminRouteChildren,
+)
+
 interface AcademyBoothLayoutsRouteChildren {
   AcademyBoothLayoutsSlugRoute: typeof AcademyBoothLayoutsSlugRoute
 }
@@ -1106,7 +1175,7 @@ const AcademyBoothLayoutsRouteWithChildren =
   AcademyBoothLayoutsRoute._addFileChildren(AcademyBoothLayoutsRouteChildren)
 
 interface AcademyRouteChildren {
-  AcademyAdminRoute: typeof AcademyAdminRoute
+  AcademyAdminRoute: typeof AcademyAdminRouteWithChildren
   AcademyCategoriesRoute: typeof AcademyCategoriesRoute
   AcademyCommunityRoute: typeof AcademyCommunityRoute
   AcademyDashboardRoute: typeof AcademyDashboardRoute
@@ -1118,6 +1187,7 @@ interface AcademyRouteChildren {
   AcademyBoothGalleryRoute: typeof AcademyBoothGalleryRoute
   AcademyBoothLayoutsRoute: typeof AcademyBoothLayoutsRouteWithChildren
   AcademyCSlugRoute: typeof AcademyCSlugRoute
+  AcademyMustHavesSlugRoute: typeof AcademyMustHavesSlugRoute
   AcademyToolsCrmRoute: typeof AcademyToolsCrmRoute
   AcademyToolsEventPlannerRoute: typeof AcademyToolsEventPlannerRoute
   AcademyToolsExpensesRoute: typeof AcademyToolsExpensesRoute
@@ -1128,6 +1198,7 @@ interface AcademyRouteChildren {
   AcademyToolsProfitRoute: typeof AcademyToolsProfitRoute
   AcademyToolsSalesRoute: typeof AcademyToolsSalesRoute
   AcademyBoothIndexRoute: typeof AcademyBoothIndexRoute
+  AcademyMustHavesIndexRoute: typeof AcademyMustHavesIndexRoute
   AcademyBoothChaptersSlugRoute: typeof AcademyBoothChaptersSlugRoute
   AcademyBoothToolsChecklistRoute: typeof AcademyBoothToolsChecklistRoute
   AcademyBoothToolsPlannerRoute: typeof AcademyBoothToolsPlannerRoute
@@ -1136,7 +1207,7 @@ interface AcademyRouteChildren {
 }
 
 const AcademyRouteChildren: AcademyRouteChildren = {
-  AcademyAdminRoute: AcademyAdminRoute,
+  AcademyAdminRoute: AcademyAdminRouteWithChildren,
   AcademyCategoriesRoute: AcademyCategoriesRoute,
   AcademyCommunityRoute: AcademyCommunityRoute,
   AcademyDashboardRoute: AcademyDashboardRoute,
@@ -1148,6 +1219,7 @@ const AcademyRouteChildren: AcademyRouteChildren = {
   AcademyBoothGalleryRoute: AcademyBoothGalleryRoute,
   AcademyBoothLayoutsRoute: AcademyBoothLayoutsRouteWithChildren,
   AcademyCSlugRoute: AcademyCSlugRoute,
+  AcademyMustHavesSlugRoute: AcademyMustHavesSlugRoute,
   AcademyToolsCrmRoute: AcademyToolsCrmRoute,
   AcademyToolsEventPlannerRoute: AcademyToolsEventPlannerRoute,
   AcademyToolsExpensesRoute: AcademyToolsExpensesRoute,
@@ -1158,6 +1230,7 @@ const AcademyRouteChildren: AcademyRouteChildren = {
   AcademyToolsProfitRoute: AcademyToolsProfitRoute,
   AcademyToolsSalesRoute: AcademyToolsSalesRoute,
   AcademyBoothIndexRoute: AcademyBoothIndexRoute,
+  AcademyMustHavesIndexRoute: AcademyMustHavesIndexRoute,
   AcademyBoothChaptersSlugRoute: AcademyBoothChaptersSlugRoute,
   AcademyBoothToolsChecklistRoute: AcademyBoothToolsChecklistRoute,
   AcademyBoothToolsPlannerRoute: AcademyBoothToolsPlannerRoute,
