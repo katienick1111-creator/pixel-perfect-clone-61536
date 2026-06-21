@@ -1,9 +1,11 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { useServerFn } from "@tanstack/react-start";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Plus, Trash2, Save, Pencil, X, Star, Download, Upload } from "lucide-react";
 import { AcademyPageHeader } from "@/components/AcademyShell";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
+import { importMustHaveProductsAdmin } from "@/lib/admin.functions";
 
 const CSV_COLUMNS = [
   "name","brand","category_slug","short_description","full_description","why_recommended",
@@ -138,6 +140,7 @@ function slugify(s: string) {
 
 function AdminMustHaves() {
   const { user, loading: authLoading } = useAuth();
+  const importProducts = useServerFn(importMustHaveProductsAdmin);
   const [access, setAccess] = useState<null | "admin" | "vendor" | "none">(null);
   const [cats, setCats] = useState<Category[]>([]);
   const [products, setProducts] = useState<Product[]>([]);
@@ -262,10 +265,11 @@ function AdminMustHaves() {
         };
       }).filter((p) => p.name && validCats.has(p.category_slug));
       if (!payload.length) { alert("No valid rows. Make sure each row has a 'name' and a valid 'category_slug'."); return; }
-      const { data, error } = await supabase.from("academy_musthave_products").insert(payload).select();
-      if (error) { alert(error.message); return; }
-      setProducts((arr) => [...((data as Product[]) ?? []), ...arr]);
-      alert(`Imported ${data?.length ?? 0} product${data?.length === 1 ? "" : "s"}.`);
+      const data = await importProducts({ data: { products: payload } });
+      setProducts((arr) => [...((data.products as Product[]) ?? []), ...arr]);
+      alert(`Imported ${data.products.length} product${data.products.length === 1 ? "" : "s"}.`);
+    } catch (e) {
+      alert(e instanceof Error ? e.message : "Import failed");
     } finally {
       setImporting(false);
       if (fileRef.current) fileRef.current.value = "";
