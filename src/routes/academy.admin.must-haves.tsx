@@ -301,13 +301,33 @@ function AdminMustHaves() {
         }
       />
 
-      <div className="ac-card mb-4 p-4 text-xs text-[var(--ac-ink-soft)]">
-        <p className="mb-1 font-medium text-[var(--ac-ink)]">Bulk upload tips</p>
-        <p>1. Click <span className="font-medium">Template</span> to download a CSV with all columns and one example row.</p>
-        <p>2. Fill in <code>name</code> and a valid <code>category_slug</code> for each product. Use <code>|</code> to separate multiple images, pros, cons, etc.</p>
-        <p>3. Image and purchase URLs can be any public link (Amazon, brand site, image host).</p>
-        <p className="mt-2"><span className="font-medium">Valid category slugs:</span> {cats.slice(0, 12).map((c) => c.slug).join(", ")}{cats.length > 12 ? `, +${cats.length - 12} more` : ""}</p>
+      <div className="ac-card mb-6 border-2 border-[var(--ac-terracotta)] p-6">
+        <div className="flex flex-wrap items-start justify-between gap-4">
+          <div className="max-w-xl">
+            <p className="text-xs font-semibold uppercase tracking-widest text-[var(--ac-terracotta)]">Bulk upload</p>
+            <h2 style={{ fontFamily: "Fraunces, serif" }} className="mt-1 text-2xl">Upload many products at once</h2>
+            <ol className="mt-3 list-decimal space-y-1 pl-5 text-sm text-[var(--ac-ink-soft)]">
+              <li>Click <span className="font-semibold text-[var(--ac-ink)]">Download CSV template</span>.</li>
+              <li>Open it in Excel / Google Sheets and fill in product rows (name + category_slug required). Use <code>|</code> to separate multiple images, pros, cons, etc.</li>
+              <li>Save as CSV and click <span className="font-semibold text-[var(--ac-ink)]">Upload CSV</span>.</li>
+            </ol>
+          </div>
+          <div className="flex flex-col gap-2">
+            <button onClick={downloadTemplate} className="ac-btn">
+              <Download className="h-4 w-4" /> Download CSV template
+            </button>
+            <button onClick={() => fileRef.current?.click()} disabled={importing} className="ac-btn-ghost">
+              <Upload className="h-4 w-4" /> {importing ? "Importing…" : "Upload CSV"}
+            </button>
+            <input ref={fileRef} type="file" accept=".csv,text/csv" className="hidden" onChange={(e) => { const f = e.target.files?.[0]; if (f) handleImport(f); }} />
+          </div>
+        </div>
+        <details className="mt-4 text-xs text-[var(--ac-ink-soft)]">
+          <summary className="cursor-pointer font-medium text-[var(--ac-ink)]">Show valid category slugs ({cats.length})</summary>
+          <p className="mt-2 leading-relaxed">{cats.map((c) => c.slug).join(", ")}</p>
+        </details>
       </div>
+
 
       <input value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Search products" className="ac-input mb-4 max-w-sm" />
 
