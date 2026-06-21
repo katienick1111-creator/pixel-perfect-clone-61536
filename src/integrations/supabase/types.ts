@@ -340,6 +340,51 @@ export type Database = {
           },
         ]
       }
+      academy_expenses: {
+        Row: {
+          amount: number
+          category: string
+          created_at: string
+          description: string
+          event_name: string
+          expense_date: string
+          id: string
+          notes: string | null
+          payment_method: string
+          receipt_url: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          amount?: number
+          category?: string
+          created_at?: string
+          description?: string
+          event_name?: string
+          expense_date?: string
+          id?: string
+          notes?: string | null
+          payment_method?: string
+          receipt_url?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          amount?: number
+          category?: string
+          created_at?: string
+          description?: string
+          event_name?: string
+          expense_date?: string
+          id?: string
+          notes?: string | null
+          payment_method?: string
+          receipt_url?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       academy_favorites: {
         Row: {
           created_at: string
@@ -472,6 +517,48 @@ export type Database = {
         }
         Relationships: []
       }
+      academy_mileage: {
+        Row: {
+          created_at: string
+          end_location: string
+          event_name: string
+          id: string
+          miles: number
+          notes: string | null
+          rate: number
+          start_location: string
+          trip_date: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          end_location?: string
+          event_name?: string
+          id?: string
+          miles?: number
+          notes?: string | null
+          rate?: number
+          start_location?: string
+          trip_date?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          end_location?: string
+          event_name?: string
+          id?: string
+          miles?: number
+          notes?: string | null
+          rate?: number
+          start_location?: string
+          trip_date?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       academy_pricing_calculations: {
         Row: {
           created_at: string
@@ -497,6 +584,51 @@ export type Database = {
           inputs?: Json
           is_favorite?: boolean
           name?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      academy_sales: {
+        Row: {
+          created_at: string
+          discount: number
+          event_name: string
+          id: string
+          notes: string | null
+          payment_type: string
+          price_per_item: number
+          product_name: string
+          quantity: number
+          sale_date: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          discount?: number
+          event_name?: string
+          id?: string
+          notes?: string | null
+          payment_type?: string
+          price_per_item?: number
+          product_name?: string
+          quantity?: number
+          sale_date?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          discount?: number
+          event_name?: string
+          id?: string
+          notes?: string | null
+          payment_type?: string
+          price_per_item?: number
+          product_name?: string
+          quantity?: number
+          sale_date?: string
           updated_at?: string
           user_id?: string
         }

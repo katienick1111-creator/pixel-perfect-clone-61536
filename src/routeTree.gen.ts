@@ -45,9 +45,11 @@ import { Route as AcademyCommunityRouteImport } from './routes/academy.community
 import { Route as AcademyCategoriesRouteImport } from './routes/academy.categories'
 import { Route as AcademyAdminRouteImport } from './routes/academy.admin'
 import { Route as AcademyBoothIndexRouteImport } from './routes/academy.booth.index'
+import { Route as AcademyToolsSalesRouteImport } from './routes/academy.tools.sales'
 import { Route as AcademyToolsPricingRouteImport } from './routes/academy.tools.pricing'
 import { Route as AcademyToolsPackingRouteImport } from './routes/academy.tools.packing'
 import { Route as AcademyToolsInventoryRouteImport } from './routes/academy.tools.inventory'
+import { Route as AcademyToolsExpensesRouteImport } from './routes/academy.tools.expenses'
 import { Route as AcademyCSlugRouteImport } from './routes/academy.c.$slug'
 import { Route as AcademyBoothLayoutsRouteImport } from './routes/academy.booth.layouts'
 import { Route as AcademyBoothGalleryRouteImport } from './routes/academy.booth.gallery'
@@ -239,6 +241,11 @@ const AcademyBoothIndexRoute = AcademyBoothIndexRouteImport.update({
   path: '/booth/',
   getParentRoute: () => AcademyRoute,
 } as any)
+const AcademyToolsSalesRoute = AcademyToolsSalesRouteImport.update({
+  id: '/tools/sales',
+  path: '/tools/sales',
+  getParentRoute: () => AcademyRoute,
+} as any)
 const AcademyToolsPricingRoute = AcademyToolsPricingRouteImport.update({
   id: '/tools/pricing',
   path: '/tools/pricing',
@@ -252,6 +259,11 @@ const AcademyToolsPackingRoute = AcademyToolsPackingRouteImport.update({
 const AcademyToolsInventoryRoute = AcademyToolsInventoryRouteImport.update({
   id: '/tools/inventory',
   path: '/tools/inventory',
+  getParentRoute: () => AcademyRoute,
+} as any)
+const AcademyToolsExpensesRoute = AcademyToolsExpensesRouteImport.update({
+  id: '/tools/expenses',
+  path: '/tools/expenses',
   getParentRoute: () => AcademyRoute,
 } as any)
 const AcademyCSlugRoute = AcademyCSlugRouteImport.update({
@@ -349,9 +361,11 @@ export interface FileRoutesByFullPath {
   '/academy/booth/gallery': typeof AcademyBoothGalleryRoute
   '/academy/booth/layouts': typeof AcademyBoothLayoutsRouteWithChildren
   '/academy/c/$slug': typeof AcademyCSlugRoute
+  '/academy/tools/expenses': typeof AcademyToolsExpensesRoute
   '/academy/tools/inventory': typeof AcademyToolsInventoryRoute
   '/academy/tools/packing': typeof AcademyToolsPackingRoute
   '/academy/tools/pricing': typeof AcademyToolsPricingRoute
+  '/academy/tools/sales': typeof AcademyToolsSalesRoute
   '/academy/booth/': typeof AcademyBoothIndexRoute
   '/academy/booth/chapters/$slug': typeof AcademyBoothChaptersSlugRoute
   '/academy/booth/layouts/$slug': typeof AcademyBoothLayoutsSlugRoute
@@ -397,9 +411,11 @@ export interface FileRoutesByTo {
   '/academy/booth/gallery': typeof AcademyBoothGalleryRoute
   '/academy/booth/layouts': typeof AcademyBoothLayoutsRouteWithChildren
   '/academy/c/$slug': typeof AcademyCSlugRoute
+  '/academy/tools/expenses': typeof AcademyToolsExpensesRoute
   '/academy/tools/inventory': typeof AcademyToolsInventoryRoute
   '/academy/tools/packing': typeof AcademyToolsPackingRoute
   '/academy/tools/pricing': typeof AcademyToolsPricingRoute
+  '/academy/tools/sales': typeof AcademyToolsSalesRoute
   '/academy/booth': typeof AcademyBoothIndexRoute
   '/academy/booth/chapters/$slug': typeof AcademyBoothChaptersSlugRoute
   '/academy/booth/layouts/$slug': typeof AcademyBoothLayoutsSlugRoute
@@ -449,9 +465,11 @@ export interface FileRoutesById {
   '/academy/booth/gallery': typeof AcademyBoothGalleryRoute
   '/academy/booth/layouts': typeof AcademyBoothLayoutsRouteWithChildren
   '/academy/c/$slug': typeof AcademyCSlugRoute
+  '/academy/tools/expenses': typeof AcademyToolsExpensesRoute
   '/academy/tools/inventory': typeof AcademyToolsInventoryRoute
   '/academy/tools/packing': typeof AcademyToolsPackingRoute
   '/academy/tools/pricing': typeof AcademyToolsPricingRoute
+  '/academy/tools/sales': typeof AcademyToolsSalesRoute
   '/academy/booth/': typeof AcademyBoothIndexRoute
   '/academy/booth/chapters/$slug': typeof AcademyBoothChaptersSlugRoute
   '/academy/booth/layouts/$slug': typeof AcademyBoothLayoutsSlugRoute
@@ -502,9 +520,11 @@ export interface FileRouteTypes {
     | '/academy/booth/gallery'
     | '/academy/booth/layouts'
     | '/academy/c/$slug'
+    | '/academy/tools/expenses'
     | '/academy/tools/inventory'
     | '/academy/tools/packing'
     | '/academy/tools/pricing'
+    | '/academy/tools/sales'
     | '/academy/booth/'
     | '/academy/booth/chapters/$slug'
     | '/academy/booth/layouts/$slug'
@@ -550,9 +570,11 @@ export interface FileRouteTypes {
     | '/academy/booth/gallery'
     | '/academy/booth/layouts'
     | '/academy/c/$slug'
+    | '/academy/tools/expenses'
     | '/academy/tools/inventory'
     | '/academy/tools/packing'
     | '/academy/tools/pricing'
+    | '/academy/tools/sales'
     | '/academy/booth'
     | '/academy/booth/chapters/$slug'
     | '/academy/booth/layouts/$slug'
@@ -601,9 +623,11 @@ export interface FileRouteTypes {
     | '/academy/booth/gallery'
     | '/academy/booth/layouts'
     | '/academy/c/$slug'
+    | '/academy/tools/expenses'
     | '/academy/tools/inventory'
     | '/academy/tools/packing'
     | '/academy/tools/pricing'
+    | '/academy/tools/sales'
     | '/academy/booth/'
     | '/academy/booth/chapters/$slug'
     | '/academy/booth/layouts/$slug'
@@ -885,6 +909,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AcademyBoothIndexRouteImport
       parentRoute: typeof AcademyRoute
     }
+    '/academy/tools/sales': {
+      id: '/academy/tools/sales'
+      path: '/tools/sales'
+      fullPath: '/academy/tools/sales'
+      preLoaderRoute: typeof AcademyToolsSalesRouteImport
+      parentRoute: typeof AcademyRoute
+    }
     '/academy/tools/pricing': {
       id: '/academy/tools/pricing'
       path: '/tools/pricing'
@@ -904,6 +935,13 @@ declare module '@tanstack/react-router' {
       path: '/tools/inventory'
       fullPath: '/academy/tools/inventory'
       preLoaderRoute: typeof AcademyToolsInventoryRouteImport
+      parentRoute: typeof AcademyRoute
+    }
+    '/academy/tools/expenses': {
+      id: '/academy/tools/expenses'
+      path: '/tools/expenses'
+      fullPath: '/academy/tools/expenses'
+      preLoaderRoute: typeof AcademyToolsExpensesRouteImport
       parentRoute: typeof AcademyRoute
     }
     '/academy/c/$slug': {
@@ -1003,9 +1041,11 @@ interface AcademyRouteChildren {
   AcademyBoothGalleryRoute: typeof AcademyBoothGalleryRoute
   AcademyBoothLayoutsRoute: typeof AcademyBoothLayoutsRouteWithChildren
   AcademyCSlugRoute: typeof AcademyCSlugRoute
+  AcademyToolsExpensesRoute: typeof AcademyToolsExpensesRoute
   AcademyToolsInventoryRoute: typeof AcademyToolsInventoryRoute
   AcademyToolsPackingRoute: typeof AcademyToolsPackingRoute
   AcademyToolsPricingRoute: typeof AcademyToolsPricingRoute
+  AcademyToolsSalesRoute: typeof AcademyToolsSalesRoute
   AcademyBoothIndexRoute: typeof AcademyBoothIndexRoute
   AcademyBoothChaptersSlugRoute: typeof AcademyBoothChaptersSlugRoute
   AcademyBoothToolsChecklistRoute: typeof AcademyBoothToolsChecklistRoute
@@ -1027,9 +1067,11 @@ const AcademyRouteChildren: AcademyRouteChildren = {
   AcademyBoothGalleryRoute: AcademyBoothGalleryRoute,
   AcademyBoothLayoutsRoute: AcademyBoothLayoutsRouteWithChildren,
   AcademyCSlugRoute: AcademyCSlugRoute,
+  AcademyToolsExpensesRoute: AcademyToolsExpensesRoute,
   AcademyToolsInventoryRoute: AcademyToolsInventoryRoute,
   AcademyToolsPackingRoute: AcademyToolsPackingRoute,
   AcademyToolsPricingRoute: AcademyToolsPricingRoute,
+  AcademyToolsSalesRoute: AcademyToolsSalesRoute,
   AcademyBoothIndexRoute: AcademyBoothIndexRoute,
   AcademyBoothChaptersSlugRoute: AcademyBoothChaptersSlugRoute,
   AcademyBoothToolsChecklistRoute: AcademyBoothToolsChecklistRoute,
