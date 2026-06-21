@@ -141,7 +141,8 @@ function AdminMustHaves() {
     if (!p) return;
     const next = !p[key];
     setProducts((arr) => arr.map((x) => x.id === id ? { ...x, [key]: next } : x));
-    await supabase.from("academy_musthave_products").update({ [key]: next }).eq("id", id);
+    const patch = { [key]: next } as Partial<Pick<Product, typeof key>>;
+    await supabase.from("academy_musthave_products").update(patch as never).eq("id", id);
   };
 
   if (authLoading || isAdmin === null) {
