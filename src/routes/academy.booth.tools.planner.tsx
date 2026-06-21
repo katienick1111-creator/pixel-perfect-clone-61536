@@ -36,7 +36,7 @@ type Item = {
   y: number;
   w: number;
   h: number;
-  rot: 0 | 90;
+  rot: number;
   source?: "user" | "ai";
 };
 
@@ -243,12 +243,17 @@ function PlannerTool() {
   };
   const onPointerUp = () => { dragRef.current = null; };
 
-  const rotateSel = () => {
+  const rotateSel = (delta = 15) => {
     if (!selectedId) return;
     setData((d) => ({
       ...d,
-      items: d.items.map((i) => i.id === selectedId ? { ...i, rot: i.rot === 0 ? 90 : 0, w: i.h, h: i.w } : i),
+      items: d.items.map((i) => i.id === selectedId ? { ...i, rot: (((i.rot + delta) % 360) + 360) % 360 } : i),
     }));
+  };
+  const setRot = (deg: number) => {
+    if (!selectedId) return;
+    const r = ((Math.round(deg) % 360) + 360) % 360;
+    setData((d) => ({ ...d, items: d.items.map((i) => i.id === selectedId ? { ...i, rot: r } : i) }));
   };
 
   // Resize canvas with booth size
@@ -336,8 +341,31 @@ function PlannerTool() {
                   />
                 </div>
               </div>
+              <div className="mt-3">
+                <label className="block text-[10px] uppercase tracking-wider text-[var(--ac-ink-soft)]">Rotation ({Math.round(selected.rot)}°)</label>
+                <input
+                  type="range"
+                  min={0}
+                  max={359}
+                  step={1}
+                  value={selected.rot}
+                  onChange={(e) => setRot(parseInt(e.target.value) || 0)}
+                  className="mt-1 w-full"
+                />
+                <input
+                  type="number"
+                  min={0}
+                  max={359}
+                  step={1}
+                  value={Math.round(selected.rot)}
+                  onChange={(e) => setRot(parseInt(e.target.value) || 0)}
+                  className="ac-input mt-1 w-full text-xs py-1"
+                />
+              </div>
               <div className="mt-3 flex gap-2">
-                <button onClick={rotateSel} className="ac-btn-ghost text-xs"><RotateCw className="h-3.5 w-3.5" /> Rotate</button>
+                <button onClick={() => rotateSel(-15)} className="ac-btn-ghost text-xs">−15°</button>
+                <button onClick={() => rotateSel(15)} className="ac-btn-ghost text-xs"><RotateCw className="h-3.5 w-3.5" /> +15°</button>
+                <button onClick={() => rotateSel(90)} className="ac-btn-ghost text-xs">+90°</button>
                 <button onClick={() => { setData((d) => ({ ...d, items: d.items.filter((i) => i.id !== selected.id) })); setSelectedId(null); }} className="ac-btn-ghost text-xs"><Trash2 className="h-3.5 w-3.5" /></button>
               </div>
             </div>
@@ -399,7 +427,7 @@ function PlannerTool() {
                     height: `${(it.h / data.height) * 100}%`,
                     backgroundColor: it.kind === "arrow" ? "transparent" : p.color,
                     color: isDark ? "#FAF7F2" : "#1A1A1A",
-                    transform: it.kind === "arrow" ? `rotate(${it.rot}deg)` : undefined,
+                    transform: it.rot ? `rotate(${it.rot}deg)` : undefined,
                   }}
                 >
                   {it.kind === "arrow" ? (
