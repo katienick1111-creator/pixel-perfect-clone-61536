@@ -126,6 +126,53 @@ export const upsertEvent = createServerFn({ method: "POST" })
     return { event: out };
   });
 
+const mustHaveProductInput = z.object({
+  name: z.string().min(1).max(200),
+  slug: z.string().min(1).max(80),
+  brand: z.string().max(160).nullable().optional(),
+  category_slug: z.string().min(1).max(120),
+  short_description: z.string().max(600).nullable().optional(),
+  full_description: z.string().max(5000).nullable().optional(),
+  why_recommended: z.string().max(3000).nullable().optional(),
+  image_url: z.string().max(1000).nullable().optional(),
+  images: z.array(z.string().max(1000)).default([]),
+  purchase_url: z.string().max(1000).nullable().optional(),
+  affiliate_url: z.string().max(1000).nullable().optional(),
+  price_min: z.number().nullable().optional(),
+  price_max: z.number().nullable().optional(),
+  price_display: z.string().max(80).nullable().optional(),
+  pros: z.array(z.string().max(240)).default([]),
+  cons: z.array(z.string().max(240)).default([]),
+  best_uses: z.array(z.string().max(240)).default([]),
+  best_for: z.array(z.string().max(120)).default([]),
+  is_featured: z.boolean().default(false),
+  is_staff_pick: z.boolean().default(false),
+  is_trovin_recommended: z.boolean().default(false),
+});
+
+export const importMustHaveProductsAdmin = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((d: unknown) => z.object({ products: z.array(mustHaveProductInput).min(1).max(500) }).parse(d))
+  .handler(async ({ context, data }) => {
+    await assertAdmin(context.userId);
+    const slugs = [...new Set(data.products.map((p) => p.category_slug))];
+    const { data: cats, error: catsError } = await supabaseAdmin
+      .from("academy_musthave_categories")
+      .select("slug")
+      .in("slug", slugs);
+    if (catsError) throw new Error(catsError.message);
+    const validCats = new Set((cats ?? []).map((c) => c.slug));
+    const invalid = slugs.filter((slug) => !validCats.has(slug));
+    if (invalid.length) throw new Error(`Invalid category_slug: ${invalid.join(", ")}`);
+
+    const { data: products, error } = await supabaseAdmin
+      .from("academy_musthave_products")
+      .upsert(data.products.map((p) => ({ ...p, created_by: context.userId })), { onConflict: "slug" })
+      .select("*");
+    if (error) throw new Error(error.message);
+    return { products: products ?? [] };
+  });
+
 export const deleteEvent = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((d: unknown) => z.object({ id: z.string().uuid() }).parse(d))

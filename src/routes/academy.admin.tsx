@@ -1,8 +1,10 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { useServerFn } from "@tanstack/react-start";
 import { useRef, useState } from "react";
 import { AcademyPageHeader } from "@/components/AcademyShell";
 import { Package, FileText, Download, Users, Upload } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
+import { importMustHaveProductsAdmin } from "@/lib/admin.functions";
 
 const CSV_COLUMNS = [
   "name","brand","category_slug","short_description","full_description","why_recommended",
@@ -86,6 +88,7 @@ export const Route = createFileRoute("/academy/admin")({
 function AdminIndex() {
   const fileRef = useRef<HTMLInputElement>(null);
   const [importing, setImporting] = useState(false);
+  const importProducts = useServerFn(importMustHaveProductsAdmin);
   const tiles = [
     {
       to: "/academy/admin/must-haves",
@@ -148,9 +151,10 @@ function AdminIndex() {
         };
       }).filter((p) => p.name && validCats.has(p.category_slug));
       if (!payload.length) { alert("No valid rows. Make sure each row has a name and valid category_slug."); return; }
-      const { data, error } = await supabase.from("academy_musthave_products").insert(payload).select("id");
-      if (error) { alert(error.message); return; }
-      alert(`Imported ${data?.length ?? 0} product${data?.length === 1 ? "" : "s"}.`);
+      const result = await importProducts({ data: { products: payload } });
+      alert(`Imported ${result.products.length} product${result.products.length === 1 ? "" : "s"}.`);
+    } catch (e) {
+      alert(e instanceof Error ? e.message : "Import failed");
     } finally {
       setImporting(false);
       if (fileRef.current) fileRef.current.value = "";
