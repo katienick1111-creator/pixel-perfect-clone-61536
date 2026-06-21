@@ -82,7 +82,7 @@ export const academyTools = [
   { slug: "profit", title: "Profit Calculator", category: "pricing-sales", status: "ready" },
   { slug: "event-planner", title: "Event Planner", category: "festivals-events", status: "ready" },
   { slug: "goals", title: "Goal Tracker", category: "business-tools", status: "ready" },
-  { slug: "mileage", title: "Mileage Tracker", category: "business-tools", status: "soon" },
+  
   { slug: "crm", title: "Vendor CRM", category: "business-tools", status: "ready" },
 ] as const;
 
