@@ -275,13 +275,6 @@ function AdminMustHaves() {
       </div>
     );
   }
-    return (
-      <div className="ac-card p-10 text-center">
-        <p>Sign in to access admin tools.</p>
-        <Link to="/auth" className="ac-btn mt-4">Sign in</Link>
-      </div>
-    );
-  }
   if (!isAdmin) {
     return (
       <div className="ac-card p-10 text-center">
@@ -300,10 +293,14 @@ function AdminMustHaves() {
         actions={
           <>
             <Link to="/academy/must-haves" className="ac-btn-ghost text-xs">View library</Link>
+            <button onClick={downloadTemplate} className="ac-btn-ghost text-xs"><Download className="h-3.5 w-3.5" /> Template</button>
+            <button onClick={() => fileRef.current?.click()} disabled={importing} className="ac-btn-ghost text-xs"><Upload className="h-3.5 w-3.5" /> {importing ? "Importing…" : "Upload CSV"}</button>
+            <input ref={fileRef} type="file" accept=".csv,text/csv" className="hidden" onChange={(e) => { const f = e.target.files?.[0]; if (f) handleImport(f); }} />
             <button onClick={newProduct} className="ac-btn text-xs"><Plus className="h-3.5 w-3.5" /> New product</button>
           </>
         }
       />
+
 
       <input value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Search products" className="ac-input mb-4 max-w-sm" />
 
