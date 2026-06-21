@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { Copy, Plus, Printer, RotateCw, Save, Trash2 } from "lucide-react";
+import { ArrowRight, Copy, Plus, Printer, RotateCw, Save, Trash2 } from "lucide-react";
 import { AcademyPageHeader } from "@/components/AcademyShell";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
