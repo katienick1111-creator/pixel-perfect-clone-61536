@@ -160,7 +160,7 @@ function MustHavesIndex() {
         title="Gear vendors actually trust."
         description="A curated, vendor-tested library of canopies, displays, payments, lighting, and supplies. Updated by the Trovin team — no sponsored fluff."
         actions={
-          <Link to="/academy/admin/must-haves" className="ac-btn-ghost text-xs">Admin</Link>
+          <Link to="/academy/admin/must-haves" className="ac-btn text-xs">+ Add a product</Link>
         }
       />
 
