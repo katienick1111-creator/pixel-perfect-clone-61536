@@ -43,17 +43,17 @@ type Item = {
 type Data = { items: Item[]; width: number; height: number; notes: string };
 
 const palette: { kind: ItemKind; label: string; w: number; h: number; color: string }[] = [
-  { kind: "table-6", label: "Table 6ft", w: 6, h: 2.5, color: "#E8E0D3" },
-  { kind: "table-4", label: "Table 4ft", w: 4, h: 2.5, color: "#E8E0D3" },
-  { kind: "shelf", label: "Shelf", w: 4, h: 1.5, color: "#D9D2C4" },
-  { kind: "rack", label: "Garment Rack", w: 5, h: 2, color: "#EFE7D6" },
-  { kind: "chair", label: "Chair", w: 1.5, h: 1.5, color: "#B7CFC5" },
-  { kind: "register", label: "Register", w: 2, h: 1.5, color: "#1A1A1A" },
-  { kind: "signage", label: "Signage", w: 6, h: 0.6, color: "#C8553D" },
-  { kind: "storage", label: "Storage", w: 2, h: 1.5, color: "#8A8378" },
-  { kind: "cube", label: "Display Cube", w: 2, h: 2, color: "#E8B7AB" },
-  { kind: "plant", label: "Plant", w: 1.5, h: 1.5, color: "#2E5E4E" },
-  { kind: "arrow", label: "Flow Arrow", w: 3, h: 0.5, color: "#B7CFC5" },
+  { kind: "table-6", label: "Table 6ft", w: 6, h: 2.5, color: "#F5E6E0" },
+  { kind: "table-4", label: "Table 4ft", w: 4, h: 2.5, color: "#F5E6E0" },
+  { kind: "shelf", label: "Shelf", w: 4, h: 1.5, color: "#E6E0F0" },
+  { kind: "rack", label: "Garment Rack", w: 5, h: 2, color: "#F5F0E0" },
+  { kind: "chair", label: "Chair", w: 1.5, h: 1.5, color: "#D0F0E8" },
+  { kind: "register", label: "Register", w: 2, h: 1.5, color: "#4A5560" },
+  { kind: "signage", label: "Signage", w: 6, h: 0.6, color: "#F5C8C0" },
+  { kind: "storage", label: "Storage", w: 2, h: 1.5, color: "#C8D8E8" },
+  { kind: "cube", label: "Display Cube", w: 2, h: 2, color: "#F0D8E0" },
+  { kind: "plant", label: "Plant", w: 1.5, h: 1.5, color: "#C8E0D0" },
+  { kind: "arrow", label: "Flow Arrow", w: 3, h: 0.5, color: "#D0F0E8" },
 ];
 
 const sizes: Record<string, { w: number; h: number }> = {
