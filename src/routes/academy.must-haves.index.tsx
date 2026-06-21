@@ -230,9 +230,9 @@ function MustHavesIndex() {
               <Sparkles className="h-8 w-8 text-[var(--ac-terracotta)]" />
               <p className="font-serif text-lg italic">No products yet in this view.</p>
               <p className="max-w-md text-sm text-[var(--ac-ink-soft)]">
-                The Trovin team is adding products weekly. Admins can add their first via the admin console.
+                Vendors and admins can add products to the library.
               </p>
-              <Link to="/academy/admin/must-haves" className="ac-btn-ghost mt-2 text-xs">Open admin</Link>
+              <Link to="/academy/admin/must-haves" className="ac-btn mt-2 text-xs">+ Add a product</Link>
             </div>
           ) : (
             <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
