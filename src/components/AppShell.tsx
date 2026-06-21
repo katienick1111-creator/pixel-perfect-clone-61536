@@ -167,6 +167,14 @@ function Header() {
         </Link>
 
         <div className="flex items-center gap-2 md:gap-3">
+          <nav className="hidden items-center gap-1 md:flex">
+            <Link
+              to="/academy"
+              className="rounded-full px-3 py-2 text-sm font-medium text-cream/85 transition hover:bg-cream/10 hover:text-cream"
+            >
+              Academy
+            </Link>
+          </nav>
           <button className="hidden items-center gap-2 rounded-full border border-cream/20 bg-navy-700 px-3 py-2 text-sm font-medium text-cream/85 transition hover:border-gold hover:text-cream md:inline-flex">
             <MapPin className="h-4 w-4 text-gold" />
             Chicago, IL
