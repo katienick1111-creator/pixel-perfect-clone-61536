@@ -301,8 +301,16 @@ function AdminMustHaves() {
         }
       />
 
+      <div className="ac-card mb-4 p-4 text-xs text-[var(--ac-ink-soft)]">
+        <p className="mb-1 font-medium text-[var(--ac-ink)]">Bulk upload tips</p>
+        <p>1. Click <span className="font-medium">Template</span> to download a CSV with all columns and one example row.</p>
+        <p>2. Fill in <code>name</code> and a valid <code>category_slug</code> for each product. Use <code>|</code> to separate multiple images, pros, cons, etc.</p>
+        <p>3. Image and purchase URLs can be any public link (Amazon, brand site, image host).</p>
+        <p className="mt-2"><span className="font-medium">Valid category slugs:</span> {cats.slice(0, 12).map((c) => c.slug).join(", ")}{cats.length > 12 ? `, +${cats.length - 12} more` : ""}</p>
+      </div>
 
       <input value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Search products" className="ac-input mb-4 max-w-sm" />
+
 
       <div className="ac-card overflow-x-auto p-0">
         <table className="w-full text-sm">
