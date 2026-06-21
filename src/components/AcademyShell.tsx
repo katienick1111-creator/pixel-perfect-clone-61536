@@ -12,6 +12,7 @@ import {
   Menu,
   X,
   Tent,
+  ShoppingBag,
 } from "lucide-react";
 import { useState } from "react";
 
@@ -19,6 +20,7 @@ const navItems: { to: LinkProps["to"]; label: string; icon: typeof Home }[] = [
   { to: "/academy", label: "Home", icon: Home },
   { to: "/academy/categories", label: "Categories", icon: LayoutGrid },
   { to: "/academy/booth", label: "Booth Setup", icon: Tent },
+  { to: "/academy/must-haves", label: "Must-Haves", icon: ShoppingBag },
   { to: "/academy/search", label: "Search", icon: Search },
   { to: "/academy/downloads", label: "Downloads", icon: Download },
   { to: "/academy/favorites", label: "Favorites", icon: Heart },
