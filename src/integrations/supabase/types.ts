@@ -258,6 +258,72 @@ export type Database = {
         }
         Relationships: []
       }
+      academy_contacts: {
+        Row: {
+          company: string | null
+          contact_type: string
+          created_at: string
+          email: string | null
+          facebook: string | null
+          favorite: boolean
+          id: string
+          instagram: string | null
+          interactions: Json
+          last_contacted: string | null
+          location: string | null
+          name: string
+          next_followup: string | null
+          notes: string | null
+          phone: string | null
+          tiktok: string | null
+          updated_at: string
+          user_id: string
+          website: string | null
+        }
+        Insert: {
+          company?: string | null
+          contact_type?: string
+          created_at?: string
+          email?: string | null
+          facebook?: string | null
+          favorite?: boolean
+          id?: string
+          instagram?: string | null
+          interactions?: Json
+          last_contacted?: string | null
+          location?: string | null
+          name?: string
+          next_followup?: string | null
+          notes?: string | null
+          phone?: string | null
+          tiktok?: string | null
+          updated_at?: string
+          user_id: string
+          website?: string | null
+        }
+        Update: {
+          company?: string | null
+          contact_type?: string
+          created_at?: string
+          email?: string | null
+          facebook?: string | null
+          favorite?: boolean
+          id?: string
+          instagram?: string | null
+          interactions?: Json
+          last_contacted?: string | null
+          location?: string | null
+          name?: string
+          next_followup?: string | null
+          notes?: string | null
+          phone?: string | null
+          tiktok?: string | null
+          updated_at?: string
+          user_id?: string
+          website?: string | null
+        }
+        Relationships: []
+      }
       academy_download_log: {
         Row: {
           created_at: string
@@ -339,6 +405,75 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      academy_events: {
+        Row: {
+          application_deadline: string | null
+          booth_fee: number
+          booth_size: string | null
+          checklist: Json
+          created_at: string
+          electricity: boolean
+          event_date: string | null
+          event_name: string
+          event_time: string | null
+          id: string
+          indoor_outdoor: string | null
+          location: string | null
+          notes: string | null
+          organizer_email: string | null
+          organizer_name: string | null
+          organizer_phone: string | null
+          status: string
+          updated_at: string
+          user_id: string
+          website: string | null
+        }
+        Insert: {
+          application_deadline?: string | null
+          booth_fee?: number
+          booth_size?: string | null
+          checklist?: Json
+          created_at?: string
+          electricity?: boolean
+          event_date?: string | null
+          event_name?: string
+          event_time?: string | null
+          id?: string
+          indoor_outdoor?: string | null
+          location?: string | null
+          notes?: string | null
+          organizer_email?: string | null
+          organizer_name?: string | null
+          organizer_phone?: string | null
+          status?: string
+          updated_at?: string
+          user_id: string
+          website?: string | null
+        }
+        Update: {
+          application_deadline?: string | null
+          booth_fee?: number
+          booth_size?: string | null
+          checklist?: Json
+          created_at?: string
+          electricity?: boolean
+          event_date?: string | null
+          event_name?: string
+          event_time?: string | null
+          id?: string
+          indoor_outdoor?: string | null
+          location?: string | null
+          notes?: string | null
+          organizer_email?: string | null
+          organizer_name?: string | null
+          organizer_phone?: string | null
+          status?: string
+          updated_at?: string
+          user_id?: string
+          website?: string | null
+        }
+        Relationships: []
       }
       academy_expenses: {
         Row: {
@@ -435,8 +570,12 @@ export type Database = {
           created_at: string
           current_value: number
           due_date: string | null
+          goal_type: string
           id: string
           is_complete: boolean
+          notes: string | null
+          priority: string
+          status: string
           target_value: number | null
           title: string
           unit: string | null
@@ -447,8 +586,12 @@ export type Database = {
           created_at?: string
           current_value?: number
           due_date?: string | null
+          goal_type?: string
           id?: string
           is_complete?: boolean
+          notes?: string | null
+          priority?: string
+          status?: string
           target_value?: number | null
           title: string
           unit?: string | null
@@ -459,8 +602,12 @@ export type Database = {
           created_at?: string
           current_value?: number
           due_date?: string | null
+          goal_type?: string
           id?: string
           is_complete?: boolean
+          notes?: string | null
+          priority?: string
+          status?: string
           target_value?: number | null
           title?: string
           unit?: string | null
