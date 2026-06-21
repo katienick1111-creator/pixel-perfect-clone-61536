@@ -424,6 +424,54 @@ export type Database = {
         }
         Relationships: []
       }
+      academy_inventory_items: {
+        Row: {
+          category: string
+          cost: number
+          created_at: string
+          id: string
+          image_url: string | null
+          low_stock_alert: number
+          name: string
+          notes: string | null
+          quantity: number
+          retail_price: number
+          sku: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          category?: string
+          cost?: number
+          created_at?: string
+          id?: string
+          image_url?: string | null
+          low_stock_alert?: number
+          name?: string
+          notes?: string | null
+          quantity?: number
+          retail_price?: number
+          sku?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          category?: string
+          cost?: number
+          created_at?: string
+          id?: string
+          image_url?: string | null
+          low_stock_alert?: number
+          name?: string
+          notes?: string | null
+          quantity?: number
+          retail_price?: number
+          sku?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       academy_pricing_calculations: {
         Row: {
           created_at: string

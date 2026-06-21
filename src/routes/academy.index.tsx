@@ -155,7 +155,7 @@ function AcademyHome() {
             return (
               <Link
                 key={t.slug}
-                to={ready ? "/academy/tools/packing" : "/academy/categories"}
+                to={(ready ? `/academy/tools/${t.slug}` : "/academy/categories") as string}
                 className="ac-card group flex items-start justify-between p-5 transition hover:-translate-y-0.5"
               >
                 <div>

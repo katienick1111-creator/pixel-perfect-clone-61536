@@ -47,6 +47,7 @@ import { Route as AcademyAdminRouteImport } from './routes/academy.admin'
 import { Route as AcademyBoothIndexRouteImport } from './routes/academy.booth.index'
 import { Route as AcademyToolsPricingRouteImport } from './routes/academy.tools.pricing'
 import { Route as AcademyToolsPackingRouteImport } from './routes/academy.tools.packing'
+import { Route as AcademyToolsInventoryRouteImport } from './routes/academy.tools.inventory'
 import { Route as AcademyCSlugRouteImport } from './routes/academy.c.$slug'
 import { Route as AcademyBoothLayoutsRouteImport } from './routes/academy.booth.layouts'
 import { Route as AcademyBoothGalleryRouteImport } from './routes/academy.booth.gallery'
@@ -248,6 +249,11 @@ const AcademyToolsPackingRoute = AcademyToolsPackingRouteImport.update({
   path: '/tools/packing',
   getParentRoute: () => AcademyRoute,
 } as any)
+const AcademyToolsInventoryRoute = AcademyToolsInventoryRouteImport.update({
+  id: '/tools/inventory',
+  path: '/tools/inventory',
+  getParentRoute: () => AcademyRoute,
+} as any)
 const AcademyCSlugRoute = AcademyCSlugRouteImport.update({
   id: '/c/$slug',
   path: '/c/$slug',
@@ -343,6 +349,7 @@ export interface FileRoutesByFullPath {
   '/academy/booth/gallery': typeof AcademyBoothGalleryRoute
   '/academy/booth/layouts': typeof AcademyBoothLayoutsRouteWithChildren
   '/academy/c/$slug': typeof AcademyCSlugRoute
+  '/academy/tools/inventory': typeof AcademyToolsInventoryRoute
   '/academy/tools/packing': typeof AcademyToolsPackingRoute
   '/academy/tools/pricing': typeof AcademyToolsPricingRoute
   '/academy/booth/': typeof AcademyBoothIndexRoute
@@ -390,6 +397,7 @@ export interface FileRoutesByTo {
   '/academy/booth/gallery': typeof AcademyBoothGalleryRoute
   '/academy/booth/layouts': typeof AcademyBoothLayoutsRouteWithChildren
   '/academy/c/$slug': typeof AcademyCSlugRoute
+  '/academy/tools/inventory': typeof AcademyToolsInventoryRoute
   '/academy/tools/packing': typeof AcademyToolsPackingRoute
   '/academy/tools/pricing': typeof AcademyToolsPricingRoute
   '/academy/booth': typeof AcademyBoothIndexRoute
@@ -441,6 +449,7 @@ export interface FileRoutesById {
   '/academy/booth/gallery': typeof AcademyBoothGalleryRoute
   '/academy/booth/layouts': typeof AcademyBoothLayoutsRouteWithChildren
   '/academy/c/$slug': typeof AcademyCSlugRoute
+  '/academy/tools/inventory': typeof AcademyToolsInventoryRoute
   '/academy/tools/packing': typeof AcademyToolsPackingRoute
   '/academy/tools/pricing': typeof AcademyToolsPricingRoute
   '/academy/booth/': typeof AcademyBoothIndexRoute
@@ -493,6 +502,7 @@ export interface FileRouteTypes {
     | '/academy/booth/gallery'
     | '/academy/booth/layouts'
     | '/academy/c/$slug'
+    | '/academy/tools/inventory'
     | '/academy/tools/packing'
     | '/academy/tools/pricing'
     | '/academy/booth/'
@@ -540,6 +550,7 @@ export interface FileRouteTypes {
     | '/academy/booth/gallery'
     | '/academy/booth/layouts'
     | '/academy/c/$slug'
+    | '/academy/tools/inventory'
     | '/academy/tools/packing'
     | '/academy/tools/pricing'
     | '/academy/booth'
@@ -590,6 +601,7 @@ export interface FileRouteTypes {
     | '/academy/booth/gallery'
     | '/academy/booth/layouts'
     | '/academy/c/$slug'
+    | '/academy/tools/inventory'
     | '/academy/tools/packing'
     | '/academy/tools/pricing'
     | '/academy/booth/'
@@ -887,6 +899,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AcademyToolsPackingRouteImport
       parentRoute: typeof AcademyRoute
     }
+    '/academy/tools/inventory': {
+      id: '/academy/tools/inventory'
+      path: '/tools/inventory'
+      fullPath: '/academy/tools/inventory'
+      preLoaderRoute: typeof AcademyToolsInventoryRouteImport
+      parentRoute: typeof AcademyRoute
+    }
     '/academy/c/$slug': {
       id: '/academy/c/$slug'
       path: '/c/$slug'
@@ -984,6 +1003,7 @@ interface AcademyRouteChildren {
   AcademyBoothGalleryRoute: typeof AcademyBoothGalleryRoute
   AcademyBoothLayoutsRoute: typeof AcademyBoothLayoutsRouteWithChildren
   AcademyCSlugRoute: typeof AcademyCSlugRoute
+  AcademyToolsInventoryRoute: typeof AcademyToolsInventoryRoute
   AcademyToolsPackingRoute: typeof AcademyToolsPackingRoute
   AcademyToolsPricingRoute: typeof AcademyToolsPricingRoute
   AcademyBoothIndexRoute: typeof AcademyBoothIndexRoute
@@ -1007,6 +1027,7 @@ const AcademyRouteChildren: AcademyRouteChildren = {
   AcademyBoothGalleryRoute: AcademyBoothGalleryRoute,
   AcademyBoothLayoutsRoute: AcademyBoothLayoutsRouteWithChildren,
   AcademyCSlugRoute: AcademyCSlugRoute,
+  AcademyToolsInventoryRoute: AcademyToolsInventoryRoute,
   AcademyToolsPackingRoute: AcademyToolsPackingRoute,
   AcademyToolsPricingRoute: AcademyToolsPricingRoute,
   AcademyBoothIndexRoute: AcademyBoothIndexRoute,
@@ -1091,13 +1112,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
