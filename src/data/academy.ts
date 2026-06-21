@@ -79,7 +79,7 @@ export const academyTools = [
   { slug: "expenses", title: "Expense Tracker", category: "business-tools", status: "ready" },
   { slug: "sales", title: "Sales Tracker", category: "business-tools", status: "ready" },
   { slug: "pricing", title: "Pricing Calculator", category: "pricing-sales", status: "ready" },
-  { slug: "profit", title: "Profit Calculator", category: "pricing-sales", status: "soon" },
+  { slug: "profit", title: "Profit Calculator", category: "pricing-sales", status: "ready" },
   { slug: "event-planner", title: "Event Planner", category: "festivals-events", status: "ready" },
   { slug: "goals", title: "Goal Tracker", category: "business-tools", status: "ready" },
   { slug: "mileage", title: "Mileage Tracker", category: "business-tools", status: "soon" },

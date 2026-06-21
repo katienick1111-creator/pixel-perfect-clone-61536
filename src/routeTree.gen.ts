@@ -46,6 +46,7 @@ import { Route as AcademyCategoriesRouteImport } from './routes/academy.categori
 import { Route as AcademyAdminRouteImport } from './routes/academy.admin'
 import { Route as AcademyBoothIndexRouteImport } from './routes/academy.booth.index'
 import { Route as AcademyToolsSalesRouteImport } from './routes/academy.tools.sales'
+import { Route as AcademyToolsProfitRouteImport } from './routes/academy.tools.profit'
 import { Route as AcademyToolsPricingRouteImport } from './routes/academy.tools.pricing'
 import { Route as AcademyToolsPackingRouteImport } from './routes/academy.tools.packing'
 import { Route as AcademyToolsInventoryRouteImport } from './routes/academy.tools.inventory'
@@ -249,6 +250,11 @@ const AcademyToolsSalesRoute = AcademyToolsSalesRouteImport.update({
   path: '/tools/sales',
   getParentRoute: () => AcademyRoute,
 } as any)
+const AcademyToolsProfitRoute = AcademyToolsProfitRouteImport.update({
+  id: '/tools/profit',
+  path: '/tools/profit',
+  getParentRoute: () => AcademyRoute,
+} as any)
 const AcademyToolsPricingRoute = AcademyToolsPricingRouteImport.update({
   id: '/tools/pricing',
   path: '/tools/pricing',
@@ -387,6 +393,7 @@ export interface FileRoutesByFullPath {
   '/academy/tools/inventory': typeof AcademyToolsInventoryRoute
   '/academy/tools/packing': typeof AcademyToolsPackingRoute
   '/academy/tools/pricing': typeof AcademyToolsPricingRoute
+  '/academy/tools/profit': typeof AcademyToolsProfitRoute
   '/academy/tools/sales': typeof AcademyToolsSalesRoute
   '/academy/booth/': typeof AcademyBoothIndexRoute
   '/academy/booth/chapters/$slug': typeof AcademyBoothChaptersSlugRoute
@@ -440,6 +447,7 @@ export interface FileRoutesByTo {
   '/academy/tools/inventory': typeof AcademyToolsInventoryRoute
   '/academy/tools/packing': typeof AcademyToolsPackingRoute
   '/academy/tools/pricing': typeof AcademyToolsPricingRoute
+  '/academy/tools/profit': typeof AcademyToolsProfitRoute
   '/academy/tools/sales': typeof AcademyToolsSalesRoute
   '/academy/booth': typeof AcademyBoothIndexRoute
   '/academy/booth/chapters/$slug': typeof AcademyBoothChaptersSlugRoute
@@ -497,6 +505,7 @@ export interface FileRoutesById {
   '/academy/tools/inventory': typeof AcademyToolsInventoryRoute
   '/academy/tools/packing': typeof AcademyToolsPackingRoute
   '/academy/tools/pricing': typeof AcademyToolsPricingRoute
+  '/academy/tools/profit': typeof AcademyToolsProfitRoute
   '/academy/tools/sales': typeof AcademyToolsSalesRoute
   '/academy/booth/': typeof AcademyBoothIndexRoute
   '/academy/booth/chapters/$slug': typeof AcademyBoothChaptersSlugRoute
@@ -555,6 +564,7 @@ export interface FileRouteTypes {
     | '/academy/tools/inventory'
     | '/academy/tools/packing'
     | '/academy/tools/pricing'
+    | '/academy/tools/profit'
     | '/academy/tools/sales'
     | '/academy/booth/'
     | '/academy/booth/chapters/$slug'
@@ -608,6 +618,7 @@ export interface FileRouteTypes {
     | '/academy/tools/inventory'
     | '/academy/tools/packing'
     | '/academy/tools/pricing'
+    | '/academy/tools/profit'
     | '/academy/tools/sales'
     | '/academy/booth'
     | '/academy/booth/chapters/$slug'
@@ -664,6 +675,7 @@ export interface FileRouteTypes {
     | '/academy/tools/inventory'
     | '/academy/tools/packing'
     | '/academy/tools/pricing'
+    | '/academy/tools/profit'
     | '/academy/tools/sales'
     | '/academy/booth/'
     | '/academy/booth/chapters/$slug'
@@ -953,6 +965,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AcademyToolsSalesRouteImport
       parentRoute: typeof AcademyRoute
     }
+    '/academy/tools/profit': {
+      id: '/academy/tools/profit'
+      path: '/tools/profit'
+      fullPath: '/academy/tools/profit'
+      preLoaderRoute: typeof AcademyToolsProfitRouteImport
+      parentRoute: typeof AcademyRoute
+    }
     '/academy/tools/pricing': {
       id: '/academy/tools/pricing'
       path: '/tools/pricing'
@@ -1106,6 +1125,7 @@ interface AcademyRouteChildren {
   AcademyToolsInventoryRoute: typeof AcademyToolsInventoryRoute
   AcademyToolsPackingRoute: typeof AcademyToolsPackingRoute
   AcademyToolsPricingRoute: typeof AcademyToolsPricingRoute
+  AcademyToolsProfitRoute: typeof AcademyToolsProfitRoute
   AcademyToolsSalesRoute: typeof AcademyToolsSalesRoute
   AcademyBoothIndexRoute: typeof AcademyBoothIndexRoute
   AcademyBoothChaptersSlugRoute: typeof AcademyBoothChaptersSlugRoute
@@ -1135,6 +1155,7 @@ const AcademyRouteChildren: AcademyRouteChildren = {
   AcademyToolsInventoryRoute: AcademyToolsInventoryRoute,
   AcademyToolsPackingRoute: AcademyToolsPackingRoute,
   AcademyToolsPricingRoute: AcademyToolsPricingRoute,
+  AcademyToolsProfitRoute: AcademyToolsProfitRoute,
   AcademyToolsSalesRoute: AcademyToolsSalesRoute,
   AcademyBoothIndexRoute: AcademyBoothIndexRoute,
   AcademyBoothChaptersSlugRoute: AcademyBoothChaptersSlugRoute,
