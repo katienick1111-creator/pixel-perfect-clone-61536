@@ -736,6 +736,48 @@ export type Database = {
         }
         Relationships: []
       }
+      academy_profit_calculations: {
+        Row: {
+          calc_date: string | null
+          created_at: string
+          event_name: string | null
+          id: string
+          inputs: Json
+          is_favorite: boolean
+          name: string
+          notes: string | null
+          product_name: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          calc_date?: string | null
+          created_at?: string
+          event_name?: string | null
+          id?: string
+          inputs?: Json
+          is_favorite?: boolean
+          name?: string
+          notes?: string | null
+          product_name?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          calc_date?: string | null
+          created_at?: string
+          event_name?: string | null
+          id?: string
+          inputs?: Json
+          is_favorite?: boolean
+          name?: string
+          notes?: string | null
+          product_name?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       academy_sales: {
         Row: {
           created_at: string
