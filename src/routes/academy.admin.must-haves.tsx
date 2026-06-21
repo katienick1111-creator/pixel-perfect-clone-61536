@@ -138,7 +138,7 @@ function slugify(s: string) {
 
 function AdminMustHaves() {
   const { user, loading: authLoading } = useAuth();
-  const [isAdmin, setIsAdmin] = useState<boolean | null>(null);
+  const [access, setAccess] = useState<null | "admin" | "vendor" | "none">(null);
   const [cats, setCats] = useState<Category[]>([]);
   const [products, setProducts] = useState<Product[]>([]);
   const [editing, setEditing] = useState<Product | null>(null);
@@ -147,14 +147,22 @@ function AdminMustHaves() {
 
   useEffect(() => {
     if (authLoading) return;
-    if (!user) { setIsAdmin(false); return; }
-    supabase.rpc("has_role", { _user_id: user.id, _role: "admin" }).then(({ data }) => {
-      setIsAdmin(!!data);
-    });
+    if (!user) { setAccess("none"); return; }
+    (async () => {
+      const [a, v] = await Promise.all([
+        supabase.rpc("has_role", { _user_id: user.id, _role: "admin" }),
+        supabase.rpc("has_role", { _user_id: user.id, _role: "vendor" }),
+      ]);
+      setAccess(a.data ? "admin" : v.data ? "vendor" : "none");
+    })();
   }, [user, authLoading]);
 
+  const isAdmin = access === "admin";
+  const isVendor = access === "vendor";
+  const hasAccess = isAdmin || isVendor;
+
   useEffect(() => {
-    if (!isAdmin) return;
+    if (!hasAccess) return;
     (async () => {
       const [c, p] = await Promise.all([
         supabase.from("academy_musthave_categories").select("slug,title,group_name").order("group_name").order("sort_order"),
@@ -163,7 +171,7 @@ function AdminMustHaves() {
       setCats((c.data as Category[]) ?? []);
       setProducts((p.data as Product[]) ?? []);
     })();
-  }, [isAdmin]);
+  }, [hasAccess]);
 
   const filtered = useMemo(() => {
     const q = query.toLowerCase();
