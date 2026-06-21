@@ -216,10 +216,65 @@ function AdminMustHaves() {
     await supabase.from("academy_musthave_products").update(patch as never).eq("id", id);
   };
 
+  const fileRef = useRef<HTMLInputElement>(null);
+  const [importing, setImporting] = useState(false);
+
+  const handleImport = async (file: File) => {
+    setImporting(true);
+    try {
+      const text = await file.text();
+      const rows = parseCSV(text);
+      if (!rows.length) { alert("No rows found in CSV."); return; }
+      const validCats = new Set(cats.map((c) => c.slug));
+      const payload = rows.map((r) => {
+        const name = r.name || "";
+        const category_slug = r.category_slug || cats[0]?.slug || "";
+        return {
+          name,
+          slug: slugify(name),
+          brand: r.brand || null,
+          category_slug,
+          short_description: r.short_description || null,
+          full_description: r.full_description || null,
+          why_recommended: r.why_recommended || null,
+          image_url: r.image_url || null,
+          images: toList(r.images || ""),
+          purchase_url: r.purchase_url || null,
+          affiliate_url: r.affiliate_url || null,
+          price_min: toNum(r.price_min || ""),
+          price_max: toNum(r.price_max || ""),
+          price_display: r.price_display || null,
+          pros: toList(r.pros || ""),
+          cons: toList(r.cons || ""),
+          best_uses: toList(r.best_uses || ""),
+          best_for: toList(r.best_for || ""),
+          is_featured: toBool(r.is_featured || ""),
+          is_staff_pick: toBool(r.is_staff_pick || ""),
+          is_trovin_recommended: toBool(r.is_trovin_recommended || ""),
+        };
+      }).filter((p) => p.name && validCats.has(p.category_slug));
+      if (!payload.length) { alert("No valid rows. Make sure each row has a 'name' and a valid 'category_slug'."); return; }
+      const { data, error } = await supabase.from("academy_musthave_products").insert(payload).select();
+      if (error) { alert(error.message); return; }
+      setProducts((arr) => [...((data as Product[]) ?? []), ...arr]);
+      alert(`Imported ${data?.length ?? 0} product${data?.length === 1 ? "" : "s"}.`);
+    } finally {
+      setImporting(false);
+      if (fileRef.current) fileRef.current.value = "";
+    }
+  };
+
   if (authLoading || isAdmin === null) {
     return <p className="text-sm text-[var(--ac-ink-mute)]">Loading…</p>;
   }
   if (!user) {
+    return (
+      <div className="ac-card p-10 text-center">
+        <p>Sign in to access admin tools.</p>
+        <Link to="/auth" className="ac-btn mt-4">Sign in</Link>
+      </div>
+    );
+  }
     return (
       <div className="ac-card p-10 text-center">
         <p>Sign in to access admin tools.</p>
