@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { Copy, Plus, Printer, RotateCw, Save, Trash2 } from "lucide-react";
+import { ArrowRight, Copy, Plus, Printer, RotateCw, Save, Trash2 } from "lucide-react";
 import { AcademyPageHeader } from "@/components/AcademyShell";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
@@ -397,11 +397,16 @@ function PlannerTool() {
                     top: `${(it.y / data.height) * 100}%`,
                     width: `${(it.w / data.width) * 100}%`,
                     height: `${(it.h / data.height) * 100}%`,
-                    backgroundColor: p.color,
+                    backgroundColor: it.kind === "arrow" ? "transparent" : p.color,
                     color: isDark ? "#FAF7F2" : "#1A1A1A",
+                    transform: it.kind === "arrow" ? `rotate(${it.rot}deg)` : undefined,
                   }}
                 >
-                  {p.label}
+                  {it.kind === "arrow" ? (
+                    <ArrowRight className="h-full w-full" strokeWidth={1.5} style={{ color: p.color }} />
+                  ) : (
+                    p.label
+                  )}
                 </div>
               );
             })}
