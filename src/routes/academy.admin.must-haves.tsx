@@ -1,9 +1,80 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useEffect, useMemo, useState } from "react";
-import { Plus, Trash2, Save, Pencil, X, Star } from "lucide-react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { Plus, Trash2, Save, Pencil, X, Star, Download, Upload } from "lucide-react";
 import { AcademyPageHeader } from "@/components/AcademyShell";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
+
+const CSV_COLUMNS = [
+  "name","brand","category_slug","short_description","full_description","why_recommended",
+  "image_url","images","purchase_url","affiliate_url",
+  "price_min","price_max","price_display",
+  "pros","cons","best_uses","best_for",
+  "is_featured","is_staff_pick","is_trovin_recommended",
+] as const;
+
+function csvEscape(v: string) {
+  if (/[",\n]/.test(v)) return `"${v.replace(/"/g, '""')}"`;
+  return v;
+}
+
+function downloadTemplate() {
+  const header = CSV_COLUMNS.join(",");
+  const sample = [
+    "EZ-UP Endeavor 10x10","E-Z UP","canopy-tents",
+    "Heavy-duty pop-up canopy for outdoor markets.",
+    "Sturdy steel frame with vented top for windy conditions.",
+    "Trusted by thousands of vendors; survives real market weather.",
+    "https://example.com/canopy.jpg",
+    "https://example.com/canopy-2.jpg|https://example.com/canopy-3.jpg",
+    "https://www.amazon.com/dp/XXXX","",
+    "250","350","$250–$350",
+    "Sturdy frame|Vented top|Easy setup",
+    "Heavy to carry alone",
+    "Outdoor markets|Festivals",
+    "craft|food|maker",
+    "false","true","true",
+  ].map(csvEscape).join(",");
+  const blob = new Blob([header + "\n" + sample + "\n"], { type: "text/csv;charset=utf-8" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url; a.download = "must-haves-template.csv";
+  a.click(); URL.revokeObjectURL(url);
+}
+
+function parseCSV(text: string): Record<string, string>[] {
+  const rows: string[][] = [];
+  let cur: string[] = [];
+  let field = "";
+  let inQ = false;
+  for (let i = 0; i < text.length; i++) {
+    const c = text[i];
+    if (inQ) {
+      if (c === '"' && text[i + 1] === '"') { field += '"'; i++; }
+      else if (c === '"') { inQ = false; }
+      else { field += c; }
+    } else {
+      if (c === '"') inQ = true;
+      else if (c === ",") { cur.push(field); field = ""; }
+      else if (c === "\n" || c === "\r") {
+        if (field.length || cur.length) { cur.push(field); rows.push(cur); cur = []; field = ""; }
+        if (c === "\r" && text[i + 1] === "\n") i++;
+      } else field += c;
+    }
+  }
+  if (field.length || cur.length) { cur.push(field); rows.push(cur); }
+  if (rows.length === 0) return [];
+  const header = rows[0].map((h) => h.trim());
+  return rows.slice(1).filter((r) => r.some((v) => v.trim() !== "")).map((r) => {
+    const o: Record<string, string> = {};
+    header.forEach((h, idx) => { o[h] = (r[idx] ?? "").trim(); });
+    return o;
+  });
+}
+
+function toBool(v: string) { return /^(1|true|yes|y)$/i.test(v); }
+function toList(v: string) { return v ? v.split(/[|;]/).map((s) => s.trim()).filter(Boolean) : []; }
+function toNum(v: string) { const n = Number(v); return Number.isFinite(n) ? n : null; }
 
 export const Route = createFileRoute("/academy/admin/must-haves")({
   head: () => ({ meta: [{ title: "Admin — Vendor Must-Haves" }] }),
