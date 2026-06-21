@@ -1,9 +1,80 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useEffect, useMemo, useState } from "react";
-import { Plus, Trash2, Save, Pencil, X, Star } from "lucide-react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { Plus, Trash2, Save, Pencil, X, Star, Download, Upload } from "lucide-react";
 import { AcademyPageHeader } from "@/components/AcademyShell";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
+
+const CSV_COLUMNS = [
+  "name","brand","category_slug","short_description","full_description","why_recommended",
+  "image_url","images","purchase_url","affiliate_url",
+  "price_min","price_max","price_display",
+  "pros","cons","best_uses","best_for",
+  "is_featured","is_staff_pick","is_trovin_recommended",
+] as const;
+
+function csvEscape(v: string) {
+  if (/[",\n]/.test(v)) return `"${v.replace(/"/g, '""')}"`;
+  return v;
+}
+
+function downloadTemplate() {
+  const header = CSV_COLUMNS.join(",");
+  const sample = [
+    "EZ-UP Endeavor 10x10","E-Z UP","canopy-tents",
+    "Heavy-duty pop-up canopy for outdoor markets.",
+    "Sturdy steel frame with vented top for windy conditions.",
+    "Trusted by thousands of vendors; survives real market weather.",
+    "https://example.com/canopy.jpg",
+    "https://example.com/canopy-2.jpg|https://example.com/canopy-3.jpg",
+    "https://www.amazon.com/dp/XXXX","",
+    "250","350","$250–$350",
+    "Sturdy frame|Vented top|Easy setup",
+    "Heavy to carry alone",
+    "Outdoor markets|Festivals",
+    "craft|food|maker",
+    "false","true","true",
+  ].map(csvEscape).join(",");
+  const blob = new Blob([header + "\n" + sample + "\n"], { type: "text/csv;charset=utf-8" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url; a.download = "must-haves-template.csv";
+  a.click(); URL.revokeObjectURL(url);
+}
+
+function parseCSV(text: string): Record<string, string>[] {
+  const rows: string[][] = [];
+  let cur: string[] = [];
+  let field = "";
+  let inQ = false;
+  for (let i = 0; i < text.length; i++) {
+    const c = text[i];
+    if (inQ) {
+      if (c === '"' && text[i + 1] === '"') { field += '"'; i++; }
+      else if (c === '"') { inQ = false; }
+      else { field += c; }
+    } else {
+      if (c === '"') inQ = true;
+      else if (c === ",") { cur.push(field); field = ""; }
+      else if (c === "\n" || c === "\r") {
+        if (field.length || cur.length) { cur.push(field); rows.push(cur); cur = []; field = ""; }
+        if (c === "\r" && text[i + 1] === "\n") i++;
+      } else field += c;
+    }
+  }
+  if (field.length || cur.length) { cur.push(field); rows.push(cur); }
+  if (rows.length === 0) return [];
+  const header = rows[0].map((h) => h.trim());
+  return rows.slice(1).filter((r) => r.some((v) => v.trim() !== "")).map((r) => {
+    const o: Record<string, string> = {};
+    header.forEach((h, idx) => { o[h] = (r[idx] ?? "").trim(); });
+    return o;
+  });
+}
+
+function toBool(v: string) { return /^(1|true|yes|y)$/i.test(v); }
+function toList(v: string) { return v ? v.split(/[|;]/).map((s) => s.trim()).filter(Boolean) : []; }
+function toNum(v: string) { const n = Number(v); return Number.isFinite(n) ? n : null; }
 
 export const Route = createFileRoute("/academy/admin/must-haves")({
   head: () => ({ meta: [{ title: "Admin — Vendor Must-Haves" }] }),
@@ -145,6 +216,54 @@ function AdminMustHaves() {
     await supabase.from("academy_musthave_products").update(patch as never).eq("id", id);
   };
 
+  const fileRef = useRef<HTMLInputElement>(null);
+  const [importing, setImporting] = useState(false);
+
+  const handleImport = async (file: File) => {
+    setImporting(true);
+    try {
+      const text = await file.text();
+      const rows = parseCSV(text);
+      if (!rows.length) { alert("No rows found in CSV."); return; }
+      const validCats = new Set(cats.map((c) => c.slug));
+      const payload = rows.map((r) => {
+        const name = r.name || "";
+        const category_slug = r.category_slug || cats[0]?.slug || "";
+        return {
+          name,
+          slug: slugify(name),
+          brand: r.brand || null,
+          category_slug,
+          short_description: r.short_description || null,
+          full_description: r.full_description || null,
+          why_recommended: r.why_recommended || null,
+          image_url: r.image_url || null,
+          images: toList(r.images || ""),
+          purchase_url: r.purchase_url || null,
+          affiliate_url: r.affiliate_url || null,
+          price_min: toNum(r.price_min || ""),
+          price_max: toNum(r.price_max || ""),
+          price_display: r.price_display || null,
+          pros: toList(r.pros || ""),
+          cons: toList(r.cons || ""),
+          best_uses: toList(r.best_uses || ""),
+          best_for: toList(r.best_for || ""),
+          is_featured: toBool(r.is_featured || ""),
+          is_staff_pick: toBool(r.is_staff_pick || ""),
+          is_trovin_recommended: toBool(r.is_trovin_recommended || ""),
+        };
+      }).filter((p) => p.name && validCats.has(p.category_slug));
+      if (!payload.length) { alert("No valid rows. Make sure each row has a 'name' and a valid 'category_slug'."); return; }
+      const { data, error } = await supabase.from("academy_musthave_products").insert(payload).select();
+      if (error) { alert(error.message); return; }
+      setProducts((arr) => [...((data as Product[]) ?? []), ...arr]);
+      alert(`Imported ${data?.length ?? 0} product${data?.length === 1 ? "" : "s"}.`);
+    } finally {
+      setImporting(false);
+      if (fileRef.current) fileRef.current.value = "";
+    }
+  };
+
   if (authLoading || isAdmin === null) {
     return <p className="text-sm text-[var(--ac-ink-mute)]">Loading…</p>;
   }
@@ -174,12 +293,24 @@ function AdminMustHaves() {
         actions={
           <>
             <Link to="/academy/must-haves" className="ac-btn-ghost text-xs">View library</Link>
+            <button onClick={downloadTemplate} className="ac-btn-ghost text-xs"><Download className="h-3.5 w-3.5" /> Template</button>
+            <button onClick={() => fileRef.current?.click()} disabled={importing} className="ac-btn-ghost text-xs"><Upload className="h-3.5 w-3.5" /> {importing ? "Importing…" : "Upload CSV"}</button>
+            <input ref={fileRef} type="file" accept=".csv,text/csv" className="hidden" onChange={(e) => { const f = e.target.files?.[0]; if (f) handleImport(f); }} />
             <button onClick={newProduct} className="ac-btn text-xs"><Plus className="h-3.5 w-3.5" /> New product</button>
           </>
         }
       />
 
+      <div className="ac-card mb-4 p-4 text-xs text-[var(--ac-ink-soft)]">
+        <p className="mb-1 font-medium text-[var(--ac-ink)]">Bulk upload tips</p>
+        <p>1. Click <span className="font-medium">Template</span> to download a CSV with all columns and one example row.</p>
+        <p>2. Fill in <code>name</code> and a valid <code>category_slug</code> for each product. Use <code>|</code> to separate multiple images, pros, cons, etc.</p>
+        <p>3. Image and purchase URLs can be any public link (Amazon, brand site, image host).</p>
+        <p className="mt-2"><span className="font-medium">Valid category slugs:</span> {cats.slice(0, 12).map((c) => c.slug).join(", ")}{cats.length > 12 ? `, +${cats.length - 12} more` : ""}</p>
+      </div>
+
       <input value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Search products" className="ac-input mb-4 max-w-sm" />
+
 
       <div className="ac-card overflow-x-auto p-0">
         <table className="w-full text-sm">
