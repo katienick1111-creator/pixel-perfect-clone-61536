@@ -272,21 +272,21 @@ function AdminMustHaves() {
     }
   };
 
-  if (authLoading || isAdmin === null) {
+  if (authLoading || access === null) {
     return <p className="text-sm text-[var(--ac-ink-mute)]">Loading…</p>;
   }
   if (!user) {
     return (
       <div className="ac-card p-10 text-center">
-        <p>Sign in to access admin tools.</p>
+        <p>Sign in to add products.</p>
         <Link to="/auth" className="ac-btn mt-4">Sign in</Link>
       </div>
     );
   }
-  if (!isAdmin) {
+  if (!hasAccess) {
     return (
       <div className="ac-card p-10 text-center">
-        <p>Admin access only.</p>
+        <p>Vendor or admin access required to add products.</p>
         <Link to="/academy/must-haves" className="ac-btn-ghost mt-4">Back to library</Link>
       </div>
     );
@@ -295,9 +295,11 @@ function AdminMustHaves() {
   return (
     <div>
       <AcademyPageHeader
-        eyebrow="admin"
-        title="Vendor Must-Haves admin."
-        description="Add, edit, feature, and remove products. Changes appear instantly in the public library."
+        eyebrow={isAdmin ? "admin" : "vendor"}
+        title={isAdmin ? "Vendor Must-Haves admin." : "Add your products."}
+        description={isAdmin
+          ? "Add, edit, feature, and remove products. Changes appear instantly in the public library."
+          : "Add the products you sell or recommend. You can edit and remove the ones you add."}
         actions={
           <>
             <Link to="/academy/must-haves" className="ac-btn-ghost text-xs">View library</Link>
