@@ -304,6 +304,38 @@ function PlannerTool() {
             <div className="mt-6 border-t border-[var(--ac-rule-soft)] pt-4">
               <p className="ac-eyebrow">selected</p>
               <p className="mt-1 text-sm font-medium">{palette.find((p) => p.kind === selected.kind)?.label}</p>
+              <div className="mt-3 grid grid-cols-2 gap-2">
+                <div>
+                  <label className="block text-[10px] uppercase tracking-wider text-[var(--ac-ink-soft)]">Width (ft)</label>
+                  <input
+                    type="number"
+                    step={0.5}
+                    min={0.5}
+                    max={data.width}
+                    value={selected.w}
+                    onChange={(e) => {
+                      const v = Math.max(0.5, Math.min(data.width, snap(parseFloat(e.target.value) || 0.5)));
+                      setData((d) => ({ ...d, items: d.items.map((i) => i.id === selectedId ? { ...i, w: v, x: Math.min(i.x, d.width - v) } : i) }));
+                    }}
+                    className="ac-input w-full text-xs py-1"
+                  />
+                </div>
+                <div>
+                  <label className="block text-[10px] uppercase tracking-wider text-[var(--ac-ink-soft)]">Height (ft)</label>
+                  <input
+                    type="number"
+                    step={0.5}
+                    min={0.5}
+                    max={data.height}
+                    value={selected.h}
+                    onChange={(e) => {
+                      const v = Math.max(0.5, Math.min(data.height, snap(parseFloat(e.target.value) || 0.5)));
+                      setData((d) => ({ ...d, items: d.items.map((i) => i.id === selectedId ? { ...i, h: v, y: Math.min(i.y, d.height - v) } : i) }));
+                    }}
+                    className="ac-input w-full text-xs py-1"
+                  />
+                </div>
+              </div>
               <div className="mt-3 flex gap-2">
                 <button onClick={rotateSel} className="ac-btn-ghost text-xs"><RotateCw className="h-3.5 w-3.5" /> Rotate</button>
                 <button onClick={() => { setData((d) => ({ ...d, items: d.items.filter((i) => i.id !== selected.id) })); setSelectedId(null); }} className="ac-btn-ghost text-xs"><Trash2 className="h-3.5 w-3.5" /></button>
