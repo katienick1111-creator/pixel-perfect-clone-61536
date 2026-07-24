@@ -41,6 +41,22 @@ export function MybDefs() {
         <symbol id="myp-star" viewBox="0 0 48 48">
           <path d="M24 2 L29 18 L46 18 L32 28 L37 45 L24 34 L11 45 L16 28 L2 18 L19 18 Z" fill="none" stroke="currentColor" strokeWidth={3.5} strokeLinejoin="round" />
         </symbol>
+        {/* realistic product render gradients (used on the Create page) */}
+        <linearGradient id="myp-gm" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stopColor="#fafafa" />
+          <stop offset="1" stopColor="#c2c2c2" />
+        </linearGradient>
+        <linearGradient id="myp-gd" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stopColor="#d8d8d8" />
+          <stop offset="1" stopColor="#a2a2a2" />
+        </linearGradient>
+        <linearGradient id="myp-gmetal" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0" stopColor="#8f9296" />
+          <stop offset="0.28" stopColor="#eef1f3" />
+          <stop offset="0.5" stopColor="#b9bcc0" />
+          <stop offset="0.75" stopColor="#e6e9ec" />
+          <stop offset="1" stopColor="#7e8185" />
+        </linearGradient>
       </defs>
     </svg>
   );
@@ -156,10 +172,19 @@ export function MybFooter() {
   );
 }
 
-/** Full page frame: grunge paper bg + defs + header + content + footer. */
-export function MybPage({ active, children }: { active?: string; children: ReactNode }) {
+/** Full page frame: grunge bg + defs + header + content + footer.
+ *  variant="dark" flips the page to the blacked-out neon theme. */
+export function MybPage({
+  active,
+  variant,
+  children,
+}: {
+  active?: string;
+  variant?: "dark";
+  children: ReactNode;
+}) {
   return (
-    <div className="myp">
+    <div className={variant === "dark" ? "myp myp-dark" : "myp"}>
       <MybDefs />
       <MybGrunge />
       <MybHeader active={active} />
