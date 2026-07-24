@@ -1,0 +1,102 @@
+@import "tailwindcss";
+
+/* ============================================================
+ * Mind Ya Biz — brand theme
+ * Bold, colorful, community-driven. Cream base, energetic accents,
+ * tasteful graffiti/sticker/spray details. Mobile-first.
+ * ============================================================ */
+
+@theme {
+  /* palette */
+  --color-ink: #1b1420;
+  --color-ink-soft: #4a4353;
+  --color-cream: #fff7ec;
+  --color-cream-deep: #fdefd9;
+  --color-paper: #ffffff;
+
+  --color-purple: #7b2ff7;
+  --color-purple-soft: #efe3ff;
+  --color-pink: #ff2d87;
+  --color-pink-soft: #ffe1ee;
+  --color-orange: #ff7a1a;
+  --color-orange-soft: #ffe7d2;
+  --color-teal: #10bfb2;
+  --color-teal-soft: #d3f6f1;
+  --color-blue: #2f6bff;
+  --color-blue-soft: #dde7ff;
+  --color-yellow: #ffd21e;
+
+  /* fonts (loaded via <link> in layout.tsx) */
+  --font-display: "Anton", system-ui, sans-serif;
+  --font-body: "Plus Jakarta Sans", system-ui, sans-serif;
+  --font-marker: "Permanent Marker", cursive;
+
+  /* radii */
+  --radius-xl: 1.25rem;
+  --radius-2xl: 1.75rem;
+
+  /* chunky "pop" shadows */
+  --shadow-pop: 4px 4px 0 rgba(27, 20, 32, 0.9);
+  --shadow-pop-lg: 7px 8px 0 rgba(27, 20, 32, 0.9);
+  --shadow-soft: 0 14px 34px -14px rgba(27, 20, 32, 0.4);
+}
+
+:root {
+  --background: var(--color-cream);
+  --foreground: var(--color-ink);
+}
+
+* {
+  border-color: rgba(27, 20, 32, 0.12);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-cream);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  background-image:
+    radial-gradient(rgba(27, 20, 32, 0.035) 1px, transparent 1.4px),
+    radial-gradient(90% 60% at 8% -5%, rgba(123, 47, 247, 0.06), transparent 60%),
+    radial-gradient(90% 60% at 100% 0%, rgba(16, 191, 178, 0.06), transparent 55%);
+  background-size: 22px 22px, 100% 100%, 100% 100%;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  line-height: 0.98;
+  text-transform: uppercase;
+}
+
+/* ---------- helper utilities ---------- */
+.pop { border: 3px solid var(--color-ink); box-shadow: var(--shadow-pop); }
+.pop-lg { border: 3px solid var(--color-ink); box-shadow: var(--shadow-pop-lg); }
+.pop-hover { transition: transform 0.12s ease, box-shadow 0.12s ease; }
+.pop-hover:hover { transform: translate(-2px, -2px); box-shadow: 7px 8px 0 rgba(27, 20, 32, 0.9); }
+
+.marker { background: linear-gradient(180deg, transparent 55%, var(--mk, var(--color-yellow)) 55%); padding: 0 0.12em; }
+
+.sticker {
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  border: 2px solid var(--color-ink); border-radius: 999px;
+  padding: 0.28rem 0.7rem; font-weight: 700; font-size: 0.72rem;
+  letter-spacing: 0.04em; text-transform: uppercase;
+  box-shadow: 2px 2px 0 rgba(27, 20, 32, 0.9); background: #fff;
+}
+
+.eyebrow { font-weight: 800; letter-spacing: 0.18em; text-transform: uppercase; font-size: 0.72rem; }
+
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+@keyframes float-y { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+.animate-float { animation: float-y 4s ease-in-out infinite; }
+
+@keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+.animate-marquee { animation: marquee 22s linear infinite; }
